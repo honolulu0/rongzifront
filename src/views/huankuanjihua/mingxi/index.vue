@@ -90,7 +90,7 @@
       <el-table-column show-overflow-tooltip label="还款金额" align="center" prop="huankuanjine" min-width="160" />
       <el-table-column show-overflow-tooltip label="偿还本金" align="center" prop="changhuanben" min-width="160" />
       <el-table-column show-overflow-tooltip label="支付利息" align="center" prop="zhifulixi" min-width="160" />
-      <el-table-column label="手续费" align="center" prop="shouxufei" />
+      <el-table-column label="手续费" align="center" prop="shouxufei" min-width="160" />
       <el-table-column show-overflow-tooltip label="本金剩余" align="center" prop="benjinshengyu" min-width="160" />
       <!-- <el-table-column label="操作" align="center" class-name="''">
         <template slot-scope="scope">
@@ -423,17 +423,18 @@ export default {
           sums[index] = '合计';
           return;
         } else if (column.label.includes('还款金额')) {
-          sums[index] = '还款:' + (this.zongjia.total_huankuanjine).toFixed(2);
+          sums[index] = '还款:' + (Number(this.zongjia.total_huankuanjine)).toFixed(2);
         } else if (column.label.includes('偿还本金')) {
-          sums[index] = '本金:' + (this.zongjia.total_changhuanben).toFixed(2);
+          sums[index] = '本金:' + (Number(this.zongjia.total_changhuanben)).toFixed(2);
         } else if (column.label.includes('支付利息')) {
-          sums[index] = '利息:' + (this.zongjia.total_zhifulixi).toFixed(2);
+          sums[index] = '利息:' + (Number(this.zongjia.total_zhifulixi)).toFixed(2);
         } else if (column.label.includes('手续费')) {
-          sums[index] = '手续费:' + (this.zongjia.total_shouxufei).toFixed(2);
+          sums[index] = '手续费:' + (Number(this.zongjia.total_shouxufei)).toFixed(2);
         } else {
           sums[index] = '/';
         }
       });
+      console.log(sums);
       return sums;
     },
     // 通过管理编号获取当前管理编号对应的 融资项目的详细信息

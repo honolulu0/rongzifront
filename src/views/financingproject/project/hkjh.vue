@@ -26,7 +26,7 @@
             </template>
           </tiny-grid-column>
         </tiny-grid>
-        <span>合计：{{tikuanxinxizongji*10000}}  元</span>
+        <span>合计：{{tikuanxinxizongji*10000}} 元</span>
       </el-form-item>
       <!-- <el-button icon="el-icon-refresh" size="mini" @click="init('提款信息输入区')">初始化</el-button> -->
     </el-row>
@@ -57,7 +57,7 @@
             </template>
           </tiny-grid-column>
         </tiny-grid>
-        <span>合计：{{huankuanxinxizongji*10000}}  元</span>
+        <span>合计：{{huankuanxinxizongji*10000}} 元</span>
       </el-form-item>
       <!-- <el-button icon="el-icon-refresh" size="mini" @click="init('本金偿还信息输入区')">初始化</el-button> -->
     </el-row>
@@ -318,7 +318,8 @@
         dialogzjbjVisible: false,
         drJinEDanWei: "10000",
         tikuanxinxizongji: 0,
-        huankuanxinxizongji: 0
+        huankuanxinxizongji: 0,
+        isDate1904: false,
       }
     },
     watch: {
@@ -354,9 +355,8 @@
       "bjch": {
         handler(newVal) {
           if (newVal) {
-            // console.log(newVal);
-            this.huankuanxinxizongji = this.form.repaidAmount = newVal.reduce((acc, item) => acc + item.amount, 0) /
-              10000;
+            //  取消还款金额实时计算，计算没过滤时间
+            this.huankuanxinxizongji =  newVal.reduce((acc, item) => acc + item.amount, 0) /10000;
             // this.form.changhuanbenjin = JSON.parse(newVal);
           }
         },
@@ -377,7 +377,7 @@
       'zjywjnjl': {
         handler(newVal) {
           if (newVal) {
-            this.form.shouxufei = newVal.reduce((acc, item) => acc + item.amount, 0);
+            this.form.shouxufei = newVal.reduce((acc, item) => acc + item.amount, 0) / 10000;
             // this.form.tiqubenjin = JSON.parse(newVal);
           }
         },
@@ -387,7 +387,7 @@
     },
     computed: {
       filteredRepaymentPlanTable() {
-        return this.repaymentPlanTable.filter(item => item.qishu !== null && item.qishu !== undefined);
+        return this.repaymentPlanTable.filter(item => item.qishu !== null && item.qishu !== undefined)
       }
     },
     beforeMount() {
@@ -398,16 +398,28 @@
     },
     mounted() {
 
-      this.zjbj = JSON.parse(this.form.tiqubenjin);
-      this.bjch = JSON.parse(this.form.changhuanbenjin);
-      this.lixichanghuanArray = JSON.parse(this.form.lixichanghuan);
-      this.lvbg = JSON.parse(this.form.lilvbiangeng);
+
+      this.zjbj = this.safeParse(this.form.tiqubenjin);
+      this.bjch = this.safeParse(this.form.changhuanbenjin);
+      this.lixichanghuanArray = this.safeParse(this.form.lixichanghuan);
+      this.lvbg = this.safeParse(this.form.lilvbiangeng);
+
+      console.log(this.lvbg);
 
       this.zjywjnjl = JSON.parse(this.form.zjywjnjl);
       // this.repaymentPlanTable = this.huankuanmingxi2List;
 
     },
     methods: {
+
+      safeParse(jsonString) {
+        try {
+          const result = JSON.parse(jsonString);
+          return Array.isArray(result) ? result : [];
+        } catch (e) {
+          return [];
+        }
+      },
       handlePaste() {
         // 通过换行符分割数据
         let lines = this.textarea_bjch.split('\n');
@@ -730,10 +742,15 @@
             let key = keys[i]
             if (key in item) {
               if (key == "日期") {
-                newObj[this.temp_header[key]] = moment(item[key]).format('YYYY-MM-DD');
+                //不使用cellDates: true，直接用SSF模块转换日期格式单元格里的值,避免有些电脑会出现转换时间之后少43秒的BUG
+
+                const date = this.fixPrecisionLoss(item[key]);
+                console.log(date, moment(date).format('YYYY-MM-DD'));
+                newObj[this.temp_header[key]] = moment(date).format('YYYY-MM-DD');
               } else if (key == "期数") {
                 newObj[this.temp_header[key]] = item[key];
               } else {
+                console.log(item[key], item, key);
                 newObj[this.temp_header[key]] = (item[key]).toFixed(2);
               }
             }
@@ -744,6 +761,25 @@
         this.huankuanmingxiFromExcel(newObjectList)
         this.upload.open = false;
       },
+      getTimezoneOffsetMS(date) {
+        var time = date.getTime();
+        var utcTime = Date.UTC(date.getFullYear(),
+          date.getMonth(),
+          date.getDate(),
+          date.getHours(),
+          date.getMinutes(),
+          date.getSeconds(),
+          date.getMilliseconds());
+        return time - utcTime;
+      },
+      fixPrecisionLoss(date) {
+        const basedate = new Date(1899, 11, 30, 0, 0, 0);
+        const dnthreshAsIs = (new Date().getTimezoneOffset() - basedate.getTimezoneOffset()) * 60000;
+        const dnthreshToBe = this.getTimezoneOffsetMS(new Date()) - this.getTimezoneOffsetMS(basedate);
+        const importBugHotfixDiff = dnthreshAsIs - dnthreshToBe;
+        return new Date(date.getTime() - importBugHotfixDiff);
+      },
+
       async uploadOnChange(file) {
         /**
          * 1. 使用原生api去读取好的文件
@@ -795,9 +831,7 @@
             return
           }
         }
-
         this.excel_data = xlsx.utils.sheet_to_json(firstWorkSheet);
-        // console.log("读取所有excel数据", this.excel_data);
       },
       getHeaderRow(sheet) {
         const headers = []; // 定义数组，用于存放解析好的数据
@@ -820,6 +854,7 @@
       },
 
       huankuanmingxiFromExcel(newObjectList) {
+        this.repaymentPlanTable = []
         this.repaymentPlanTable = newObjectList
 
         //将手续费塞入还款数组
@@ -844,8 +879,8 @@
       exportToExcel() {
         //第二种方式
 
-        // 获取表格数据
-        const tableData = this.repaymentPlanTable;
+        // 导出过滤后去除手续费的数据
+        const tableData = this.repaymentPlanTable.filter(item => item.qishu !== null && item.qishu !== undefined);
 
         // 构建 Excel 文件内容
         let excelContent = `<html><head><meta charset="UTF-8"></head><body><table border="1">`;
