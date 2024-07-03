@@ -47,7 +47,7 @@
             <el-form-item label="融资类型" prop="financingType">
               <el-select filterable v-model="queryParams.financingType" placeholder="请选择融资类型" clearable>
                 <el-option v-for="dict in dict.type.sys_1759508335389835300" :key="dict.value" :label="dict.label"
-                  :value="dict.value" />
+                  :value="dict.label" />
               </el-select>
             </el-form-item>
           </el-col>

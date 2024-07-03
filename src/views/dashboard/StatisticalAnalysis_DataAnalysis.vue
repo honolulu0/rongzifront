@@ -9,7 +9,7 @@
                 <el-select filterable v-model="queryParams.guarantor" placeholder="请选择担保人" clearable
                   @change="getListData">
                   <el-option v-for="dict in dict.type.sys_1767155091485229000" :key="dict.value" :label="dict.label"
-                    :value="dict.value"></el-option>
+                    :value="dict.label"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -18,7 +18,7 @@
                 <el-select filterable v-model="queryParams.creditor" placeholder="请选择被担保人" clearable
                   @change="getListData">
                   <el-option v-for="dict in dict.type.sys_1767154968256577500" :key="dict.value" :label="dict.label"
-                    :value="dict.value"></el-option>
+                    :value="dict.label"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -27,7 +27,7 @@
                 <el-select filterable v-model="queryParams.financialInstitution" placeholder="请选择债权人"
                   @change="getListData" clearable>
                   <el-option v-for="dict in dict.type.sys_1757271666666242000" :key="dict.value" :label="dict.label"
-                    :value="dict.value"></el-option>
+                    :value="dict.label"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -36,7 +36,7 @@
                 <el-select filterable v-model="queryParams.businessType" placeholder="请选择业务类型" clearable
                   @change="getListData">
                   <el-option v-for="dict in dict.type.sys_1767155302261588000" :key="dict.value" :label="dict.label"
-                    :value="dict.value"></el-option>
+                    :value="dict.label"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>

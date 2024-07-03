@@ -11,24 +11,24 @@
       <el-form-item label="被担保人" prop="creditor">
         <el-select filterable v-model="queryParams.creditor" placeholder="请选择被担保人" clearable>
           <el-option v-for="dict in dict.type.sys_1767154968256577500" :key="dict.value" :label="dict.label"
-            :value="dict.value" />
+            :value="dict.label" />
         </el-select>
       </el-form-item>
       <el-form-item label="担保人" prop="guarantor">
         <el-select filterable v-model="queryParams.guarantor" placeholder="请选择担保人" clearable>
           <el-option v-for="dict in dict.type.sys_1767155091485229000" :key="dict.value" :label="dict.label"
-            :value="dict.value" />
+            :value="dict.label" />
         </el-select>
       </el-form-item>
       <el-form-item label="债权人" prop="financialInstitution">
         <el-select filterable v-model="queryParams.financialInstitution" placeholder="请选择债权人" clearable>
-          <el-option v-for="dict in dict.type.sys_1757271666666242000" :key="dict.value" :label="dict.label" :value="dict.value" />
+          <el-option v-for="dict in dict.type.sys_1757271666666242000" :key="dict.value" :label="dict.label" :value="dict.label" />
         </el-select>
       </el-form-item>
       <el-form-item label="业务类型" prop="businessType">
         <el-select filterable v-model="queryParams.businessType" placeholder="请选择业务类型" clearable>
           <el-option v-for="dict in dict.type.sys_1767155302261588000" :key="dict.value" :label="dict.label"
-            :value="dict.value" />
+            :value="dict.label" />
         </el-select>
       </el-form-item>
       <el-form-item label="担保金额" prop="guaranteeAmount">
@@ -50,13 +50,13 @@
       <el-form-item label="保证方式" prop="guaranteeMethod">
         <el-select filterable v-model="queryParams.guaranteeMethod" placeholder="请选择保证方式" clearable>
           <el-option v-for="dict in dict.type.sys_1767155825266131000" :key="dict.value" :label="dict.label"
-            :value="dict.value" />
+            :value="dict.label" />
         </el-select>
       </el-form-item>
       <el-form-item label="是否上征信" prop="isCreditInvestigation">
         <el-select filterable v-model="queryParams.isCreditInvestigation" placeholder="请选择是否上征信" clearable>
           <el-option v-for="dict in dict.type.sys_1767156259322069000" :key="dict.value" :label="dict.label"
-            :value="dict.value" />
+            :value="dict.label" />
         </el-select>
       </el-form-item>
       <el-form-item label="创建时间">
@@ -362,25 +362,25 @@
         <el-form-item label="被担保人" prop="creditor">
           <el-select filterable v-model="form.creditor" placeholder="请选择被担保人">
             <el-option v-for="dict in dict.type.sys_1767154968256577500" :key="dict.value" :label="dict.label"
-              :value="dict.value"></el-option>
+              :value="dict.label"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="担保人" prop="guarantor">
           <el-select filterable v-model="form.guarantor" placeholder="请选择担保人">
             <el-option v-for="dict in dict.type.sys_1767155091485229000" :key="dict.value" :label="dict.label"
-              :value="dict.value"></el-option>
+              :value="dict.label"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="债权人" prop="financialInstitution">
           <el-select filterable v-model="form.financialInstitution" placeholder="请选择债权人">
             <el-option v-for="dict in dict.type.sys_1757271666666242000" :key="dict.value" :label="dict.label"
-              :value="dict.value"></el-option>
+              :value="dict.label"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="业务类型" prop="businessType">
           <el-select filterable v-model="form.businessType" placeholder="请选择业务类型">
             <el-option v-for="dict in dict.type.sys_1767155302261588000" :key="dict.value" :label="dict.label"
-              :value="dict.value"></el-option>
+              :value="dict.label"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="担保金额" prop="guaranteeAmount">
@@ -400,13 +400,13 @@
         <el-form-item label="保证方式" prop="guaranteeMethod">
           <el-select filterable v-model="form.guaranteeMethod" placeholder="请选择保证方式">
             <el-option v-for="dict in dict.type.sys_1767155825266131000" :key="dict.value" :label="dict.label"
-              :value="dict.value"></el-option>
+              :value="dict.label"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="是否上征信" prop="isCreditInvestigation">
           <el-select filterable v-model="form.isCreditInvestigation" placeholder="请选择是否上征信">
             <el-option v-for="dict in dict.type.sys_1767156259322069000" :key="dict.value" :label="dict.label"
-              :value="dict.value"></el-option>
+              :value="dict.label"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="备注" prop="comment">

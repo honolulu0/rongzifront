@@ -9,7 +9,7 @@
                 <el-select filterable v-model="queryParams.borrowingUnit" @change="getrzloghistoryFinancing"
                   placeholder="请选择借款人" clearable>
                   <el-option v-for="dict in dict.type.sys_1767154968256577500" :key="dict.value" :label="dict.label"
-                    :value="dict.value" />
+                    :value="dict.label" />
                 </el-select>
               </el-form-item>
             </el-col>
@@ -18,7 +18,7 @@
                 <el-select filterable v-model="queryParams.financialInstitution" @change="getrzloghistoryFinancing"
                   placeholder="请选择债权人" clearable>
                   <el-option v-for="dict in dict.type.sys_1757271666666242000" :key="dict.value" :label="dict.label"
-                    :value="dict.value" />
+                    :value="dict.label" />
                 </el-select>
               </el-form-item>
             </el-col>
@@ -27,7 +27,7 @@
                 <el-select filterable v-model="queryParams.financingType" @change="getrzloghistoryFinancing"
                   placeholder="请选择融资类型">
                   <el-option v-for="dict in dict.type.sys_1759508335389835300" :key="dict.value" :label="dict.label"
-                    :value="dict.value"></el-option>
+                    :value="dict.label"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>

@@ -5,7 +5,7 @@
 
 
   <div class="app-container">
-    
+
     <search-panel HeaderIcon="repaymentplan" title="还款计划">
       <el-form label-position="left" :model="queryParams" ref="queryForm" size="small" :inline="false" v-show="showSearch"
         label-width="68px">
@@ -29,7 +29,7 @@
             <el-form-item label="金融机构" prop="financialInstitution">
               <el-select v-model="queryParams.financialInstitution" placeholder="请选择金融机构" clearable filterable>
                 <el-option v-for="dict in dict.type.sys_acceptor" :key="dict.value" :label="dict.label"
-                  :value="dict.value" />
+                  :value="dict.label" />
               </el-select>
             </el-form-item>
           </el-col>
@@ -40,7 +40,7 @@
             <el-form-item label="借款人" prop="borrowingUnit">
               <el-select v-model="queryParams.borrowingUnit" placeholder="请选择借款人" clearable filterable>
                 <el-option v-for="dict in dict.type.sys_1759464239669444600" :key="dict.value" :label="dict.label"
-                  :value="dict.value" />
+                  :value="dict.label" />
               </el-select>
             </el-form-item>
           </el-col>
@@ -195,7 +195,7 @@
               <el-form-item label="借款人" prop="borrowingUnit">
                 <el-select :disabled="!isEditable" v-model="form.borrowingUnit" placeholder="请选择借款人" filterable>
                   <el-option v-for="dict in dict.type.sys_1759464239669444600" :key="dict.value" :label="dict.label"
-                    :value="dict.value"></el-option>
+                    :value="dict.label"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -203,7 +203,7 @@
               <el-form-item label="金融机构" prop="financialInstitution">
                 <el-select :disabled="!isEditable" v-model="form.financialInstitution" placeholder="请选择金融机构" filterable>
                   <el-option v-for="dict in dict.type.sys_acceptor" :key="dict.value" :label="dict.label"
-                    :value="dict.value"></el-option>
+                    :value="dict.label"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -214,7 +214,7 @@
               <el-form-item label="出资机构" prop="fundingInstitution">
                 <el-select :disabled="!isEditable" v-model="form.fundingInstitution" placeholder="请选择出资机构" filterable>
                   <el-option v-for="dict in dict.type.sys_1759533269293990000" :key="dict.value" :label="dict.label"
-                    :value="dict.value"></el-option>
+                    :value="dict.label"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -222,7 +222,7 @@
               <el-form-item label="借款用途" prop="loanUse">
                 <el-select :disabled="!isEditable" v-model="form.loanUse" placeholder="请选择借款用途" filterable>
                   <el-option v-for="dict in dict.type.sys_1759501814702538800" :key="dict.value" :label="dict.label"
-                    :value="dict.value"></el-option>
+                    :value="dict.label"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -230,7 +230,7 @@
               <el-form-item label="增信措施" prop="creditEnhancementMeasures">
                 <el-select :disabled="!isEditable" v-model="form.creditEnhancementMeasures" placeholder="请选择增信措施" filterable>
                   <el-option v-for="dict in dict.type.sys_1759533566884053000" :key="dict.value" :label="dict.label"
-                    :value="dict.value"></el-option>
+                    :value="dict.label"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -286,7 +286,7 @@
               <el-form-item label="本金偿还方式" prop="principalRepaymentMethod">
                 <el-select :disabled="!isEditable" v-model="form.principalRepaymentMethod" placeholder="请选择本金偿还方式" filterable>
                   <el-option v-for="dict in dict.type.sys_1759533864251818000" :key="dict.value" :label="dict.label"
-                    :value="dict.value"></el-option>
+                    :value="dict.label"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -294,7 +294,7 @@
               <el-form-item label="利息偿还方式" prop="interestRepaymentMethod">
                 <el-select :disabled="!isEditable" v-model="form.interestRepaymentMethod" placeholder="请选择利息偿还方式" filterable>
                   <el-option v-for="dict in dict.type.sys_1759533864251818000" :key="dict.value" :label="dict.label"
-                    :value="dict.value"></el-option>
+                    :value="dict.label"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>

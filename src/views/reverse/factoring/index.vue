@@ -11,18 +11,18 @@
       <el-form-item label="债权人" prop="creditor">
         <el-select filterable v-model="queryParams.creditor" placeholder="请选择债权人" clearable>
           <el-option v-for="dict in dict.type.sys_1795741368925028400" :key="dict.value" :label="dict.label"
-            :value="dict.value" />
+            :value="dict.label" />
         </el-select>
       </el-form-item>
       <el-form-item label="保理企业" prop="factor">
         <el-select filterable v-model="queryParams.factor" placeholder="请选择保理企业" clearable>
           <el-option v-for="dict in dict.type.sys_1757288852172570600" :key="dict.value" :label="dict.label"
-            :value="dict.value" />
+            :value="dict.label" />
         </el-select>
       </el-form-item>
       <el-form-item label="金融机构" prop="financialInstitution">
         <el-select filterable v-model="queryParams.financialInstitution" placeholder="请选择金融机构" clearable>
-          <el-option v-for="dict in dict.type.sys_acceptor" :key="dict.value" :label="dict.label" :value="dict.value" />
+          <el-option v-for="dict in dict.type.sys_acceptor" :key="dict.value" :label="dict.label" :value="dict.label" />
         </el-select>
       </el-form-item>
       <el-form-item label="放贷金额" prop="loanAmount">
@@ -43,7 +43,7 @@
       </el-form-item>
       <el-form-item label="到期提醒" prop="remark">
         <el-select filterable v-model="queryParams.remark" placeholder="请选择到期提醒" clearable>
-          <el-option v-for="dict in dict.type.sys_maturity" :key="dict.value" :label="dict.label" :value="dict.value" />
+          <el-option v-for="dict in dict.type.sys_maturity" :key="dict.value" :label="dict.label" :value="dict.label" />
         </el-select>
       </el-form-item>
       <el-form-item label="回款账户名称" prop="collectionAccount">

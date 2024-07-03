@@ -20,7 +20,7 @@
             <el-form-item label="债券发行规模" prop="bondSize">
               <el-select filterable v-model="queryParams.bondSize" placeholder="请选择债券发行规模" clearable>
                 <el-option v-for="dict in dict.type.sys_1762824645385388000" :key="dict.value" :label="dict.label"
-                  :value="dict.value" />
+                  :value="dict.label" />
               </el-select>
             </el-form-item>
           </el-col> -->
@@ -28,7 +28,7 @@
             <el-form-item label="债券利率" prop="rate">
               <el-select filterable v-model="queryParams.rate" placeholder="请选择利率" clearable>
                 <el-option v-for="dict in dict.type.sys_1762824761903153200" :key="dict.value" :label="dict.label"
-                  :value="dict.value" />
+                  :value="dict.label" />
               </el-select>
             </el-form-item>
           </el-col> -->
@@ -48,7 +48,7 @@
             <el-form-item label="债券发行期限" prop="bondDuration">
               <el-select filterable v-model="queryParams.bondDuration" placeholder="请选择债券发行期限" clearable>
                 <el-option v-for="dict in dict.type.sys_1762824852571422700" :key="dict.value" :label="dict.label"
-                  :value="dict.value" />
+                  :value="dict.label" />
               </el-select>
             </el-form-item>
           </el-col> -->
@@ -56,7 +56,7 @@
             <el-form-item label="偿还方式" prop="repaymentMethod">
               <el-select filterable v-model="queryParams.repaymentMethod" placeholder="请选择偿还方式" clearable>
                 <el-option v-for="dict in dict.type.sys_1759533864251818000" :key="dict.value" :label="dict.label"
-                  :value="dict.value" />
+                  :value="dict.label" />
               </el-select>
             </el-form-item>
           </el-col> -->
@@ -106,11 +106,11 @@
         <el-button type="danger" plain icon="el-icon-delete" size="mini" :disabled="multiple" @click="handleDelete"
           v-hasPermi="['government:bonds:remove']">删 除</el-button>
       </el-col>
-      <!-- 
+      <!--
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar> -->
     </el-row>
     <!-- :summary-method="(param) => getSummaries(param, totalKeys)" show-summary -->
-    <el-table 
+    <el-table
        v-loading="loading" :data="bondsList" @selection-change="handleSelectionChange"
       :header-cell-style="header_cell_style">
       <el-table-column show-overflow-tooltip fixed="left" type="selection" width="60" min-width="60" align="center" />
@@ -231,7 +231,7 @@
               <el-form-item label="规模（万元）" prop="bondSize">
                 <!-- <el-select filterable :disabled="!isEditable" v-model="form.bondSize" placeholder="请选择债券发行规模">
                   <el-option v-for="dict in dict.type.sys_1762824645385388000" :key="dict.value" :label="dict.label"
-                    :value="dict.value"></el-option>
+                    :value="dict.label"></el-option>
                 </el-select> -->
                 <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2" :readonly="!isEditable" type="number"
                   v-model.trim="form.bondSize" placeholder="请输入规模（万元）" />
@@ -244,7 +244,7 @@
               <el-form-item label="债券利率" prop="rate">
                 <!-- <el-select filterable :disabled="!isEditable" v-model="form.rate" placeholder="请选择利率">
                   <el-option v-for="dict in dict.type.sys_1762824761903153200" :key="dict.value" :label="dict.label"
-                    :value="dict.value"></el-option>
+                    :value="dict.label"></el-option>
                 </el-select> -->
                 <el-input :readonly="!isEditable" v-model="rate" placeholder="请输入利率" />
               </el-form-item>
@@ -253,7 +253,7 @@
               <el-form-item label="债券发行期限（月）" prop="bondDuration">
                 <!-- <el-select filterable :disabled="!isEditable" v-model="form.bondDuration" placeholder="请选择债券发行期限">
                   <el-option v-for="dict in dict.type.sys_1762824852571422700" :key="dict.value" :label="dict.label"
-                    :value="dict.value"></el-option>
+                    :value="dict.label"></el-option>
                 </el-select> -->
                 <!-- <el-input-number class="w" :controls="false" v-model="form.bondDuration" :precision="2" placeholder="请输入债券发行期限"></el-input-number> -->
                 <el-input :disabled="true" :readonly="true" v-model="creditCycle" placeholder="请输入借款期限" />
@@ -327,7 +327,7 @@
               <el-form-item label="发行主体" prop="issuingEntity">
                 <el-select filterable :disabled="!isEditable" v-model="form.issuingEntity" placeholder="请选择发行主体">
                   <el-option v-for="dict in dict.type.sys_1762824996528324600" :key="dict.value" :label="dict.label"
-                    :value="dict.value"></el-option>
+                    :value="dict.label"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
