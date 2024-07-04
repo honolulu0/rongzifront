@@ -19,7 +19,7 @@
           <el-col :span="8">
             <el-form-item label="债权人" prop="financialInstitution">
               <el-select multiple filterable v-model="queryParams.financialInstitution" placeholder="请选择债权人" clearable>
-                <el-option v-for="dict in dict.type.sys_acceptor" :key="dict.value" :label="dict.label"
+                <el-option v-for="dict in dict.type.sys_1757271666666242000" :key="dict.value" :label="dict.label"
                   :value="dict.label" />
               </el-select>
             </el-form-item>
@@ -111,7 +111,7 @@
       <el-table-column show-overflow-tooltip label="借款人" align="center" prop="creditor" min-width="120" />
       <el-table-column show-overflow-tooltip label="债权人" align="center" prop="financialInstitution" min-width="130">
         <template slot-scope="scope">
-          <dict-tag :options="dict.type.sys_acceptor" :value="scope.row.financialInstitution" />
+          <dict-tag :options="dict.type.sys_1757271666666242000" :value="scope.row.financialInstitution" />
         </template>
       </el-table-column>
       <el-table-column show-overflow-tooltip label="项目名称" align="center" prop="creditDetail" />
@@ -211,7 +211,7 @@
               <el-form-item label="债权人" prop="financialInstitution">
                 <el-select multiple filterable :disabled="!isEditable" v-model="form.financialInstitution"
                   placeholder="请选择债权人">
-                  <el-option v-for="dict in dict.type.sys_acceptor" :key="dict.value" :label="dict.label"
+                  <el-option v-for="dict in dict.type.sys_1757271666666242000" :key="dict.value" :label="dict.label"
                     :value="dict.label"></el-option>
                 </el-select>
               </el-form-item>
@@ -352,7 +352,7 @@
 
   export default {
     name: "Grant",
-    dicts: ['sys_1765001578994991000', 'sys_1765002034026643500', 'sys_acceptor'],
+    dicts: ['sys_1765001578994991000', 'sys_1765002034026643500', 'sys_1757271666666242000'],
     components: {
       CreateSuccess,
       SearchPanel
