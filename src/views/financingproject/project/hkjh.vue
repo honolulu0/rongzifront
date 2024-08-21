@@ -356,7 +356,7 @@
         handler(newVal) {
           if (newVal) {
             //  取消还款金额实时计算，计算没过滤时间
-            this.huankuanxinxizongji =  newVal.reduce((acc, item) => acc + item.amount, 0) /10000;
+            this.huankuanxinxizongji = newVal.reduce((acc, item) => acc + item.amount, 0) / 10000;
             // this.form.changhuanbenjin = JSON.parse(newVal);
           }
         },
@@ -430,6 +430,39 @@
           // 通过制表符分割每一行数据
           let parts = line.split('\t');
           // 创建record对象并存入this.bjch list
+
+          if (parts.length != 2) {
+            this.bjch = [];
+            this.$msgbox({
+              title: '严重错误',
+              message: '粘贴的内容不符合格式要求，请保证日期和金额是直接从Excel中复制的，中间是制表符分隔',
+              confirmButtonText: '确定',
+              cancelButtonClass: "btn-custom-cancel",
+              customClass: 'custom-msgbox',
+            }).then(() => {
+
+            }).catch((e) => {
+
+            });
+            return
+          }
+
+          if (this.validateDate(parts[0])) {
+            this.bjch = [];
+            this.$msgbox({
+              title: '严重错误',
+              message: '填入的日期格式错误，请认真查看示例，保证日期格式如：2027/09/20 或 2027/03/20 重新输入',
+              confirmButtonText: '确定',
+              cancelButtonClass: "btn-custom-cancel",
+              customClass: 'custom-msgbox',
+            }).then(() => {
+
+            }).catch((e) => {
+
+            });
+            return
+          }
+
           this.bjch.push({
             date: parts[0],
             amount: Number(parts[1] * Number(this.drJinEDanWei)),
@@ -450,6 +483,36 @@
           // 通过制表符分割每一行数据
           let parts = line.split('\t');
           // 创建record对象并存入this.zjbj list
+          if (parts.length != 2) {
+            this.zjbj = [];
+            this.$msgbox({
+              title: '严重错误',
+              message: '粘贴的内容不符合格式要求，请保证日期和金额是直接从Excel中复制的，中间是制表符分隔',
+              confirmButtonText: '确定',
+              cancelButtonClass: "btn-custom-cancel",
+              customClass: 'custom-msgbox',
+            }).then(() => {
+
+            }).catch((e) => {
+
+            });
+            return
+          }
+          if (this.validateDate(parts[0])) {
+            this.zjbj = [];
+            this.$msgbox({
+              title: '严重错误',
+              message: '填入的日期格式错误，请认真查看示例，保证日期格式如：2027/09/20 或 2027/03/20 重新输入',
+              confirmButtonText: '确定',
+              cancelButtonClass: "btn-custom-cancel",
+              customClass: 'custom-msgbox',
+            }).then(() => {
+
+            }).catch((e) => {
+
+            });
+            return
+          }
           this.zjbj.push({
             date: parts[0],
             amount: Number(parts[1] * Number(this.drJinEDanWei)),
@@ -460,6 +523,21 @@
         this.dialogzjbjVisible = false
 
       },
+
+      validateDate(inputDate) {
+        // 定义两种日期格式的正则表达式
+        var regex1 = /^\d{4}\/\d{2}\/\d{2}$/; // 例如：2027/04/20
+        var regex2 = /^\d{4}-\d{2}-\d{2}$/; // 例如：2028-03-21
+
+        // 验证输入日期是否符合其中一种格式
+        if (regex1.test(inputDate) || regex2.test(inputDate)) {
+          return true; // 输入日期格式正确
+        } else {
+          return false; // 输入日期格式不正确
+        }
+      },
+
+
       init(type) {
         this.$msgbox({
           title: '重要提示',
@@ -597,6 +675,28 @@
       renderRate,
       // 生成需要渲染的代码数据
       handleGenerate() {
+
+        try {
+          this.checkDateAmountArray(this.zjbj)
+          this.checkDateAmountArray(this.bjch)
+          this.checkDateRateArray(this.lvbg)
+          this.checkDateAmountArray(this.zjywjnjl)
+        } catch (error) {
+          console.log(error);
+          this.$msgbox({
+            title: '严重错误',
+            message: '上面的表格中存在空数据，请补充或删除',
+            confirmButtonText: '确定',
+            cancelButtonClass: "btn-custom-cancel",
+            customClass: 'custom-msgbox',
+          }).then(() => {
+
+          }).catch((e) => {
+
+          });
+          return
+        }
+
         this.$msgbox({
           title: '重要提示',
           message: '根据上面录入的信息生成还款计划明细, 是否继续?',
@@ -615,6 +715,22 @@
 
         });
 
+      },
+      checkDateAmountArray(array) {
+        for (let item of array) {
+          console.log(item);
+          if (item.date === "" || item.amount === "" || item.amount === null) {
+            throw new Error("日期或者金额不能为空");
+          }
+        }
+      },
+      checkDateRateArray(array) {
+        for (let item of array) {
+          console.log(item);
+          if (item.date === "" || item.rate === "" || item.rate === null) {
+            throw new Error("日期或者利率不能为空");
+          }
+        }
       },
       handleGenerate_() {
         this.generateLxData();
