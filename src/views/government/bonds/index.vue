@@ -110,7 +110,7 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar> -->
     </el-row>
     <!-- :summary-method="(param) => getSummaries(param, totalKeys)" show-summary -->
-    <el-table
+    <el-table :summary-method="(param) => getSummaries2(param, totalKeys, zongji)" show-summary
        v-loading="loading" :data="bondsList" @selection-change="handleSelectionChange"
       :header-cell-style="header_cell_style">
       <el-table-column show-overflow-tooltip fixed="left" type="selection" width="60" min-width="60" align="center" />
@@ -118,6 +118,11 @@
       <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managementId" min-width="100" />
       <!-- <el-table-column label="数据唯一编号" align="center" prop="scrUuid" /> -->
       <el-table-column show-overflow-tooltip label="债券名称" align="center" prop="bondName" min-width="130" />
+      <el-table-column show-overflow-tooltip label="发行主体" align="center" prop="issuingEntity" min-width="130">
+        <template slot-scope="scope">
+          <dict-tag :options="dict.type.sys_1762824996528324600" :value="scope.row.issuingEntity" />
+        </template>
+      </el-table-column>
       <el-table-column show-overflow-tooltip label="规模（万元）" align="center" prop="bondSize" min-width="120">
         <template slot-scope="scope">
           <!-- <dict-tag :options="dict.type.sys_1762824645385388000" :value="scope.row.bondSize" /> -->
@@ -164,11 +169,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column show-overflow-tooltip label="发行主体" align="center" prop="issuingEntity" min-width="130">
-        <template slot-scope="scope">
-          <dict-tag :options="dict.type.sys_1762824996528324600" :value="scope.row.issuingEntity" />
-        </template>
-      </el-table-column>
+
 
       <el-table-column label="起始日" align="center" prop="loanDate" min-width="100">
         <template slot-scope="scope">
@@ -532,13 +533,18 @@
           }]
         },
         isAutoCalculated: false,
-        totalKeys: [
-          '规模（万元）',
-          '专项批复金额（万元）',
-          '累计到账金额（万元）',
-          '已还金额（万元）',
-          '待还金额（万元）',
-        ]
+        totalKeys:{
+          '专项批复金额（万元）':'totalApprovedAmount',
+          '累计到账金额（万元）':'totalAccumulatedAmountReceived',
+          '已还金额（万元）':'totalRepaidAmount',
+          '待还金额（万元）':'totalRemainingAmount',
+        },
+        zongji:{
+          totalApprovedAmount:0,
+          totalAccumulatedAmountReceived:0,
+          totalRepaidAmount:0,
+          totalRemainingAmount:0,
+        }
       };
     },
     watch: {
@@ -653,13 +659,16 @@
           search.accumulatedAmountReceived = Number(search.accumulatedAmountReceived) * 10000
         }
 
-
         listBonds(search).then(response => {
+
           this.bondsList = response.rows;
           this.total = response.total;
+          this.zongji = response.totals;
+
           this.loading = false;
         });
       },
+
       // 取消按钮
       cancel() {
         this.open = false;

@@ -355,6 +355,7 @@ export default {
     /** 查询定时任务列表 */
     getList() {
       this.loading = true;
+      this.queryParams['orderByColumn'] = 'jobId'
       listJob(this.queryParams).then(response => {
         this.jobList = response.rows;
         this.total = response.total;

@@ -69,11 +69,12 @@
       <!-- <el-table-column label="创建人" align="center" prop="createBy" /> -->
       <!-- <el-table-column label="数据json文件" align="center" prop="dataJson" /> -->
       <!-- <el-table-column label="父级表名" align="center" prop="tableName" /> -->
-      <el-table-column header-align="center"  width="140" show-overflow-tooltip label="审批进度" align="center" prop="auditState">
+      <el-table-column header-align="center" width="140" show-overflow-tooltip label="审批进度" align="center"
+        prop="auditState">
         <template slot-scope="scope">
-            <svg-icon class="mr5" :icon-class="scope.row.auditState"></svg-icon>
-            <dict-tag style="display: inline-block;" :options="dict.type.sys_1759514730105405400"
-              :value="scope.row.auditState" />
+          <svg-icon class="mr5" :icon-class="scope.row.auditState"></svg-icon>
+          <dict-tag style="display: inline-block;" :options="dict.type.sys_1759514730105405400"
+            :value="scope.row.auditState" />
         </template>
       </el-table-column>
       <el-table-column fixed="right" width="140" header-align="center" label="操作" align="center" class-name="''">
@@ -203,6 +204,9 @@
     updateForeign
   } from "@/api/glforeign/foreign";
 
+  import {
+    runJob
+  } from "@/api/monitor/job";
   export default {
     name: "List",
     dicts: ['sys_1759514730105405400'],
@@ -354,19 +358,30 @@
           const ad_data = JSON.parse(this.form.dataJson);
           const generator = new SnowflakeIdGenerator();
 
-
           ad_data.uuid = this.form.auditId != null ?
             String(generator.nextId()) :
             ad_data.uuid;
-          func_(ad_data).then(response => {
-            // this.$modal.msgSuccess("修改成功");
-            // this.open = false;
-            // this.getList();
-            updateList(this.form).then(response => {
+          try {
+            // 假设 func_ 返回一个 promise
+            await func_(ad_data);
+
+            // 更新列表
+            await updateList(this.form);
+            this.getList(); // 刷新列表视图
+
+            try {
+              // 运行任务  102 任务ID
+              await runJob(102, "DEFAULT");
               this.$modal.msgSuccess("修改成功");
-              this.getList();
-            });
-          });
+
+            } catch (error) {
+              // 错误处理，假设 error 对象包含必要的信息
+              this.$modal.msgError(`汇总统计失败，审核编号：${id}，请提醒上传人：${row.createBy}修改后重新提交数据`);
+            }
+          } catch (error) {
+            // 错误处理，假设 error 对象包含必要的信息
+            this.$modal.msgError(`数据错误，审核编号：${id}，请提醒上传人：${row.createBy}修改后重新提交数据`);
+          }
         }
       },
       /** 查询审核项目列表 */

@@ -30,22 +30,50 @@
 
                   </div>
 
-                  <div class="card-various-amounts" style="display: grid;align-items: center;">
-                    <div v-for="(valuec, keyc, indexc) in value" :key="indexc">
-                      <el-tooltip v-if="keyc !== 'bgID'" content="42467000" placement="top" effect="light">
-                        <div slot="content">
-                          <p class="various-amounts-title mb3">{{ keyc }}</p>
-                          <count-to class="various-amounts-amount" :start-val='0' :end-val='valuec / 10000'
-                            :duration='1000' :decimals='2' :separator="','" :prefix="''" :suffix="''" :autoplay="true"
-                            :useEasing="true"></count-to>
+                  <div class="card-various-amounts">
+                    <el-carousel height="160px" v-if="Object.keys(value).length > groupSize" direction="vertical"
+                      :autoplay="true" :interval="3000">
+                      <el-carousel-item  style="display: grid; align-items: center;" v-for="groupIndex in Math.ceil(Object.keys(value).length / groupSize)"
+                        :key="groupIndex">
+                        <div
+                          v-for="(keyc, idx) in Object.keys(value).slice((groupIndex - 1) * groupSize, groupIndex * groupSize)"
+                          :key="keyc">
+                          <el-tooltip v-if="keyc !== 'bgID'" :content="keyc" placement="top" effect="light">
+                            <div slot="content">
+                              <p class="various-amounts-title mb3">{{ keyc }}</p>
+                              <count-to class="various-amounts-amount" :start-val='0' :end-val='value[keyc] / 10000'
+                                :duration='1000' :decimals='2' :separator="','" :prefix="''" :suffix="''"
+                                :autoplay="true" :useEasing="true">
+                              </count-to>
+                            </div>
+                            <div>
+                              <p class="various-amounts-title mb3">{{ keyc }}</p>
+                              <count-to class="various-amounts-amount" :start-val='0' :end-val='value[keyc] / 10000'
+                                :duration='1000' :decimals='2' :separator="','" :prefix="''" :suffix="''"
+                                :autoplay="true" :useEasing="true">
+                              </count-to>
+                            </div>
+                          </el-tooltip>
                         </div>
-                        <div>
-                          <p class="various-amounts-title mb3">{{ keyc }}</p>
-                          <count-to class="various-amounts-amount" :start-val='0' :end-val='valuec / 10000'
-                            :duration='1000' :decimals='2' :separator="','" :prefix="''" :suffix="''" :autoplay="true"
-                            :useEasing="true"></count-to>
-                        </div>
-                      </el-tooltip>
+                      </el-carousel-item>
+                    </el-carousel>
+                    <div v-else>
+                      <div v-for="(valuec, keyc, indexc) in value" :key="indexc">
+                        <el-tooltip v-if="keyc !== 'bgID'" content="42467000" placement="top" effect="light">
+                          <div slot="content">
+                            <p class="various-amounts-title mb3">{{ keyc }}</p>
+                            <count-to class="various-amounts-amount" :start-val='0' :end-val='valuec / 10000'
+                              :duration='1000' :decimals='2' :separator="','" :prefix="''" :suffix="''" :autoplay="true"
+                              :useEasing="true"></count-to>
+                          </div>
+                          <div>
+                            <p class="various-amounts-title mb3">{{ keyc }}</p>
+                            <count-to class="various-amounts-amount" :start-val='0' :end-val='valuec / 10000'
+                              :duration='1000' :decimals='2' :separator="','" :prefix="''" :suffix="''" :autoplay="true"
+                              :useEasing="true"></count-to>
+                          </div>
+                        </el-tooltip>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -106,8 +134,8 @@
 
                     <el-tooltip placement="top" effect="light">
                       <P slot="content">
-                        <count-to class="amounts-font cp" :start-val='0' :end-val='value / 10000'
-                          :duration='1000' :decimals='2' :separator="','" :prefix="''" :suffix="''" :autoplay="true"
+                        <count-to class="amounts-font cp" :start-val='0' :end-val='value / 10000' :duration='1000'
+                          :decimals='2' :separator="','" :prefix="''" :suffix="''" :autoplay="true"
                           :useEasing="true"></count-to>
                       </P>
                       <count-to class="card-amount amounts-font cp" :start-val='0' :end-val='value / 10000'
@@ -360,7 +388,9 @@
     </div>
     <div class="app-container mt20">
       <search-panel :isIcon="false" title="还款计划（未来12个月）"></search-panel>
-
+      <div class="tr unit">
+        单位（万元）
+      </div>
       <div id="main-echart" style="height: 500px;"></div>
     </div>
   </div>
@@ -526,6 +556,7 @@
         },
         myChart: null,
         creditData: {},
+        groupSize: 4,
         rzjeData: {},
         dbData: {},
         daterangeLogCreateDate: [
@@ -732,10 +763,7 @@
       goTarget(href) {
         window.open(href, "_blank");
       },
-      financingLiabilities(value) {
-        const total = this.calculateTotal(value)
-        return total - value['专项借款'] - value['政府专项债']
-      },
+
       generateMonthsMap() {
         let currentMonth = moment(this.daterangeLogCreateDate[0], 'YYYY-MM');
         const end = moment(this.daterangeLogCreateDate[1], 'YYYY-MM');
@@ -790,7 +818,6 @@
 
   .card-panel {
     height: 160px;
-    min-height: 160px;
     box-sizing: border-box;
 
     >div {

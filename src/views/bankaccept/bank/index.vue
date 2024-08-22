@@ -94,14 +94,13 @@
             </el-form-item>
           </el-col>
           <el-col :span="8">
-              <el-form-item label="是否已贴现" prop="discountedOrNot">
-                <el-select clearable filterable  v-model="queryParams.discountedOrNot"
-                  placeholder="请选择是否已贴现">
-                  <el-option v-for="dict in dict.type.sys_1796070671776743400" :key="dict.value" :label="dict.label"
-                    :value="dict.label"></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
+            <el-form-item label="是否已贴现" prop="discountedOrNot">
+              <el-select clearable filterable v-model="queryParams.discountedOrNot" placeholder="请选择是否已贴现">
+                <el-option v-for="dict in dict.type.sys_1796070671776743400" :key="dict.value" :label="dict.label"
+                  :value="dict.label"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
         </el-row>
 
         <el-row :gutter="20">
@@ -199,7 +198,7 @@
       <!-- <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar> -->
     </el-row>
     <!-- :summary-method="(param) => getSummaries(param, totalKeys)" show-summary -->
-    <el-table  v-loading="loading"
+    <el-table v-loading="loading" :summary-method="(param) => getSummaries2(param, totalKeys,zongji)" show-summary
       :data="bankList" @selection-change="handleSelectionChange" :header-cell-style="header_cell_style">
       <el-table-column show-overflow-tooltip fixed="left" type="selection" min-width="60" width="60" align="center" />
       <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managementId" min-width="100" />
@@ -215,7 +214,8 @@
           <dict-tag :options="dict.type.sys_1754491769220759600" :value="scope.row.payee" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="承兑人(金融机构)" min-width="160" align="center" prop="financialInstitution">
+      <el-table-column show-overflow-tooltip label="承兑人(金融机构)" min-width="160" align="center"
+        prop="financialInstitution">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_acceptor" :value="scope.row.financialInstitution" />
         </template>
@@ -252,12 +252,12 @@
       <el-table-column label="保证金比例" align="center" prop="marginLevel" />
       <el-table-column label="保证金利率" align="center" prop="marginInterestRate" />
       <el-table-column label="保证金收益金额" align="center" prop="marginIncomeAmount" />-->
-      <el-table-column show-overflow-tooltip  min-width="120" label="是否已贴现" align="center" prop="discountedOrNot">
+      <el-table-column show-overflow-tooltip min-width="120" label="是否已贴现" align="center" prop="discountedOrNot">
         <template slot-scope="scope">
-          <dict-tag :options="dict.type.sys_1796070671776743400" :value="scope.row.discountedOrNot"/>
+          <dict-tag :options="dict.type.sys_1796070671776743400" :value="scope.row.discountedOrNot" />
         </template>
       </el-table-column>
-     <!-- <el-table-column label="贴现金融机构" align="center" prop="discountedFinancialInstitutions" />
+      <!-- <el-table-column label="贴现金融机构" align="center" prop="discountedFinancialInstitutions" />
       <el-table-column label="贴现手续费" align="center" prop="discountedHandlingFee" />
       <el-table-column label="贴现费用承担情况" align="center" prop="assumptionOfDiscountFees" /> -->
       <el-table-column fixed="right" label="操作" align="center" class-name="''">
@@ -366,11 +366,11 @@
 
             <el-col :span="8">
               <el-form-item label="保证金比例" prop="marginLevel">
- <!--               <el-input-number class="w" :controls="false" :precision="2" :disabled="!isEditable"
+                <!--               <el-input-number class="w" :controls="false" :precision="2" :disabled="!isEditable"
                   :readonly="!isEditable" type="number" v-model.trim="form.marginLevel" placeholder="请输入保证金比例" /> -->
 
-                 <tiny-numeric :disabled="!isEditable"  :empty-value="0"
-                  :readonly="!isEditable" class="w" show-left :controls="false" size="small" v-model="form.marginLevel" :format="{
+                <tiny-numeric :disabled="!isEditable" :empty-value="0" :readonly="!isEditable" class="w" show-left
+                  :controls="false" size="small" v-model="form.marginLevel" :format="{
                    zeroize: true, // 是否保留多余的0字符
                    fraction: 2, // 保留小数位数
                    rounding: 2, // 舍入点
@@ -391,8 +391,8 @@
               <el-form-item label="保证金利率" prop="marginInterestRate">
                 <!-- <el-input :readonly="!isEditable" v-model="marginInterestRate" placeholder="请输入保证金利率" /> -->
 
-                <tiny-numeric :disabled="!isEditable"  :empty-value="0"
-                 :readonly="!isEditable" class="w" show-left :controls="false" size="small" v-model="form.marginInterestRate" :format="{
+                <tiny-numeric :disabled="!isEditable" :empty-value="0" :readonly="!isEditable" class="w" show-left
+                  :controls="false" size="small" v-model="form.marginInterestRate" :format="{
                   zeroize: true, // 是否保留多余的0字符
                   fraction: 2, // 保留小数位数
                   rounding: 2, // 舍入点
@@ -412,7 +412,8 @@
             <el-col :span="8">
               <el-form-item label="保证金收益金额（万元）" prop="marginIncomeAmount">
                 <el-input-number class="w" :controls="false" :precision="2" :disabled="!isEditable"
-                  :readonly="!isEditable" type="number" v-model.trim="form.marginIncomeAmount" placeholder="请输入保证金收益金额" />
+                  :readonly="!isEditable" type="number" v-model.trim="form.marginIncomeAmount"
+                  placeholder="请输入保证金收益金额" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -421,8 +422,8 @@
 
             <el-col :span="8">
               <el-form-item label="是否已贴现" prop="discountedOrNot">
-                <el-select filterable clearable :disabled="!isEditable" :readonly="!isEditable" v-model="form.discountedOrNot"
-                  placeholder="请选择是否已贴现">
+                <el-select filterable clearable :disabled="!isEditable" :readonly="!isEditable"
+                  v-model="form.discountedOrNot" placeholder="请选择是否已贴现">
                   <el-option v-for="dict in dict.type.sys_1796070671776743400" :key="dict.value" :label="dict.label"
                     :value="dict.label"></el-option>
                 </el-select>
@@ -430,8 +431,8 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="贴现金融机构" prop="discountedFinancialInstitutions">
-                <el-select filterable clearable :disabled="!isEditable" :readonly="!isEditable" v-model="form.discountedFinancialInstitutions"
-                  placeholder="请选择贴现金融机构">
+                <el-select filterable clearable :disabled="!isEditable" :readonly="!isEditable"
+                  v-model="form.discountedFinancialInstitutions" placeholder="请选择贴现金融机构">
                   <el-option v-for="dict in dict.type.sys_1796081713651122200" :key="dict.value" :label="dict.label"
                     :value="dict.label"></el-option>
                 </el-select>
@@ -449,7 +450,8 @@
 
             <el-col :span="8">
               <el-form-item label="贴现费用承担情况" prop="assumptionOfDiscountFees">
-                <el-input :readonly="!isEditable" type="textarea" v-model.trim="form.assumptionOfDiscountFees" placeholder="请输入贴现费用承担情况" />
+                <el-input :readonly="!isEditable" type="textarea" v-model.trim="form.assumptionOfDiscountFees"
+                  placeholder="请输入贴现费用承担情况" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -484,8 +486,9 @@
 
 
       <div v-else class="flex">
-        <CreateSuccess @close-dialog="closeDialog" @create-again="create_again" :isSuccess="isSuccess" :isTitle="isTitle"
-          :isMessage="isMessage" :title="ctitle" :isEdit="isEdit" @confirm="handleaddList" @cancel="cancel">
+        <CreateSuccess @close-dialog="closeDialog" @create-again="create_again" :isSuccess="isSuccess"
+          :isTitle="isTitle" :isMessage="isMessage" :title="ctitle" :isEdit="isEdit" @confirm="handleaddList"
+          @cancel="cancel">
         </CreateSuccess>
       </div>
 
@@ -494,639 +497,695 @@
 </template>
 
 <script>
-import { listBank, getBank, delBank, addBank, updateBank } from "@/api/bankaccept/bank";
-import { SnowflakeIdGenerator } from '@/utils/index'
-import { listList, getList, delList, addList, updateList } from "@/api/rzauditlist/list";
-import { mapGetters } from 'vuex';
-import moment from 'moment'
-import CreateSuccess from '@/components/createSuccess/index.vue'
-import SearchPanel from '@/components/SearchPanel/index.vue'
-import { checkDueReminderWithConfig } from '@/utils/expirationreminder';
-import { reminderConfig } from '@/config/expirationreminder'
+  import {
+    listBank,
+    getBank,
+    delBank,
+    addBank,
+    updateBank
+  } from "@/api/bankaccept/bank";
+  import {
+    SnowflakeIdGenerator
+  } from '@/utils/index'
+  import {
+    listList,
+    getList,
+    delList,
+    addList,
+    updateList
+  } from "@/api/rzauditlist/list";
+  import {
+    mapGetters
+  } from 'vuex';
+  import moment from 'moment'
+  import CreateSuccess from '@/components/createSuccess/index.vue'
+  import SearchPanel from '@/components/SearchPanel/index.vue'
+  import {
+    checkDueReminderWithConfig
+  } from '@/utils/expirationreminder';
+  import {
+    reminderConfig
+  } from '@/config/expirationreminder'
 
-export default {
-  name: "Bank",
-  dicts: ['sys_1754491769220759600', 'sys_drawer', 'sys_acceptor', 'sys_1796070671776743400', 'sys_1796081713651122200'],
-  components: {
-    CreateSuccess,
-    SearchPanel
-  },
-  data() {
-    return {
-      pickerOptions1: {
-        // 禁用开始日期中，所有大于结束日期的日期
-        disabledDate: (date) => {
-          if (this.form.dueDate) {
-            return date.getTime() > new Date(this.form.dueDate).getTime();
+  export default {
+    name: "Bank",
+    dicts: ['sys_1754491769220759600', 'sys_drawer', 'sys_acceptor', 'sys_1796070671776743400',
+      'sys_1796081713651122200'
+    ],
+    components: {
+      CreateSuccess,
+      SearchPanel
+    },
+    data() {
+      return {
+        pickerOptions1: {
+          // 禁用开始日期中，所有大于结束日期的日期
+          disabledDate: (date) => {
+            if (this.form.dueDate) {
+              return date.getTime() > new Date(this.form.dueDate).getTime();
+            }
           }
-        }
-      },
-      pickerOptions2: {
-        // 禁用结束日期中，所有小于开始日期的日期
-        disabledDate: (date) => {
-          if (this.form.draftDate) {
-            // 一天的毫秒数
-            var oneDayInMilliseconds = 24 * 60 * 60 * 1000;
-            return date.getTime() < new Date(this.form.draftDate).getTime() - oneDayInMilliseconds;
+        },
+        pickerOptions2: {
+          // 禁用结束日期中，所有小于开始日期的日期
+          disabledDate: (date) => {
+            if (this.form.draftDate) {
+              // 一天的毫秒数
+              var oneDayInMilliseconds = 24 * 60 * 60 * 1000;
+              return date.getTime() < new Date(this.form.draftDate).getTime() - oneDayInMilliseconds;
+            }
           }
-        }
-      },
-      isSuccess: true,
-      isTitle: true,
-      isMessage: true,
-      ctitle: '',
-      isEdit: false,
-      rzaudit_data: null,
+        },
+        isSuccess: true,
+        isTitle: true,
+        isMessage: true,
+        ctitle: '',
+        isEdit: false,
+        rzaudit_data: null,
 
-      reminderConfig: reminderConfig.slice(1),
-      checkDueReminderWithConfig: checkDueReminderWithConfig,
-      created_successfully: false,
-      isEditable: false,
-      header_cell_style: {
-        backgroundColor: '#f2f4f5',
-        color: '#000000',
-        fontSize: '14px',
-        fontWeight: 'bold',
-      },
-      // 遮罩层
-      loading: true,
-      // 选中数组
-      ids: [],
-      // 子表选中数据
-      checkedrzsrc2: [],
-      // 非单个禁用
-      single: true,
-      // 非多个禁用
-      multiple: true,
-      // 显示搜索条件
-      showSearch: true,
-      // 总条数
-      total: 0,
-      // 银行承兑汇票表格数据
-      bankList: [],
-      // 附件表表格数据
-      rzsrc2List: [],
-      // 弹出层标题
-      title: "",
-      // 是否显示弹出层
-      open: false,
-      // 创建人时间范围
-      daterangeDraftDate: [],
-      // daterangeDueDate1: [],
-      // 到期提醒
-      daterangeDueDate: [],
+        reminderConfig: reminderConfig.slice(1),
+        checkDueReminderWithConfig: checkDueReminderWithConfig,
+        created_successfully: false,
+        isEditable: false,
+        header_cell_style: {
+          backgroundColor: '#f2f4f5',
+          color: '#000000',
+          fontSize: '14px',
+          fontWeight: 'bold',
+        },
+        // 遮罩层
+        loading: true,
+        // 选中数组
+        ids: [],
+        // 子表选中数据
+        checkedrzsrc2: [],
+        // 非单个禁用
+        single: true,
+        // 非多个禁用
+        multiple: true,
+        // 显示搜索条件
+        showSearch: true,
+        // 总条数
+        total: 0,
+        // 银行承兑汇票表格数据
+        bankList: [],
+        // 附件表表格数据
+        rzsrc2List: [],
+        // 弹出层标题
+        title: "",
+        // 是否显示弹出层
+        open: false,
+        // 创建人时间范围
+        daterangeDraftDate: [],
+        // daterangeDueDate1: [],
+        // 到期提醒
+        daterangeDueDate: [],
 
-      daterangeDraftDate1: '',
-      daterangeDraftDate2: '',
+        daterangeDraftDate1: '',
+        daterangeDraftDate2: '',
 
-      daterangeDueDate1: '',
-      daterangeDueDate2: '',
+        daterangeDueDate1: '',
+        daterangeDueDate2: '',
 
-      // 查询参数
-      queryParams: {
-        pageNum: 1,
-        pageSize: 100,
-        managementId: null,
+        // 查询参数
+        queryParams: {
+          pageNum: 1,
+          pageSize: 100,
+          managementId: null,
+          scrUuid: null,
+          auditId: null,
+          drawer: null,
+          payee: null,
+          financialInstitution: null,
+          invoiceAmount: null,
+          draftDate: null,
+          dueDate: null,
+          remark: null,
+          acceptAgreementId: null,
+          entryName: null,
+          comment: null,
+          createTime: null,
+          uuid: null,
+          ticketProcessingFee: null,
+          marginLevel: null,
+          marginInterestRate: null,
+          marginIncomeAmount: null,
+          discountedOrNot: null,
+          discountedFinancialInstitutions: null,
+          discountedHandlingFee: null,
+          assumptionOfDiscountFees: null
+        },
+        /* str 需要添加的 */
         scrUuid: null,
-        auditId: null,
-        drawer: null,
-        payee: null,
-        financialInstitution: null,
-        invoiceAmount: null,
-        draftDate: null,
-        dueDate: null,
-        remark: null,
-        acceptAgreementId: null,
-        entryName: null,
-        comment: null,
-        createTime: null,
-        uuid: null,
-        ticketProcessingFee: null,
-        marginLevel: null,
-        marginInterestRate: null,
-        marginIncomeAmount: null,
-        discountedOrNot: null,
-        discountedFinancialInstitutions: null,
-        discountedHandlingFee: null,
-        assumptionOfDiscountFees: null
-      },
-      /* str 需要添加的 */
-      scrUuid: null,
-      /* end */
-
-      // 表单参数
-      form: {},
-      // 表单校验
-      rules: {
-        managementId: [
-          { required: true, message: "银行承兑管理编号不能为空", trigger: "blur" }
-        ],
-        scrUuid: [
-          { required: false, message: "附件不能为空", trigger: "blur" }
-        ],
-        auditId: [
-          { required: true, message: "审核id不能为空", trigger: "blur" }
-        ],
-        drawer: [
-          { required: true, message: "出票人不能为空", trigger: "change" }
-        ],
-        payee: [
-          { required: true, message: "收票人不能为空", trigger: "change" }
-        ],
-        financialInstitution: [
-          { required: true, message: "金融机构不能为空", trigger: "change" }
-        ],
-        invoiceAmount: [
-          { required: true, message: "出票金额不能为空", trigger: "blur" }
-        ],
-        draftDate: [
-          { required: true, message: "出票日期不能为空", trigger: "blur" }
-        ],
-        dueDate: [
-          { required: true, message: "到期日不能为空", trigger: "blur" }
-        ],
-        remark: [
-          { required: true, message: "到期提醒不能为空", trigger: "change" }
-        ],
-        acceptAgreementId: [
-          { required: true, message: "协议编号不能为空", trigger: "blur" }
-        ],
-        entryName: [
-          { required: true, message: "项目名称不能为空", trigger: "blur" }
-        ],
-      },
-      pickerOptions3: {
-        // 禁用开始日期中，所有大于结束日期的日期
-        disabledDate: (date) => {
-          if (this.daterangeDraftDate2) {
-            return date.getTime() > new Date(this.daterangeDraftDate2).getTime();
-          }
-        }
-      },
-      pickerOptions4: {
-        // 禁用结束日期中，所有小于开始日期的日期
-        disabledDate: (date) => {
-          if (this.daterangeDraftDate1) {
-            // 一天的毫秒数
-            var oneDayInMilliseconds = 24 * 60 * 60 * 1000;
-            return date.getTime() < new Date(this.daterangeDraftDate1).getTime() - oneDayInMilliseconds;
-          }
-        }
-      },
-
-      pickerOptions5: {
-        // 禁用开始日期中，所有大于结束日期的日期
-        disabledDate: (date) => {
-          if (this.daterangeDueDate2) {
-            return date.getTime() > new Date(this.daterangeDueDate2).getTime();
-          }
-        }
-      },
-      pickerOptions6: {
-        // 禁用结束日期中，所有小于开始日期的日期
-        disabledDate: (date) => {
-          if (this.daterangeDueDate1) {
-            // 一天的毫秒数
-            var oneDayInMilliseconds = 24 * 60 * 60 * 1000;
-            return date.getTime() < new Date(this.daterangeDueDate1).getTime() - oneDayInMilliseconds;
-          }
-        }
-      },
-      error1: '',
-      error2: '',
-      totalKeys: [
-        '出票金额(万元)'
-      ]
-    };
-  },
-  watch: {
-    open(n, o) {
-      if (n == false) {
-        this.created_successfully = false;
-        this.isEditable = true;
-      }
-    },
-    daterangeDraftDate1(n, o) {
-      if (n !== '' && n !== null) {
-        if (this.daterangeDraftDate2 === '' || this.daterangeDraftDate2 === null) {
-          this.error1 = '出票到期日不能为空';
-        } else {
-          this.error1 = ''; // 清空错误信息
-        }
-      } else if (this.daterangeDraftDate2 === '' || this.daterangeDraftDate2 === null) {
-        this.error1 = ''; // 两个日期都为空时，清空错误信息
-      } else {
-        this.error1 = '出票起始日不能为空';
-      }
-    },
-    daterangeDraftDate2(n, o) {
-      if (n !== '' && n !== null) {
-        if (this.daterangeDraftDate1 === '' || this.daterangeDraftDate1 === null) {
-          this.error1 = '出票起始日不能为空';
-        } else {
-          this.error1 = ''; // 清空错误信息
-        }
-      } else if (this.daterangeDraftDate1 === '' || this.daterangeDraftDate1 === null) {
-        this.error1 = ''; // 两个日期都为空时，清空错误信息
-      } else {
-        this.error1 = '出票到期日不能为空';
-      }
-    },
-
-    daterangeDueDate1(n, o) {
-      if (n !== '' && n !== null) {
-        if (this.daterangeDueDate2 === '' || this.daterangeDueDate2 === null) {
-          this.error2 = '汇票到期日不能为空';
-        } else {
-          this.error2 = ''; // 清空错误信息
-        }
-      } else if (this.daterangeDueDate2 === '' || this.daterangeDueDate2 === null) {
-        this.error2 = ''; // 两个日期都为空时，清空错误信息
-      } else {
-        this.error2 = '汇票起始日不能为空';
-      }
-    },
-    daterangeDueDate2(n, o) {
-      if (n !== '' && n !== null) {
-        if (this.daterangeDueDate1 === '' || this.daterangeDueDate1 === null) {
-          this.error2 = '汇票起始日不能为空';
-        } else {
-          this.error2 = ''; // 清空错误信息
-        }
-      } else if (this.daterangeDueDate1 === '' || this.daterangeDueDate1 === null) {
-        this.error2 = ''; // 两个日期都为空时，清空错误信息
-      } else {
-        this.error2 = '汇票到期日不能为空';
-      }
-    },
-  },
-  computed: {
-    ...mapGetters([
-      'name', 'avatar'
-    ]),
-    // marginInterestRate: {
-    //     get() {
-    //       if (this.form.marginInterestRate) {
-    //         // 当读取值时，添加百分号
-    //         return this.form.marginInterestRate + (this.form.marginInterestRate ? '%' : '');
-    //       } else {
-    //         return this.form.marginInterestRate;
-    //       }
-    //     },
-    //     set(value) {
-    //       this.form.marginInterestRate = value.replace(/%/g, '');
-    //     }
-    //   },
-  },
-  created() {
-    this.getList();
-    this.created_successfully = false;
-    this.isEditable = true;
-  },
-  mounted() {
-  },
-  methods: {
-    /* 到期提醒选择 */
-    handleSelect(val) {
-      // this.queryParams.remark = null;
-      if (val) {
-        let start = moment().format("YYYY-MM-DD");
-        let end = moment().add(val, 'days').format("YYYY-MM-DD");
-        this.daterangeDueDate = [start, end]
-      } else {
-        this.daterangeDueDate = []
-      }
-    },
-    /* 创建成功关闭弹窗 */
-    closeDialog() {
-      this.open = false;
-      this.created_successfully = false;
-    },
-    /* 再次创建 */
-    create_again() {
-      this.reset();
-      this.created_successfully = false;
-    },
-    toggleEdit() {
-      this.isEditable = !this.isEditable;
-    },
-    /** 查询银行承兑汇票列表 */
-    getList() {
-      this.loading = true;
-      this.queryParams.params = {};
-      if (![null, undefined, ''].includes(this.daterangeDraftDate1) && ![null, undefined, ''].includes(this.daterangeDraftDate2)) {
-        this.queryParams.params["beginDraftDate"] = this.daterangeDraftDate1;
-        this.queryParams.params["endDraftDate"] = this.daterangeDraftDate2;
-      }
-      if (null != this.daterangeDueDate && '' != this.daterangeDueDate) {
-        this.queryParams.params["beginDueDate"] = this.daterangeDueDate[0];
-        this.queryParams.params["endDueDate"] = this.daterangeDueDate[1];
-      }
-
-      if (![null, undefined, ''].includes(this.daterangeDueDate1) && ![null, undefined, ''].includes(this.daterangeDueDate2)) {
-        this.queryParams.params["beginDueDate"] = this.daterangeDueDate1;
-        this.queryParams.params["endDueDate"] = this.daterangeDueDate2;
-      }
-
-      const searchData = JSON.parse(JSON.stringify(this.queryParams));
-      searchData.remark = null;
-      this.queryParams['orderByColumn'] = 'id'
-      listBank(searchData).then(response => {
-        this.bankList = response.rows;
-        this.total = response.total;
-        this.loading = false;
-      });
-    },
-    // 取消按钮
-    cancel() {
-      this.open = false;
-      this.created_successfully = false;
-      this.reset();
-    },
-    // 表单重置
-    reset() {
-      this.form = {
-        id: null,
-        managementId: null,
-        scrUuid: null,
-        auditId: null,
-        drawer: null,
-        payee: null,
-        financialInstitution: null,
-        invoiceAmount: null,
-        draftDate: null,
-        dueDate: null,
-        remark: null,
-        acceptAgreementId: null,
-        entryName: null,
-        comment: null,
-        createTime: null,
-        createBy: null,
-        updateTime: null,
-        updateBy: null,
-        uuid: null,
-        ticketProcessingFee: null,
-        marginLevel: null,
-        marginInterestRate: null,
-        marginIncomeAmount: null,
-        discountedOrNot: null,
-        discountedFinancialInstitutions: null,
-        discountedHandlingFee: null,
-        assumptionOfDiscountFees: null
-      };
-      this.rzsrc2List = [];
-      this.resetForm("form");
-    },
-    /** 搜索按钮操作 */
-    handleQuery() {
-      this.queryParams.pageNum = 1;
-      this.getList();
-    },
-    /** 重置按钮操作 */
-    resetQuery() {
-      this.daterangeDraftDate = [];
-      this.daterangeDueDate = [];
-      // this.daterangeDueDate1 = [];
-
-
-      this.daterangeDraftDate1 = '';
-      this.daterangeDraftDate2 = '';
-
-      this.daterangeDueDate1 = '';
-      this.daterangeDueDate2 = '';
-
-      this.queryParams.remark = null;
-      this.resetForm("queryForm");
-      this.handleQuery();
-    },
-    // 多选框选中数据
-    handleSelectionChange(selection) {
-      this.ids = selection.map(item => item.id)
-      this.single = selection.length !== 1
-      this.multiple = !selection.length
-    },
-    /** 新增按钮操作 */
-    handleAdd() {
-      this.reset();
-      this.open = true;
-      this.created_successfully = false;
-      this.isEditable = true;
-      this.title = "新建银行承兑汇票";
-    },
-    /** 修改按钮操作 */
-    handleUpdate(row) {
-      this.isEditable = false;
-      this.reset();
-      const id = row.id || this.ids
-      getBank(id).then(response => {
-        /* str 需要赋值粘贴到的 */
-        response.data.rzsrc2List.forEach(i => {
-          i.id = null;
-        })
-        // 金额需要 / 10000
-        response.data.invoiceAmount = Number(response.data.invoiceAmount) / 10000;
-        response.data.ticketProcessingFee = Number(response.data.ticketProcessingFee) / 10000;
-        response.data.marginIncomeAmount = Number(response.data.marginIncomeAmount) / 10000;
-        response.data.discountedHandlingFee = Number(response.data.discountedHandlingFee) / 10000;
-        this.scrUuid = response.data.scrUuid;
-        this.form = response.data;
-        this.form.scrUuid = response.data.rzsrc2List.map(i => i.url)
         /* end */
 
-        this.rzsrc2List = response.data.rzsrc2List;
-        this.open = true;
-        this.title = "修改银行承兑汇票";
-      });
-    },
-    /** 提交按钮 */
-    submitForm() {
-      /* str 需要赋值粘贴到的 需要修改请求的接口 */
-      this.$refs["form"].validate(valid => {
-        if (valid) {
-          const data = JSON.parse(JSON.stringify(this.form))
-          this.form.rzsrc2List = this.rzsrc2List;
-          this.rzaudit_data = null;
-
-          // 金额需要 * 10000
-          data.invoiceAmount = Number(data.invoiceAmount) * 10000;
-
-          data.ticketProcessingFee = Number(data.ticketProcessingFee) * 10000
-          data.marginIncomeAmount = Number(data.marginIncomeAmount) * 10000
-          data.discountedHandlingFee = Number(data.discountedHandlingFee) * 10000
-          if (this.form.id != null) {
-            data.scrUuid = Number(this.scrUuid);
-            this.rzaudit_data = {
-              "auditId": data.id,
-              "scrUuid": data.scrUuid,
-              "createBy": this.name,
-              "createTime": null,
-              "dataJson": JSON.stringify(data),
-              "tableName": "rz_bank_accept_bill",
-              "auditState": "1759514891045044200",
-              "uuid": data.uuid
-            }
-            if (this.title === '修改银行承兑汇票' && this.created_successfully === false && this.isEditable === true) {
-              this.created_successfully = true;
-              this.isSuccess = false;
-              this.isTitle = true;
-              this.isMessage = false;
-              this.ctitle = '确定修改银行承兑汇票信息吗？';
-              this.isEdit = true;
-              return;
-            }
-          } else {
-            // 生成一个 uuid
-            const generator = new SnowflakeIdGenerator();
-
-            // start
-            const uuid = String(generator.nextId())
-            data.uuid = uuid;
-            // end
-            data.scrUuid = generator.nextId();
-            data.rzsrc2List = this.rzsrc2List;
-            data.createBy = this.name;
-            this.rzaudit_data = {
-              "id": null,
-              "auditId": null,
-              "scrUuid": data.scrUuid,
-              "createBy": this.name,
-              "createTime": null,
-              "dataJson": JSON.stringify(data),
-              "tableName": "rz_bank_accept_bill",
-              "auditState": "1759514891045044200",
-              "uuid": uuid,
-              "managementId": data.managementId
+        // 表单参数
+        form: {},
+        // 表单校验
+        rules: {
+          managementId: [{
+            required: true,
+            message: "银行承兑管理编号不能为空",
+            trigger: "blur"
+          }],
+          scrUuid: [{
+            required: false,
+            message: "附件不能为空",
+            trigger: "blur"
+          }],
+          auditId: [{
+            required: true,
+            message: "审核id不能为空",
+            trigger: "blur"
+          }],
+          drawer: [{
+            required: true,
+            message: "出票人不能为空",
+            trigger: "change"
+          }],
+          payee: [{
+            required: true,
+            message: "收票人不能为空",
+            trigger: "change"
+          }],
+          financialInstitution: [{
+            required: true,
+            message: "金融机构不能为空",
+            trigger: "change"
+          }],
+          invoiceAmount: [{
+            required: true,
+            message: "出票金额不能为空",
+            trigger: "blur"
+          }],
+          draftDate: [{
+            required: true,
+            message: "出票日期不能为空",
+            trigger: "blur"
+          }],
+          dueDate: [{
+            required: true,
+            message: "到期日不能为空",
+            trigger: "blur"
+          }],
+          remark: [{
+            required: true,
+            message: "到期提醒不能为空",
+            trigger: "change"
+          }],
+          acceptAgreementId: [{
+            required: true,
+            message: "协议编号不能为空",
+            trigger: "blur"
+          }],
+          entryName: [{
+            required: true,
+            message: "项目名称不能为空",
+            trigger: "blur"
+          }],
+        },
+        pickerOptions3: {
+          // 禁用开始日期中，所有大于结束日期的日期
+          disabledDate: (date) => {
+            if (this.daterangeDraftDate2) {
+              return date.getTime() > new Date(this.daterangeDraftDate2).getTime();
             }
           }
-          this.handleaddList();
-        }
-      });
-      /* end */
-    },
-    async handleaddList() {
-      // 检验上一个数据步骤有没有审批通过
-      await this.inspectionPendingReview(this.rzaudit_data)
+        },
+        pickerOptions4: {
+          // 禁用结束日期中，所有小于开始日期的日期
+          disabledDate: (date) => {
+            if (this.daterangeDraftDate1) {
+              // 一天的毫秒数
+              var oneDayInMilliseconds = 24 * 60 * 60 * 1000;
+              return date.getTime() < new Date(this.daterangeDraftDate1).getTime() - oneDayInMilliseconds;
+            }
+          }
+        },
 
-      addList(this.rzaudit_data).then(res => {
-        this.created_successfully = true;
-        if (this.title === '修改银行承兑汇票' && this.isEditable) {
-          this.isSuccess = true;
-          this.isTitle = true;
-          this.isMessage = true;
-          this.ctitle = this.isEdit ? '修改提交成功' : '提交成功';
-          this.isEdit = false;
+        pickerOptions5: {
+          // 禁用开始日期中，所有大于结束日期的日期
+          disabledDate: (date) => {
+            if (this.daterangeDueDate2) {
+              return date.getTime() > new Date(this.daterangeDueDate2).getTime();
+            }
+          }
+        },
+        pickerOptions6: {
+          // 禁用结束日期中，所有小于开始日期的日期
+          disabledDate: (date) => {
+            if (this.daterangeDueDate1) {
+              // 一天的毫秒数
+              var oneDayInMilliseconds = 24 * 60 * 60 * 1000;
+              return date.getTime() < new Date(this.daterangeDueDate1).getTime() - oneDayInMilliseconds;
+            }
+          }
+        },
+        error1: '',
+        error2: '',
+        totalKeys: {
+          '出票金额(万元)': 'totalInvoiceAmount'
+        },
+        zongji: {
+          totalInvoiceAmount: 0
+        }
+      };
+    },
+    watch: {
+      open(n, o) {
+        if (n == false) {
+          this.created_successfully = false;
+          this.isEditable = true;
+        }
+      },
+      daterangeDraftDate1(n, o) {
+        if (n !== '' && n !== null) {
+          if (this.daterangeDraftDate2 === '' || this.daterangeDraftDate2 === null) {
+            this.error1 = '出票到期日不能为空';
+          } else {
+            this.error1 = ''; // 清空错误信息
+          }
+        } else if (this.daterangeDraftDate2 === '' || this.daterangeDraftDate2 === null) {
+          this.error1 = ''; // 两个日期都为空时，清空错误信息
         } else {
-          this.ctitle = '提交成功';
-          this.isMessage = true;
-          this.isEdit = false;
+          this.error1 = '出票起始日不能为空';
         }
-      })
-    },
-    /** 删除按钮操作 */
-    handleDelete(row) {
-      const ids = row.id || this.ids;
-      // this.$modal.confirm('是否确认删除银行承兑汇票编号为"' + ids + '"的数据项？').then(function () {
-      //   return delBank(ids);
-      // }).then(() => {
-      //   this.cancel();
-
-      //   this.getList();
-      //   this.$modal.msgSuccess("删除成功");
-      // }).catch(() => { });
-      const h = this.$createElement;
-      this.$msgbox({
-        title: '提示',
-        message: h('div', null, [
-          h('el-divider', {
-            class: {
-              "no_mt": true,
-              "mb20": true
-            },
-            attrs: { "data-role": 'el-divider' }
-          }, ''),
-          h('p', {
-            class: 'tc w mb20',
-            style: {
-              'font-size': '24px',
-              'color': '#000000',
-              'font-weight': 'bold'
-            }
-          }, '确定删除选中的银行承兑汇票吗？'),
-        ]),
-        showCancelButton: true,
-        cancelButtonText: '取消',
-        confirmButtonText: '确定',
-        cancelButtonClass: "btn-custom-cancel",
-        customClass: 'custom-msgbox',
-        beforeClose: (action, instance, done) => {
-          if (action === 'confirm') {
-            delBank(ids).then(res => {
-              done();
-            });
+      },
+      daterangeDraftDate2(n, o) {
+        if (n !== '' && n !== null) {
+          if (this.daterangeDraftDate1 === '' || this.daterangeDraftDate1 === null) {
+            this.error1 = '出票起始日不能为空';
           } else {
-            done();
+            this.error1 = ''; // 清空错误信息
           }
+        } else if (this.daterangeDraftDate1 === '' || this.daterangeDraftDate1 === null) {
+          this.error1 = ''; // 两个日期都为空时，清空错误信息
+        } else {
+          this.error1 = '出票到期日不能为空';
         }
-      }).then(action => {
-        this.cancel();
-        this.getList();
-        this.$modal.msgSuccess("删除成功");
-      });
+      },
+
+      daterangeDueDate1(n, o) {
+        if (n !== '' && n !== null) {
+          if (this.daterangeDueDate2 === '' || this.daterangeDueDate2 === null) {
+            this.error2 = '汇票到期日不能为空';
+          } else {
+            this.error2 = ''; // 清空错误信息
+          }
+        } else if (this.daterangeDueDate2 === '' || this.daterangeDueDate2 === null) {
+          this.error2 = ''; // 两个日期都为空时，清空错误信息
+        } else {
+          this.error2 = '汇票起始日不能为空';
+        }
+      },
+      daterangeDueDate2(n, o) {
+        if (n !== '' && n !== null) {
+          if (this.daterangeDueDate1 === '' || this.daterangeDueDate1 === null) {
+            this.error2 = '汇票起始日不能为空';
+          } else {
+            this.error2 = ''; // 清空错误信息
+          }
+        } else if (this.daterangeDueDate1 === '' || this.daterangeDueDate1 === null) {
+          this.error2 = ''; // 两个日期都为空时，清空错误信息
+        } else {
+          this.error2 = '汇票到期日不能为空';
+        }
+      },
     },
-    /** 附件表序号 */
-    rowrzsrc2Index({ row, rowIndex }) {
-      row.index = rowIndex + 1;
+    computed: {
+      ...mapGetters([
+        'name', 'avatar'
+      ]),
+      // marginInterestRate: {
+      //     get() {
+      //       if (this.form.marginInterestRate) {
+      //         // 当读取值时，添加百分号
+      //         return this.form.marginInterestRate + (this.form.marginInterestRate ? '%' : '');
+      //       } else {
+      //         return this.form.marginInterestRate;
+      //       }
+      //     },
+      //     set(value) {
+      //       this.form.marginInterestRate = value.replace(/%/g, '');
+      //     }
+      //   },
     },
-    /** 附件表添加按钮操作 */
-    handleAddrzsrc2() {
-      let obj = {};
-      obj.url = "";
-      obj.projectManagementId = "";
-      obj.type = "rz_bank_accept_bill";
-      this.rzsrc2List.push(obj);
+    created() {
+      this.getList();
+      this.created_successfully = false;
+      this.isEditable = true;
     },
-    /** 附件表删除按钮操作 */
-    handleDeleterzsrc2() {
-      if (this.checkedrzsrc2.length == 0) {
-        this.$modal.msgError("请先选择要删除的附件表数据");
-      } else {
-        const rzsrc2List = this.rzsrc2List;
-        const checkedrzsrc2 = this.checkedrzsrc2;
-        this.rzsrc2List = rzsrc2List.filter(function (item) {
-          return checkedrzsrc2.indexOf(item.index) == -1
+    mounted() {},
+    methods: {
+      /* 到期提醒选择 */
+      handleSelect(val) {
+        // this.queryParams.remark = null;
+        if (val) {
+          let start = moment().format("YYYY-MM-DD");
+          let end = moment().add(val, 'days').format("YYYY-MM-DD");
+          this.daterangeDueDate = [start, end]
+        } else {
+          this.daterangeDueDate = []
+        }
+      },
+      /* 创建成功关闭弹窗 */
+      closeDialog() {
+        this.open = false;
+        this.created_successfully = false;
+      },
+      /* 再次创建 */
+      create_again() {
+        this.reset();
+        this.created_successfully = false;
+      },
+      toggleEdit() {
+        this.isEditable = !this.isEditable;
+      },
+      /** 查询银行承兑汇票列表 */
+      getList() {
+        this.loading = true;
+        this.queryParams.params = {};
+        if (![null, undefined, ''].includes(this.daterangeDraftDate1) && ![null, undefined, ''].includes(this
+            .daterangeDraftDate2)) {
+          this.queryParams.params["beginDraftDate"] = this.daterangeDraftDate1;
+          this.queryParams.params["endDraftDate"] = this.daterangeDraftDate2;
+        }
+        if (null != this.daterangeDueDate && '' != this.daterangeDueDate) {
+          this.queryParams.params["beginDueDate"] = this.daterangeDueDate[0];
+          this.queryParams.params["endDueDate"] = this.daterangeDueDate[1];
+        }
+
+        if (![null, undefined, ''].includes(this.daterangeDueDate1) && ![null, undefined, ''].includes(this
+            .daterangeDueDate2)) {
+          this.queryParams.params["beginDueDate"] = this.daterangeDueDate1;
+          this.queryParams.params["endDueDate"] = this.daterangeDueDate2;
+        }
+
+        const searchData = JSON.parse(JSON.stringify(this.queryParams));
+        searchData.remark = null;
+        this.queryParams['orderByColumn'] = 'id'
+        listBank(searchData).then(response => {
+          this.bankList = response.rows;
+          this.total = response.total;
+          this.zongji = response.totals;
+          this.loading = false;
         });
-      }
-    },
-    /** 复选框选中数据 */
-    handlerzsrc2SelectionChange(selection) {
-      this.checkedrzsrc2 = selection.map(item => item.index)
-    },
-    /** 导出按钮操作 */
-    handleExport() {
-      this.download('bankaccept/bank/export', {
-        ...this.queryParams
-      }, `bank_${new Date().getTime()}.xlsx`)
-    },
-    /* 上传完成的回调 */
-    upload_completed(url_string) {
-      const url_list = url_string.split(',')
-      url_list.forEach(url_i => {
-        let obj = {
-          url: url_i,
-          projectManagementId: this.form.managementId,
-          type: "rz_bank_accept_bill",
-          createBy: this.name,
-          createTime: moment().format("YYYY-MM-DD HH:mm:ss"),
+      },
+      // 取消按钮
+      cancel() {
+        this.open = false;
+        this.created_successfully = false;
+        this.reset();
+      },
+      // 表单重置
+      reset() {
+        this.form = {
+          id: null,
+          managementId: null,
+          scrUuid: null,
+          auditId: null,
+          drawer: null,
+          payee: null,
+          financialInstitution: null,
+          invoiceAmount: null,
+          draftDate: null,
+          dueDate: null,
+          remark: null,
+          acceptAgreementId: null,
+          entryName: null,
+          comment: null,
+          createTime: null,
+          createBy: null,
+          updateTime: null,
+          updateBy: null,
+          uuid: null,
+          ticketProcessingFee: null,
+          marginLevel: null,
+          marginInterestRate: null,
+          marginIncomeAmount: null,
+          discountedOrNot: null,
+          discountedFinancialInstitutions: null,
+          discountedHandlingFee: null,
+          assumptionOfDiscountFees: null
         };
+        this.rzsrc2List = [];
+        this.resetForm("form");
+      },
+      /** 搜索按钮操作 */
+      handleQuery() {
+        this.queryParams.pageNum = 1;
+        this.getList();
+      },
+      /** 重置按钮操作 */
+      resetQuery() {
+        this.daterangeDraftDate = [];
+        this.daterangeDueDate = [];
+        // this.daterangeDueDate1 = [];
 
-        // 检查this.rzsrc2List中是否已经存在具有相同url的对象
-        if (!this.rzsrc2List.some(item => item.url === obj.url)) {
-          this.rzsrc2List.push(obj);
+
+        this.daterangeDraftDate1 = '';
+        this.daterangeDraftDate2 = '';
+
+        this.daterangeDueDate1 = '';
+        this.daterangeDueDate2 = '';
+
+        this.queryParams.remark = null;
+        this.resetForm("queryForm");
+        this.handleQuery();
+      },
+      // 多选框选中数据
+      handleSelectionChange(selection) {
+        this.ids = selection.map(item => item.id)
+        this.single = selection.length !== 1
+        this.multiple = !selection.length
+      },
+      /** 新增按钮操作 */
+      handleAdd() {
+        this.reset();
+        this.open = true;
+        this.created_successfully = false;
+        this.isEditable = true;
+        this.title = "新建银行承兑汇票";
+      },
+      /** 修改按钮操作 */
+      handleUpdate(row) {
+        this.isEditable = false;
+        this.reset();
+        const id = row.id || this.ids
+        getBank(id).then(response => {
+          /* str 需要赋值粘贴到的 */
+          response.data.rzsrc2List.forEach(i => {
+            i.id = null;
+          })
+          // 金额需要 / 10000
+          response.data.invoiceAmount = Number(response.data.invoiceAmount) / 10000;
+          response.data.ticketProcessingFee = Number(response.data.ticketProcessingFee) / 10000;
+          response.data.marginIncomeAmount = Number(response.data.marginIncomeAmount) / 10000;
+          response.data.discountedHandlingFee = Number(response.data.discountedHandlingFee) / 10000;
+          this.scrUuid = response.data.scrUuid;
+          this.form = response.data;
+          this.form.scrUuid = response.data.rzsrc2List.map(i => i.url)
+          /* end */
+
+          this.rzsrc2List = response.data.rzsrc2List;
+          this.open = true;
+          this.title = "修改银行承兑汇票";
+        });
+      },
+      /** 提交按钮 */
+      submitForm() {
+        /* str 需要赋值粘贴到的 需要修改请求的接口 */
+        this.$refs["form"].validate(valid => {
+          if (valid) {
+            const data = JSON.parse(JSON.stringify(this.form))
+            this.form.rzsrc2List = this.rzsrc2List;
+            this.rzaudit_data = null;
+
+            // 金额需要 * 10000
+            data.invoiceAmount = Number(data.invoiceAmount) * 10000;
+
+            data.ticketProcessingFee = Number(data.ticketProcessingFee) * 10000
+            data.marginIncomeAmount = Number(data.marginIncomeAmount) * 10000
+            data.discountedHandlingFee = Number(data.discountedHandlingFee) * 10000
+            if (this.form.id != null) {
+              data.scrUuid = Number(this.scrUuid);
+              this.rzaudit_data = {
+                "auditId": data.id,
+                "scrUuid": data.scrUuid,
+                "createBy": this.name,
+                "createTime": null,
+                "dataJson": JSON.stringify(data),
+                "tableName": "rz_bank_accept_bill",
+                "auditState": "1759514891045044200",
+                "uuid": data.uuid
+              }
+              if (this.title === '修改银行承兑汇票' && this.created_successfully === false && this.isEditable === true) {
+                this.created_successfully = true;
+                this.isSuccess = false;
+                this.isTitle = true;
+                this.isMessage = false;
+                this.ctitle = '确定修改银行承兑汇票信息吗？';
+                this.isEdit = true;
+                return;
+              }
+            } else {
+              // 生成一个 uuid
+              const generator = new SnowflakeIdGenerator();
+
+              // start
+              const uuid = String(generator.nextId())
+              data.uuid = uuid;
+              // end
+              data.scrUuid = generator.nextId();
+              data.rzsrc2List = this.rzsrc2List;
+              data.createBy = this.name;
+              this.rzaudit_data = {
+                "id": null,
+                "auditId": null,
+                "scrUuid": data.scrUuid,
+                "createBy": this.name,
+                "createTime": null,
+                "dataJson": JSON.stringify(data),
+                "tableName": "rz_bank_accept_bill",
+                "auditState": "1759514891045044200",
+                "uuid": uuid,
+                "managementId": data.managementId
+              }
+            }
+            this.handleaddList();
+          }
+        });
+        /* end */
+      },
+      async handleaddList() {
+        // 检验上一个数据步骤有没有审批通过
+        await this.inspectionPendingReview(this.rzaudit_data)
+
+        addList(this.rzaudit_data).then(res => {
+          this.created_successfully = true;
+          if (this.title === '修改银行承兑汇票' && this.isEditable) {
+            this.isSuccess = true;
+            this.isTitle = true;
+            this.isMessage = true;
+            this.ctitle = this.isEdit ? '修改提交成功' : '提交成功';
+            this.isEdit = false;
+          } else {
+            this.ctitle = '提交成功';
+            this.isMessage = true;
+            this.isEdit = false;
+          }
+        })
+      },
+      /** 删除按钮操作 */
+      handleDelete(row) {
+        const ids = row.id || this.ids;
+        // this.$modal.confirm('是否确认删除银行承兑汇票编号为"' + ids + '"的数据项？').then(function () {
+        //   return delBank(ids);
+        // }).then(() => {
+        //   this.cancel();
+
+        //   this.getList();
+        //   this.$modal.msgSuccess("删除成功");
+        // }).catch(() => { });
+        const h = this.$createElement;
+        this.$msgbox({
+          title: '提示',
+          message: h('div', null, [
+            h('el-divider', {
+              class: {
+                "no_mt": true,
+                "mb20": true
+              },
+              attrs: {
+                "data-role": 'el-divider'
+              }
+            }, ''),
+            h('p', {
+              class: 'tc w mb20',
+              style: {
+                'font-size': '24px',
+                'color': '#000000',
+                'font-weight': 'bold'
+              }
+            }, '确定删除选中的银行承兑汇票吗？'),
+          ]),
+          showCancelButton: true,
+          cancelButtonText: '取消',
+          confirmButtonText: '确定',
+          cancelButtonClass: "btn-custom-cancel",
+          customClass: 'custom-msgbox',
+          beforeClose: (action, instance, done) => {
+            if (action === 'confirm') {
+              delBank(ids).then(res => {
+                done();
+              });
+            } else {
+              done();
+            }
+          }
+        }).then(action => {
+          this.cancel();
+          this.getList();
+          this.$modal.msgSuccess("删除成功");
+        });
+      },
+      /** 附件表序号 */
+      rowrzsrc2Index({
+        row,
+        rowIndex
+      }) {
+        row.index = rowIndex + 1;
+      },
+      /** 附件表添加按钮操作 */
+      handleAddrzsrc2() {
+        let obj = {};
+        obj.url = "";
+        obj.projectManagementId = "";
+        obj.type = "rz_bank_accept_bill";
+        this.rzsrc2List.push(obj);
+      },
+      /** 附件表删除按钮操作 */
+      handleDeleterzsrc2() {
+        if (this.checkedrzsrc2.length == 0) {
+          this.$modal.msgError("请先选择要删除的附件表数据");
+        } else {
+          const rzsrc2List = this.rzsrc2List;
+          const checkedrzsrc2 = this.checkedrzsrc2;
+          this.rzsrc2List = rzsrc2List.filter(function(item) {
+            return checkedrzsrc2.indexOf(item.index) == -1
+          });
         }
-      });
+      },
+      /** 复选框选中数据 */
+      handlerzsrc2SelectionChange(selection) {
+        this.checkedrzsrc2 = selection.map(item => item.index)
+      },
+      /** 导出按钮操作 */
+      handleExport() {
+        this.download('bankaccept/bank/export', {
+          ...this.queryParams
+        }, `bank_${new Date().getTime()}.xlsx`)
+      },
+      /* 上传完成的回调 */
+      upload_completed(url_string) {
+        const url_list = url_string.split(',')
+        url_list.forEach(url_i => {
+          let obj = {
+            url: url_i,
+            projectManagementId: this.form.managementId,
+            type: "rz_bank_accept_bill",
+            createBy: this.name,
+            createTime: moment().format("YYYY-MM-DD HH:mm:ss"),
+          };
 
+          // 检查this.rzsrc2List中是否已经存在具有相同url的对象
+          if (!this.rzsrc2List.some(item => item.url === obj.url)) {
+            this.rzsrc2List.push(obj);
+          }
+        });
+
+      }
     }
-  }
-};
+  };
 </script>
 <style lang="scss" scoped></style>

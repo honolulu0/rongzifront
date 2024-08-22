@@ -103,11 +103,11 @@
         <el-button type="danger" plain icon="el-icon-delete" size="mini" :disabled="multiple" @click="handleDelete"
           v-hasPermi="['rzinternalborrowing:borrowing:remove']">删 除</el-button>
       </el-col>
-      <!-- 
+      <!--
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar> -->
     </el-row>
 
-    <el-table :summary-method="(param) => getSummaries2(param, totalKeys, zongjia)" show-summary
+    <el-table :summary-method="(param) => getSummaries2(param, totalKeys, zongji)" show-summary
        v-loading="loading" :data="borrowingList" @selection-change="handleSelectionChange"
       :header-cell-style="header_cell_style">
       <el-table-column show-overflow-tooltip fixed="left" type="selection" width="60" align="center" />
@@ -479,7 +479,7 @@ export default {
       totalKeys: {
         '借款金额（万元）': "totalLoanAmount",
       },
-      zongjia: {
+      zongji: {
         totalLoanAmount: 0
       }
     };
@@ -592,7 +592,7 @@ export default {
       listBorrowing(search).then(response => {
         this.borrowingList = response.rows;
         this.total = response.total;
-        this.zongjia = response.totals;
+        this.zongji = response.totals;
         this.loading = false;
       });
     },

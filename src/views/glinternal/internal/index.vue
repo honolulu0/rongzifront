@@ -176,7 +176,7 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar> -->
     </el-row>
     <!-- :summary-method="(param) => getSummaries2(param, totalKeys, zongjia)" show-summary -->
-    <el-table v-loading="loading" :data="internalList" @selection-change="handleSelectionChange"
+    <el-table :summary-method="(param) => getSummaries2(param, totalKeys, zongji)" show-summary  v-loading="loading" :data="internalList" @selection-change="handleSelectionChange"
       :header-cell-style="header_cell_style">
       <el-table-column show-overflow-tooltip fixed="left" type="selection" width="60" align="center" />
       <!-- <el-table-column label="主键id" align="center" prop="id" /> -->
@@ -728,7 +728,7 @@
           '担保金额（万元）': "totalGuaranteeAmount",
           '担保余额（万元）': "totalGuaranteeBalance",
         },
-        zongjia: {
+        zongji: {
           totalGuaranteeAmount: 0,
           totalGuaranteeBalance: 0,
         }
@@ -876,7 +876,7 @@
         listInternal(this.queryParams).then(response => {
           this.internalList = response.rows;
           this.total = response.total;
-          this.zongjia = response.totals;
+          this.zongji = response.totals;
           this.loading = false;
         });
       },

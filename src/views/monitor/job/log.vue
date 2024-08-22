@@ -233,6 +233,7 @@ export default {
     /** 查询调度日志列表 */
     getList() {
       this.loading = true;
+      this.queryParams['orderByColumn'] = 'jobLogId'
       listJobLog(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
           this.jobLogList = response.rows;
           this.total = response.total;

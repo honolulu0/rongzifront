@@ -755,7 +755,8 @@
         this.loading = true;
 
         this.queryParams.params = {};
-        this.queryParams['orderByColumn'] = 'id'
+        this.queryParams['orderByColumn'] = 'loan_date'
+        this.queryParams['isAsc'] = 'asc'
         if (null != this.daterangeContractSigningDate && '' != this.daterangeContractSigningDate) {
           this.queryParams.params["beginContractSigningDate"] = this.daterangeContractSigningDate[0];
           this.queryParams.params["endContractSigningDate"] = this.daterangeContractSigningDate[1];

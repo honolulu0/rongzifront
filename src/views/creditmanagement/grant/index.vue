@@ -99,7 +99,7 @@
       <!--  <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar> -->
     </el-row>
 
-    <el-table :summary-method="(param) => getSummaries2(param, totalKeys, zongjia)" show-summary v-loading="loading"
+    <el-table :summary-method="(param) => getSummaries2(param, totalKeys, zongji)" show-summary v-loading="loading"
       :data="grantList" @selection-change="handleSelectionChange" :header-cell-style="header_cell_style">
       <el-table-column show-overflow-tooltip fixed="left" type="selection" min-width="60" width="60" align="center" />
       <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managementId" min-width="100" />
@@ -554,7 +554,7 @@
           '已用授信金额（万元）': 'totalRemainingCreditAmount',
           '授信余额（万元）': 'totalUsedCreditAmount',
         },
-        zongjia: {
+        zongji: {
           totalCreditAmount: 0,
           totalRemainingCreditAmount: 0,
           totalUsedCreditAmount: 0,
@@ -696,7 +696,8 @@
           this.queryParams.params["beginDeadline"] = this.daterangeStartDate;
           this.queryParams.params["endDeadline"] = this.daterangeDeadline;
         }
-        this.queryParams['orderByColumn'] = 'id'
+        this.queryParams['orderByColumn'] = 'start_date'
+        this.queryParams['isAsc'] = 'asc'
         let queryParams = JSON.parse(JSON.stringify(this.queryParams));
         if (null !== queryParams.financialInstitution) {
           queryParams.financialInstitution = queryParams.financialInstitution.join(',')
@@ -704,7 +705,7 @@
         listGrant(queryParams).then(response => {
           this.grantList = response.rows;
           this.total = response.total;
-          this.zongjia = response.totals;
+          this.zongji = response.totals;
           this.loading = false;
         });
       },
