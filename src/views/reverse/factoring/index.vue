@@ -294,11 +294,32 @@
               </el-form-item>
             </el-col>
           </el-row>
+
+
+
+          <!-- 还款计划占一行 -->
+          <el-row :gutter="20">
+            <el-col :span="24">
+              <el-form-item label="附件" prop="scrUuid">
+                <div class="p20 appendix">
+                  <file-upload :disabled="!isEditable" v-model="form.scrUuid" :managementId="form.managementId"
+                    @input="upload_completed" :fileSize="10000" :limit="1000" :isShowTip="false" />
+                </div>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+
+
+
+
+
+
         </el-form>
 
 
         <div slot="footer" class="dialog-footer" style="display: flex; justify-content: center;">
-          <el-button type="primary" @click="submitForm">确 定</el-button>
+          <el-button type="primary" @click="submitForm">确认提交</el-button>
           <el-button @click="cancel">取 消</el-button>
         </div>
       </div>
@@ -706,9 +727,10 @@
       submitForm() {
         this.$refs["form"].validate(valid => {
           if (valid) {
-            const data = JSON.parse(JSON.stringify(this.form))
 
+            this.form.huankuanmingxi2List = this.$refs.hkjhPanel.repaymentPlanTable
             this.form.rzsrc2List = this.rzsrc2List;
+            const data = JSON.parse(JSON.stringify(this.form))
             this.rzaudit_data = null;
 
             // 金额需要 * 10000
@@ -737,7 +759,6 @@
             } else {
               const generator = new SnowflakeIdGenerator();
               data.scrUuid = generator.nextId();
-              data.rzsrc2List = this.rzsrc2List;
 
               data.createBy = this.name;
               // start

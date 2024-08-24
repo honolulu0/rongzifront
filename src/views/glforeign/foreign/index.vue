@@ -635,8 +635,8 @@
         </el-form>
 
         <div slot="footer" class="dialog-footer" style="display: flex; justify-content: center;">
-          <el-button type="primary" @click="submitForm">保 存</el-button>
-          <el-button @click="cancel">重 置</el-button>
+          <el-button type="primary" @click="submitForm">确认提交</el-button>
+          <el-button @click="cancel">取 消</el-button>
         </div>
       </div>
 
@@ -1148,8 +1148,8 @@
       submitForm() {
         this.$refs["form"].validate(valid => {
           if (valid) {
-            const data = JSON.parse(JSON.stringify(this.form))
             this.form.rzsrc2List = this.rzsrc2List;
+            const data = JSON.parse(JSON.stringify(this.form))
             this.rzaudit_data = null;
 
             // 金额需要 * 10000
@@ -1197,7 +1197,7 @@
               data.uuid = uuid;
               // end
               data.scrUuid = generator.nextId();
-              data.rzsrc2List = this.rzsrc2List;
+              // data.rzsrc2List = this.rzsrc2List;
               data.createBy = this.name;
               this.rzaudit_data = {
                 "id": null,

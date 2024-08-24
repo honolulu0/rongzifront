@@ -56,7 +56,7 @@ function buildFromBtns(conf, type) {
   let str = ''
   if (conf.formBtns && type === 'file') {
     str = `<el-form-item size="large">
-          <el-button type="primary" @click="submitForm">提交</el-button>
+          <el-button type="primary" @click="submitForm">确认提交</el-button>
           <el-button @click="resetForm">重置</el-button>
         </el-form-item>`
     if (someSpanIsNot24) {
