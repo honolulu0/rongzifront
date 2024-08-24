@@ -612,12 +612,13 @@
       },
 
       'form.loanAmount'(newVal) {
-        console.log('this.form.loanAmount', this.huankuanmingxi.zhifulixi);
         this.huankuanmingxi.loanAmount = newVal;
         this.form.huankuanjine = (Number(this.huankuanmingxi.loanAmount) + Number(this
           .huankuanmingxi
-          .zhifulixi)) * 10000
-        this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.huankuanjine)
+          .zhifulixi))
+        console.log('form.loanAmount', this.form.huankuanjine);
+        this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.huankuanjine * 10000)
+        console.log('this.form.loanAmount', this.form.huankuanjine);
       },
 
     },
@@ -640,8 +641,8 @@
         this.huankuanmingxi.zhifulixi = Number(value.toFixed(2))
         this.form.huankuanjine = (Number(this.huankuanmingxi.loanAmount) + Number(this
           .huankuanmingxi
-          .zhifulixi)) * 10000
-        this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.huankuanjine)
+          .zhifulixi))
+        this.huankuanmingxi.huankuanjine = this.form.huankuanjine = this.formatNumberAsRMB(this.form.huankuanjine * 10000)
       },
       /* 创建成功关闭弹窗 */
       closeDialog() {
@@ -813,7 +814,7 @@
               "lilv": "",
               "comment": null
             }]
-
+            console.log(data.huankuanmingxi2List);
             if (this.form.id != null) {
               data.scrUuid = Number(this.scrUuid);
               this.rzaudit_data = {
