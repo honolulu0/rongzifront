@@ -731,6 +731,7 @@
             this.form.huankuanmingxi2List = this.$refs.hkjhPanel.repaymentPlanTable
             this.form.rzsrc2List = this.rzsrc2List;
             const data = JSON.parse(JSON.stringify(this.form))
+
             this.rzaudit_data = null;
 
             // 金额需要 * 10000
