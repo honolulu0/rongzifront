@@ -827,7 +827,8 @@
                 "dataJson": JSON.stringify(data),
                 "tableName": "rz_credit_management",
                 "auditState": "1759514891045044200",
-                "uuid": data.uuid
+                "uuid": data.uuid,
+                "managementId": data.managementId + "|" + this.formatDateTime()
               }
               if (this.title === '修改授信管理' && this.created_successfully === false && this.isEditable === true) {
                 this.created_successfully = true;

@@ -42,15 +42,13 @@
               placeholder="请选择开始日期"></el-date-picker> -->
               <el-row>
                 <el-col :span="11">
-                  <el-date-picker :picker-options="pickerOptions3" format='yyyy/MM/dd' clearable
-                    v-model="daterangeStartDate1" value-format="yyyy-MM-dd" type="date"
-                    placeholder="请选择起始日"></el-date-picker>
+                  <el-date-picker format='yyyy/MM/dd' clearable v-model="daterangeStartDate1" value-format="yyyy-MM-dd"
+                    type="date" placeholder="请选择起始日"></el-date-picker>
                 </el-col>
                 <el-col :span="2" class="flex fjc">-</el-col>
                 <el-col :span="11">
-                  <el-date-picker :picker-options="pickerOptions4" format='yyyy/MM/dd' clearable
-                    v-model="daterangeDeadline2" value-format="yyyy-MM-dd" type="date"
-                    placeholder="请选择到期日"></el-date-picker>
+                  <el-date-picker format='yyyy/MM/dd' clearable v-model="daterangeDeadline2" value-format="yyyy-MM-dd"
+                    type="date" placeholder="请选择到期日"></el-date-picker>
                 </el-col>
               </el-row>
             </el-form-item>
@@ -245,14 +243,14 @@
           <el-row :gutter="20">
             <el-col :span="8">
               <el-form-item label="开始日期" prop="startDate">
-                <el-date-picker format='yyyy/MM/dd' :picker-options="pickerOptions1" :disabled="!isEditable" clearable
-                  v-model="form.startDate" type="date" value-format="yyyy-MM-dd" placeholder="请选择开始日期"></el-date-picker>
+                <el-date-picker format='yyyy/MM/dd' :disabled="!isEditable" clearable v-model="form.startDate"
+                  type="date" value-format="yyyy-MM-dd" placeholder="请选择开始日期"></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="结束日期" prop="deadline">
-                <el-date-picker format='yyyy/MM/dd' :picker-options="pickerOptions2" :disabled="!isEditable" clearable
-                  v-model="form.deadline" type="date" value-format="yyyy-MM-dd" placeholder="请选择结束日期"></el-date-picker>
+                <el-date-picker format='yyyy/MM/dd' :disabled="!isEditable" clearable v-model="form.deadline"
+                  type="date" value-format="yyyy-MM-dd" placeholder="请选择结束日期"></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -295,25 +293,26 @@
             </el-col>
           </el-row>
 
-
-
           <!-- 还款计划占一行 -->
           <el-row :gutter="20">
             <el-col :span="24">
-              <el-form-item label="附件" prop="scrUuid">
-                <div class="p20 appendix">
-                  <file-upload :disabled="!isEditable" v-model="form.scrUuid" :managementId="form.managementId"
-                    @input="upload_completed" :fileSize="10000" :limit="1000" :isShowTip="false" />
-                </div>
+              <el-form-item label="还款计划明细（万元）">
+                <tiny-grid align="center" max-height="300" :data="huankuanmingxidata">
+                  <tiny-grid-column width="60" title="期数" field="qishu"></tiny-grid-column>
+                  <tiny-grid-column title="日期" field="riqi">
+                  </tiny-grid-column>
+                  <tiny-grid-column title="还款金额" field="huankuanjine">
+                  </tiny-grid-column>
+                  <tiny-grid-column title="偿还本金" field="changhuanben">
+                  </tiny-grid-column>
+                  <tiny-grid-column title="支付利息" field="zhifulixi"
+                    :renderer="renderInput2change('zhifulixi',zhifulixichange)">
+                  </tiny-grid-column>
+                  <tiny-grid-column title="本金剩余">0.00</tiny-grid-column>
+                </tiny-grid>
               </el-form-item>
             </el-col>
           </el-row>
-
-
-
-
-
-
 
         </el-form>
 
@@ -323,8 +322,6 @@
           <el-button @click="cancel">取 消</el-button>
         </div>
       </div>
-
-
 
       <div v-else class="flex">
         <CreateSuccess @close-dialog="closeDialog" @create-again="create_again" :isSuccess="isSuccess"
@@ -358,6 +355,10 @@
     SnowflakeIdGenerator
   } from '@/utils/index';
 
+  import {
+    renderInput2change
+  } from '@/utils/Inputformatprocessing.js';
+
   import moment from 'moment'
   import CreateSuccess from '@/components/createSuccess/index.vue'
   import SearchPanel from '@/components/SearchPanel/index.vue'
@@ -368,6 +369,8 @@
   import {
     reminderConfig
   } from '@/config/expirationreminder'
+
+
   export default {
     name: "Factoring",
     dicts: ['sys_acceptor', 'sys_1757288852172570600', 'sys_1795741368925028400'],
@@ -546,8 +549,29 @@
           '放贷金额（万元）': 'totalLoanAmount',
         },
         zongji: {
-          totalLoanAmount:0
-        }
+          totalLoanAmount: 0
+        },
+        huankuanmingxi: {
+          "createBy": null,
+          "createTime": null,
+          "updateBy": null,
+          "updateTime": null,
+          "remark": null,
+          "managerId": "",
+          "borrowingUnit": "",
+          "financialInstitution": "",
+          "daikuanyongtu": "",
+          "qishu": "1",
+          "riqi": "",
+          "huankuanjine": "",
+          "changhuanben": "",
+          "zhifulixi": "",
+          "shouxufei": null,
+          "benjinshengyu": "0.00",
+          "lilv": "",
+          "comment": null
+        },
+        huankuanmingxidata: [],
       };
     },
     watch: {
@@ -583,6 +607,19 @@
           this.error1 = '到期日不能为空';
         }
       },
+      'form.deadline'(newVal) {
+        this.huankuanmingxi.deadline = newVal;
+      },
+
+      'form.loanAmount'(newVal) {
+        console.log('this.form.loanAmount', this.huankuanmingxi.zhifulixi);
+        this.huankuanmingxi.loanAmount = newVal;
+        this.form.huankuanjine = (Number(this.huankuanmingxi.loanAmount) + Number(this
+          .huankuanmingxi
+          .zhifulixi)) * 10000
+        this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.huankuanjine)
+      },
+
     },
     computed: {
       ...mapGetters([
@@ -596,6 +633,16 @@
       this.isEditable = true;
     },
     methods: {
+      renderInput2change,
+      zhifulixichange(value) {
+        // 监听表格内的修改变化
+        console.log('change', value)
+        this.huankuanmingxi.zhifulixi = Number(value.toFixed(2))
+        this.form.huankuanjine = (Number(this.huankuanmingxi.loanAmount) + Number(this
+          .huankuanmingxi
+          .zhifulixi)) * 10000
+        this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.huankuanjine)
+      },
       /* 创建成功关闭弹窗 */
       closeDialog() {
         this.open = false;
@@ -631,7 +678,9 @@
           this.queryParams.params["endDeadline"] = this.daterangeDeadline2;
         }
 
-        this.queryParams['orderByColumn'] = 'id'
+        this.queryParams['orderByColumn'] = 'deadline'
+        this.queryParams['isAsc'] = "asc"
+
         listFactoring(this.queryParams).then(response => {
           this.factoringList = response.rows;
           this.total = response.total;
@@ -712,13 +761,23 @@
           response.data.rzsrc2List.forEach(i => {
             i.id = null;
           })
-          // 金额需要 / 10000
-          response.data.loanAmount = Number(response.data.loanAmount) / 10000;
+
           this.scrUuid = response.data.scrUuid;
           this.form = response.data;
           this.form.scrUuid = response.data.rzsrc2List.map(i => i.url)
           /* end */
           this.rzsrc2List = response.data.rzsrc2List;
+
+          // 还款计划 单位需要处理 10000
+          this.huankuanmingxi.riqi = this.form.deadline
+          this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.huankuanjine)
+          this.huankuanmingxi.changhuanben = this.formatNumberAsRMB(this.form.loanAmount)
+          this.huankuanmingxi.zhifulixi = this.formatNumberAsRMB(this.form.zhifulixi)
+          this.huankuanmingxidata = [this.huankuanmingxi]
+
+          // 金额需要 / 10000
+          this.form.loanAmount = Number(this.form.loanAmount) / 10000;
+
           this.open = true;
           this.title = "修改反向保理";
         });
@@ -728,7 +787,6 @@
         this.$refs["form"].validate(valid => {
           if (valid) {
 
-            this.form.huankuanmingxi2List = this.$refs.hkjhPanel.repaymentPlanTable
             this.form.rzsrc2List = this.rzsrc2List;
             const data = JSON.parse(JSON.stringify(this.form))
 
@@ -736,6 +794,26 @@
 
             // 金额需要 * 10000
             data.loanAmount = Number(data.loanAmount) * 10000;
+            data.zhifulixi = Number(data.zhifulixi) * 10000;
+            data.huankuanjine = Number(data.huankuanjine) * 10000;
+
+            data.huankuanmingxi2List = [{
+              "remark": null,
+              "managerId": data.managementId,
+              "borrowingUnit": "",
+              "financialInstitution": "",
+              "daikuanyongtu": "",
+              "qishu": "1",
+              "riqi": data.deadline,
+              "huankuanjine": data.huankuanjine,
+              "changhuanben": data.loanAmount,
+              "zhifulixi": data.zhifulixi,
+              "shouxufei": null,
+              "benjinshengyu": "0.00",
+              "lilv": "",
+              "comment": null
+            }]
+
             if (this.form.id != null) {
               data.scrUuid = Number(this.scrUuid);
               this.rzaudit_data = {
@@ -746,7 +824,8 @@
                 "dataJson": JSON.stringify(data),
                 "tableName": "rz_reverse_factoring",
                 "auditState": "1759514891045044200",
-                "uuid": data.uuid
+                "uuid": data.uuid,
+                "managementId": data.managementId + "|" + this.formatDateTime()
               }
               if (this.title === '修改反向保理' && this.created_successfully === false && this.isEditable === true) {
                 this.created_successfully = true;
@@ -783,6 +862,7 @@
           }
         });
       },
+
       async handleaddList() {
         // 检验上一个数据步骤有没有审批通过
         await this.inspectionPendingReview(this.rzaudit_data)

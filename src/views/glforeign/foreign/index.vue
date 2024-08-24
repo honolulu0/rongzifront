@@ -1172,7 +1172,8 @@
                 "dataJson": JSON.stringify(data),
                 "tableName": "rz_gl_foreign",
                 "auditState": "1759514891045044200",
-                "uuid": data.uuid
+                "uuid": data.uuid,
+                "managementId": data.managementId + "|" + this.formatDateTime()
               }
               if (this.title === '修改对外担保台账' && this.created_successfully === false && this.isEditable === true) {
                 this.created_successfully = true;

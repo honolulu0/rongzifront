@@ -606,7 +606,8 @@ export default {
               "dataJson": JSON.stringify(data),
               "tableName": "rz_repayment",
               "auditState": "1759514891045044200",
-              "uuid": data.uuid
+              "uuid": data.uuid,
+                "managementId": data.managementId + "|" + this.formatDateTime()
             }
           } else {
             const generator = new SnowflakeIdGenerator();

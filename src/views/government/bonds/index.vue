@@ -785,7 +785,8 @@
                 "dataJson": JSON.stringify(data),
                 "tableName": "rz_government_special_bonds",
                 "auditState": "1759514891045044200",
-                "uuid": data.uuid
+                "uuid": data.uuid,
+                "managementId": data.managementId + "|" + this.formatDateTime()
               }
               if (this.title === '修改政府专项债' && this.created_successfully === false && this.isEditable === true) {
                 this.created_successfully = true;

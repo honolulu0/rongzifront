@@ -12,17 +12,38 @@ import store from './store'
 import router from './router'
 import directive from './directive' // directive
 import plugins from './plugins' // plugins
-import { download } from '@/utils/request'
+import {
+  download
+} from '@/utils/request'
 
 import './assets/iconfont/iconfont.css' // iconfont
 import './assets/icons' // icon
 import './permission' // permission control
-import { getDicts } from "@/api/system/dict/data";
-import { getConfigKey } from "@/api/system/config";
-import { parseTime, resetForm, addDateRange, selectDictLabel, selectDictLabels, handleTree, 
-  formatNumberAsRMB, creditCycleFN, appendUnit, amountLimitMethod, getSummaries, getSummaries2 } from "@/utils/senye";
-// 我的一下业务代码校验
-import { inspectionPendingReview } from '@/utils/myjs.js'
+import {
+  getDicts
+} from "@/api/system/dict/data";
+import {
+  getConfigKey
+} from "@/api/system/config";
+import {
+  parseTime,
+  resetForm,
+  addDateRange,
+  selectDictLabel,
+  selectDictLabels,
+  handleTree,
+  formatNumberAsRMB,
+  creditCycleFN,
+  appendUnit,
+  amountLimitMethod,
+  getSummaries,
+  getSummaries2
+} from "@/utils/senye";
+// 我的下业务代码校验
+import {
+  inspectionPendingReview,
+  formatDateTime
+} from '@/utils/myjs.js'
 // 分页组件
 import Pagination from "@/components/Pagination";
 // 自定义表格工具组件
@@ -64,6 +85,7 @@ Vue.prototype.creditCycleFN = creditCycleFN
 Vue.prototype.appendUnit = appendUnit
 Vue.prototype.amountLimitMethod = amountLimitMethod
 Vue.prototype.inspectionPendingReview = inspectionPendingReview
+Vue.prototype.formatDateTime = formatDateTime
 Vue.prototype.getSummaries = getSummaries
 Vue.prototype.getSummaries2 = getSummaries2
 

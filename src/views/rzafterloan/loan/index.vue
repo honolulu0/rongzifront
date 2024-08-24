@@ -644,7 +644,8 @@ export default {
               "dataJson": JSON.stringify(data),
               "tableName": "rz_after_loan",
               "auditState": "1759514891045044200",
-              "uuid": data.uuid
+              "uuid": data.uuid,
+                "managementId": data.managementId + "|" + this.formatDateTime()
             }
             if (this.title === '修改贷后管理' && this.created_successfully === false && this.isEditable === true) {
               this.created_successfully = true;
