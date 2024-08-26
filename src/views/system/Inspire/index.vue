@@ -5,7 +5,7 @@
       <el-row type="flex" justify="center" align="middle" gutter="15">
         <el-col :span="8">
           <el-form-item label="红人编号" prop="field101">
-            <el-input v-model="formData.field101" placeholder="请输入红人编号" clearable :style="{width: '100%'}">
+            <el-input v-model="formData.field101" placeholder="红人编号" clearable :style="{width: '100%'}">
             </el-input>
           </el-form-item>
         </el-col>
@@ -21,7 +21,7 @@
       <el-row type="flex" justify="center" align="middle" gutter="15">
         <el-col :span="8">
           <el-form-item label="红人姓名" prop="field110">
-            <el-input v-model="formData.field110" placeholder="请输入红人姓名" clearable :style="{width: '100%'}">
+            <el-input v-model="formData.field110" placeholder="红人姓名" clearable :style="{width: '100%'}">
             </el-input>
           </el-form-item>
         </el-col>
@@ -71,19 +71,19 @@
       <el-row type="flex" justify="center" align="middle" gutter="15">
         <el-col :span="8">
           <el-form-item label-width="200px" label="Amazon influencer 报价" prop="field125">
-            <el-input v-model="formData.field125" placeholder="请输入Amazon influencer 报价" clearable
+            <el-input v-model="formData.field125" placeholder="Amazon influencer 报价" clearable
               :style="{width: '100%'}"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label=" 版权佣金" prop="field129">
-            <el-input v-model="formData.field129" placeholder="请输入 版权佣金" clearable :style="{width: '100%'}">
+            <el-input v-model="formData.field129" placeholder=" 版权佣金" clearable :style="{width: '100%'}">
             </el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label-width="150px" label="Amazon Video 佣金" prop="field126">
-            <el-input v-model="formData.field126" placeholder="请输入Amazon Video 佣金" clearable
+            <el-input v-model="formData.field126" placeholder="Amazon Video 佣金" clearable
               :style="{width: '100%'}"></el-input>
           </el-form-item>
         </el-col>
@@ -124,7 +124,7 @@ export default {
         }],
         field110: [{
           required: true,
-          message: '请输入红人姓名',
+          message: '红人姓名',
           trigger: 'blur'
         }],
         field113: [{
@@ -140,7 +140,7 @@ export default {
         field121: [],
         field125: [{
           required: true,
-          message: '请输入Amazon influencer 报价',
+          message: 'Amazon influencer 报价',
           trigger: 'blur'
         }],
         field129: [],

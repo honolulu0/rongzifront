@@ -7,13 +7,13 @@
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="管理编号" prop="managementId">
-              <el-input v-model="queryParams.managementId" placeholder="请输入管理编号" clearable
+              <el-input v-model="queryParams.managementId" placeholder="管理编号" clearable
                 @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col>
           <!-- <el-col :span="8">
             <el-form-item label="融资项目" prop="managementId">
-              <el-input v-model="queryParams.managementId" placeholder="请输入融资项目" clearable
+              <el-input v-model="queryParams.managementId" placeholder="融资项目" clearable
                 @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col> -->
@@ -39,7 +39,7 @@
 
           <el-col :span="8">
             <el-form-item label="融资金额（万元）" :precision="2" prop="financingAmount">
-              <el-input v-model.trim="queryParams.financingAmount" type="number" placeholder="请输入融资金额" clearable
+              <el-input v-model.trim="queryParams.financingAmount" type="number" placeholder="融资金额" clearable
                 @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col>
@@ -230,7 +230,7 @@
           <el-row :gutter="20">
             <el-col :span="8">
               <el-form-item label="管理编号" prop="managementId">
-                <el-input :readonly="title === '修改融资项目'" v-model="form.managementId" placeholder="请输入管理编号" />
+                <el-input :readonly="title === '修改融资项目'" v-model="form.managementId" placeholder="管理编号" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -264,33 +264,33 @@
             <el-col :span="8">
               <el-form-item label="贷款用途" prop="daikuanyongtu">
                 <el-input :readonly="!isEditable" type="textarea" maxlength="10" show-word-limit
-                  v-model="form.daikuanyongtu" placeholder="请输入贷款用途" />
+                  v-model="form.daikuanyongtu" placeholder="贷款用途" />
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item label="担保措施" prop="danbaocuoshi">
                 <el-input :readonly="!isEditable" type="textarea" maxlength="30" show-word-limit
-                  v-model="form.danbaocuoshi" placeholder="请输入担保措施" />
+                  v-model="form.danbaocuoshi" placeholder="担保措施" />
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item label="授信金额（万元）" prop="shouxinjine">
                 <el-input-number class="w" :controls="false" :precision="2" :disabled="!isEditable"
-                  :readonly="!isEditable" type="number" v-model.trim="form.shouxinjine" placeholder="请输入授信金额" />
+                  :readonly="!isEditable" type="number" v-model.trim="form.shouxinjine" placeholder="授信金额" />
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item label="融资金额（万元）" prop="financingAmount">
                 <el-input-number class="w" :controls="false" :precision="2" :disabled="true" type="number"
-                  v-model.trim="form.financingAmount" placeholder="请输入融资金额" />
+                  v-model.trim="form.financingAmount" placeholder="融资金额" />
               </el-form-item>
             </el-col>
             <!-- <el-col :span="8">
               <el-form-item label="资金用途" prop="contractId">
-                <el-input :readonly="!isEditable" v-model="form.contractId" placeholder="请输入资金用途" />
+                <el-input :readonly="!isEditable" v-model="form.contractId" placeholder="资金用途" />
               </el-form-item>
             </el-col> -->
           </el-row>
@@ -316,7 +316,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="借款期限（月）" prop="loanTerm">
-                <el-input :disabled="true" :readonly="true" v-model="creditCycle" placeholder="请输入借款期限" />
+                <el-input :disabled="true" :readonly="true" v-model="creditCycle" placeholder="借款期限" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -325,7 +325,7 @@
 
             <el-col :span="8">
               <el-form-item label="年利率" prop="rate">
-                <!-- <el-input :readonly="!isEditable" v-model="rate" placeholder="请输入年利率" /> -->
+                <!-- <el-input :readonly="!isEditable" v-model="rate" placeholder="年利率" /> -->
 
                 <tiny-numeric class="w" show-left :controls="false" size="small" v-model="form.rate" :empty-value="0"  :format="{
                   zeroize: true, // 是否保留多余的0字符
@@ -339,25 +339,25 @@
                   fractionGroupSize: 0, // 小数部分分组间隔
                   fractionGroupSeparator: '\xA0', // 小数分组分隔符
                   suffix: '%' // 后置标识
-                }" placeholder="请输入年利率"></tiny-numeric>
+                }" placeholder="年利率"></tiny-numeric>
 
               </el-form-item>
             </el-col>
             <!-- <el-col :span="8">
               <el-form-item label="增信措施" prop="creditEnhancementMeasures">
-                <el-input :readonly="!isEditable" v-model="form.creditEnhancementMeasures" placeholder="请输入增信措施" />
+                <el-input :readonly="!isEditable" v-model="form.creditEnhancementMeasures" placeholder="增信措施" />
               </el-form-item>
             </el-col> -->
             <el-col :span="8">
               <el-form-item label="已还金额（万元）" prop="repaidAmount">
                 <el-input-number class="w" :controls="false" :precision="2" :disabled="true" type="number"
-                  v-model.trim="form.repaidAmount" placeholder="请输入已还金额" />
+                  v-model.trim="form.repaidAmount" placeholder="已还金额" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="融资余额（万元）" prop="remainingAmount">
                 <el-input-number class="w" :controls="false" :precision="2" :readonly="true" :disabled="true"
-                  type="number" v-model="remainingCreditAmount" placeholder="请输入融资余额" />
+                  type="number" v-model="remainingCreditAmount" placeholder="融资余额" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -366,13 +366,13 @@
             <el-col :span="8">
               <el-form-item label="保证金（万元）" prop="baozhengjin">
                 <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
-                  :readonly="!isEditable" v-model="form.baozhengjin" placeholder="请输入保证金" />
+                  :readonly="!isEditable" v-model="form.baozhengjin" placeholder="保证金" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="手续费（万元）" prop="shouxufei">
                 <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
-                  :readonly="!isEditable" v-model="form.shouxufei" placeholder="请输入手续费" />
+                  :readonly="!isEditable" v-model="form.shouxufei" placeholder="手续费" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -389,17 +389,17 @@
           <el-row :gutter="20">
             <el-col :span="8">
               <el-form-item label="还贷账户名称" prop="hdzhanghumingcheng">
-                <el-input :disabled="!isEditable" v-model="form.hdzhanghumingcheng" placeholder="请输入还贷账户名称" />
+                <el-input :disabled="!isEditable" v-model="form.hdzhanghumingcheng" placeholder="还贷账户名称" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="还贷账号" prop="hdzhanghao">
-                <el-input :disabled="!isEditable" v-model="form.hdzhanghao" placeholder="请输入还贷账号" />
+                <el-input :disabled="!isEditable" v-model="form.hdzhanghao" placeholder="还贷账号" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="还贷开户行" prop="hdkaihuhang">
-                <el-input :disabled="!isEditable" v-model="form.hdkaihuhang" placeholder="请输入还贷开户行" />
+                <el-input :disabled="!isEditable" v-model="form.hdkaihuhang" placeholder="还贷开户行" />
               </el-form-item>
             </el-col>
 
@@ -459,7 +459,7 @@
             <el-col :span="24">
               <el-form-item label="备注" prop="comment">
                 <el-input :readonly="!isEditable" v-model="form.comment" show-word-limit maxlength="200" type="textarea"
-                  :rows="4" placeholder="请输入备注信息，最多不超过200字" />
+                  :rows="4" placeholder="备注信息，最多不超过200字" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -933,7 +933,7 @@
                 "dataJson": JSON.stringify(data),
                 "tableName": "rz_financing_project",
                 "auditState": "1759514891045044200",
-                "uuid": data.uuid,
+                "uuid": data.uuid,
                 "managementId": data.managementId + "|" + this.formatDateTime()
               }
               if (this.title === '修改融资项目' && this.created_successfully === false && this.isEditable === true) {

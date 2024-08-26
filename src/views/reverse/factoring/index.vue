@@ -6,7 +6,7 @@
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="管理编号" prop="managementId">
-              <el-input v-model="queryParams.managementId" placeholder="请输入管理编号" clearable
+              <el-input v-model="queryParams.managementId" placeholder="管理编号" clearable
                 @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col>
@@ -26,8 +26,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row :gutter="20">
+
           <el-col :span="8">
             <el-form-item label="金融机构" prop="financialInstitution">
               <el-select filterable v-model="queryParams.financialInstitution" placeholder="请选择金融机构" clearable>
@@ -36,55 +35,52 @@
               </el-select>
             </el-form-item>
           </el-col>
+
           <el-col :span="8">
-            <el-form-item label="起止日期" :error="error1">
-              <!-- <el-date-picker clearable v-model="queryParams.startDate" type="date" value-format="yyyy-MM-dd"
-              placeholder="请选择开始日期"></el-date-picker> -->
-              <el-row>
-                <el-col :span="11">
-                  <el-date-picker format='yyyy/MM/dd' clearable v-model="daterangeStartDate1" value-format="yyyy-MM-dd"
-                    type="date" placeholder="请选择起始日"></el-date-picker>
-                </el-col>
-                <el-col :span="2" class="flex fjc">-</el-col>
-                <el-col :span="11">
-                  <el-date-picker format='yyyy/MM/dd' clearable v-model="daterangeDeadline2" value-format="yyyy-MM-dd"
-                    type="date" placeholder="请选择到期日"></el-date-picker>
-                </el-col>
-              </el-row>
+
+            <el-form-item label="出票起止日">
+              <el-date-picker v-model="daterangeStartDate" style="width: 240px" value-format="yyyy-MM-dd"
+                type="daterange" range-separator="-" start-placeholder="点击选择日期"></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="8">
+            <el-form-item label="到期起止日">
+              <el-date-picker v-model="daterangeDeadline" style="width: 240px" value-format="yyyy-MM-dd"
+                type="daterange" range-separator="-" start-placeholder="点击选择日期"></el-date-picker>
+            </el-form-item>
+
+          </el-col>
+
+          <el-col :span="8">
             <el-form-item label="项目名称" prop="entryName">
-              <el-input v-model="queryParams.entryName" placeholder="请输入项目名称" clearable
+              <el-input v-model="queryParams.entryName" placeholder="项目名称" clearable
                 @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row :gutter="20">
 
           <el-col :span="8">
             <el-form-item label="回款账户名称" prop="collectionAccount">
-              <el-input v-model="queryParams.collectionAccount" placeholder="请输入回款账户名称" clearable
+              <el-input v-model="queryParams.collectionAccount" placeholder="回款账户名称" clearable
                 @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col>
-          <!-- <el-col :span="8">
-            <el-form-item label="账号" prop="account">
-              <el-input v-model="queryParams.account" placeholder="请输入账号" />
-            </el-form-item>
-          </el-col>
+
           <el-col :span="8">
-            <el-form-item label="开户行" prop="bank">
-              <el-input v-model="queryParams.bank" placeholder="请输入开户行" />
-            </el-form-item>
-          </el-col> -->
-          <el-col :span="26">
-            <el-form-item class="flex" style="display: flex; justify-content: flex-end;">
-              <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-              <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+            <el-form-item label="过期状态" prop="guoqizhuangtai">
+              <el-select filterable v-model="queryParams.guoqizhuangtai" placeholder="请选择过期状态" clearable>
+                <el-option v-for="dict in dict.type.sys_1827911313532125200" :key="dict.value" :label="dict.label"
+                  :value="dict.label" />
+              </el-select>
             </el-form-item>
           </el-col>
+
         </el-row>
+
+        <el-form-item class="flex" style="display: flex; justify-content: flex-end;">
+          <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
+          <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+        </el-form-item>
+
 
         <!-- <el-row :gutter="20">
           <el-col :span="24">
@@ -165,10 +161,22 @@
           <!-- <dict-tag :options="dict.type.sys_maturity" :value="scope.row.remark" /> -->
         </template>
       </el-table-column>
+
+      <el-table-column label="办理收费" align="center" prop="banlishoufei" min-width="100">
+        <template slot-scope="scope">
+          <span>{{ formatNumberAsRMB(scope.row.banlishoufei) }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="到期收费" align="center" prop="daoqishoufei" min-width="100">
+        <template slot-scope="scope">
+          <span>{{ formatNumberAsRMB(scope.row.daoqishoufei) }}</span>
+        </template>
+      </el-table-column>
+
       <!-- <el-table-column show-overflow-tooltip label="回款账户名称" align="center" prop="collectionAccount" min-width="180" />
       <el-table-column show-overflow-tooltip label="账号" align="center" prop="account" />
       <el-table-column show-overflow-tooltip label="开户行" align="center" prop="bank" /> -->
-      <el-table-column show-overflow-tooltip label="备注" align="center" prop="comment" min-width="200" />
+      <!-- <el-table-column show-overflow-tooltip label="备注" align="center" prop="comment" min-width="200" /> -->
       <!-- <el-table-column label="ID" align="center" prop="id" /> -->
       <el-table-column fixed="right" label="操作" align="center" class-name="''">
         <template slot-scope="scope">
@@ -199,7 +207,7 @@
           <el-row :gutter="20">
             <el-col :span="8">
               <el-form-item label="管理编号" prop="managementId">
-                <el-input :readonly="title === '修改反向保理'" v-model="form.managementId" placeholder="请输入管理编号" />
+                <el-input :readonly="title === '修改反向保理'" v-model="form.managementId" placeholder="管理编号" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -231,12 +239,12 @@
             <el-col :span="8">
               <el-form-item label="放贷金额（万元）" prop="loanAmount">
                 <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
-                  :readonly="!isEditable" type="number" v-model.trim="form.loanAmount" placeholder="请输入放贷金额" />
+                  :readonly="!isEditable" type="number" v-model.trim="form.loanAmount" placeholder="放贷金额" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="项目名称" prop="entryName">
-                <el-input :readonly="!isEditable" v-model="form.entryName" placeholder="请输入项目名称" />
+                <el-input :readonly="!isEditable" v-model="form.entryName" placeholder="项目名称" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -253,9 +261,23 @@
                   type="date" value-format="yyyy-MM-dd" placeholder="请选择结束日期"></el-date-picker>
               </el-form-item>
             </el-col>
+
+            <el-col :span="8">
+              <el-form-item label="办理收费（万元）" prop="banlishoufei">
+                <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
+                  :readonly="!isEditable" type="number" v-model.trim="form.banlishoufei" placeholder="办理收费" />
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="到期收费（万元）" prop="daoqishoufei">
+                <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
+                  :readonly="!isEditable" type="number" v-model.trim="form.daoqishoufei" placeholder="到期收费" />
+              </el-form-item>
+            </el-col>
+
             <el-col :span="8">
               <el-form-item label="回款账户名称" prop="collectionAccount">
-                <el-input :readonly="!isEditable" v-model="form.collectionAccount" placeholder="请输入回款账户名称" />
+                <el-input :readonly="!isEditable" v-model="form.collectionAccount" placeholder="回款账户名称" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -263,21 +285,37 @@
           <el-row :gutter="20">
             <el-col :span="8">
               <el-form-item label="回款账号" prop="account">
-                <el-input :readonly="!isEditable" v-model="form.account" placeholder="请输入回款账号" />
+                <el-input :readonly="!isEditable" v-model="form.account" placeholder="回款账号" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="回款开户行" prop="bank">
-                <el-input :readonly="!isEditable" v-model="form.bank" placeholder="请输入回款开户行" />
+                <el-input :readonly="!isEditable" v-model="form.bank" placeholder="回款开户行" />
               </el-form-item>
             </el-col>
           </el-row>
+
+          <el-row :gutter="20">
+            <el-col :span="8">
+              <el-form-item label="支付利息（万元）" prop="zhifulixi">
+                <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
+                  :readonly="!isEditable" type="number" v-model.trim="form.zhifulixi" placeholder="支付利息" />
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="资金用途" prop="zijinyongtu">
+                <el-input :readonly="!isEditable" v-model="form.zijinyongtu" placeholder="资金用途" />
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+
           <!-- 备注占一行 -->
           <el-row :gutter="20">
             <el-col :span="24">
               <el-form-item label="备注" prop="comment">
                 <el-input :readonly="!isEditable" v-model="form.comment" show-word-limit maxlength="200" type="textarea"
-                  :rows="4" placeholder="请输入备注信息，最多不超过200字" />
+                  :rows="4" placeholder="备注信息，最多不超过200字" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -305,8 +343,7 @@
                   </tiny-grid-column>
                   <tiny-grid-column title="偿还本金" field="changhuanben">
                   </tiny-grid-column>
-                  <tiny-grid-column title="支付利息" field="zhifulixi"
-                    :renderer="renderInput2change('zhifulixi',zhifulixichange)">
+                  <tiny-grid-column title="支付利息" field="zhifulixi">
                   </tiny-grid-column>
                   <tiny-grid-column title="本金剩余">0.00</tiny-grid-column>
                 </tiny-grid>
@@ -373,49 +410,13 @@
 
   export default {
     name: "Factoring",
-    dicts: ['sys_acceptor', 'sys_1757288852172570600', 'sys_1795741368925028400'],
+    dicts: ['sys_acceptor', 'sys_1757288852172570600', 'sys_1795741368925028400', 'sys_1827911313532125200'],
     components: {
       CreateSuccess,
       SearchPanel
     },
     data() {
       return {
-        pickerOptions1: {
-          // 禁用开始日期中，所有大于结束日期的日期
-          disabledDate: (date) => {
-            if (this.form.deadline) {
-              return date.getTime() > new Date(this.form.deadline).getTime();
-            }
-          }
-        },
-        pickerOptions2: {
-          // 禁用结束日期中，所有小于开始日期的日期
-          disabledDate: (date) => {
-            if (this.form.startDate) {
-              // 一天的毫秒数
-              var oneDayInMilliseconds = 24 * 60 * 60 * 1000;
-              return date.getTime() < new Date(this.form.startDate).getTime() - oneDayInMilliseconds;
-            }
-          }
-        },
-        pickerOptions3: {
-          // 禁用开始日期中，所有大于结束日期的日期
-          disabledDate: (date) => {
-            if (this.daterangeDeadline2) {
-              return date.getTime() > new Date(this.daterangeDeadline2).getTime();
-            }
-          }
-        },
-        pickerOptions4: {
-          // 禁用结束日期中，所有小于开始日期的日期
-          disabledDate: (date) => {
-            if (this.daterangeStartDate1) {
-              // 一天的毫秒数
-              var oneDayInMilliseconds = 24 * 60 * 60 * 1000;
-              return date.getTime() < new Date(this.daterangeStartDate1).getTime() - oneDayInMilliseconds;
-            }
-          }
-        },
         isSuccess: true,
         isTitle: true,
         isMessage: true,
@@ -459,8 +460,6 @@
         daterangeStartDate: [],
         // 结束时间范围
         daterangeDeadline: [],
-        daterangeStartDate1: '',
-        daterangeDeadline2: '',
         // 查询参数
         queryParams: {
           pageNum: 1,
@@ -479,7 +478,8 @@
           collectionAccount: null,
           comment: null,
           account: null,
-          bank: null
+          bank: null,
+          guoqizhuangtai: "未过期"
         },
         /* str 需要添加的 */
         scrUuid: null,
@@ -581,32 +581,6 @@
           this.isEditable = true;
         }
       },
-      daterangeStartDate1(n, o) {
-        if (n !== '' && n !== null) {
-          if (this.daterangeDeadline2 === '' || this.daterangeDeadline2 === null) {
-            this.error1 = '到期日不能为空';
-          } else {
-            this.error1 = ''; // 清空错误信息
-          }
-        } else if (this.daterangeDeadline2 === '' || this.daterangeDeadline2 === null) {
-          this.error1 = ''; // 两个日期都为空时，清空错误信息
-        } else {
-          this.error1 = '起始日不能为空';
-        }
-      },
-      daterangeDeadline2(n, o) {
-        if (n !== '' && n !== null) {
-          if (this.daterangeStartDate1 === '' || this.daterangeStartDate1 === null) {
-            this.error1 = '起始日不能为空';
-          } else {
-            this.error1 = ''; // 清空错误信息
-          }
-        } else if (this.daterangeStartDate1 === '' || this.daterangeStartDate1 === null) {
-          this.error1 = ''; // 两个日期都为空时，清空错误信息
-        } else {
-          this.error1 = '到期日不能为空';
-        }
-      },
       'form.deadline'(newVal) {
         this.huankuanmingxi.deadline = newVal;
       },
@@ -616,9 +590,15 @@
         this.form.huankuanjine = (Number(this.huankuanmingxi.loanAmount) + Number(this
           .huankuanmingxi
           .zhifulixi))
-        console.log('form.loanAmount', this.form.huankuanjine);
         this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.huankuanjine * 10000)
-        console.log('this.form.loanAmount', this.form.huankuanjine);
+      },
+
+      'form.zhifulixi'(newVal) {
+        this.huankuanmingxi.zhifulixi = newVal;
+        this.form.huankuanjine = (Number(this.huankuanmingxi.loanAmount) + Number(this
+          .huankuanmingxi
+          .zhifulixi))
+        this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.huankuanjine * 10000)
       },
 
     },
@@ -635,15 +615,7 @@
     },
     methods: {
       renderInput2change,
-      zhifulixichange(value) {
-        // 监听表格内的修改变化
-        console.log('change', value)
-        this.huankuanmingxi.zhifulixi = Number(value.toFixed(2))
-        this.form.huankuanjine = (Number(this.huankuanmingxi.loanAmount) + Number(this
-          .huankuanmingxi
-          .zhifulixi))
-        this.huankuanmingxi.huankuanjine = this.form.huankuanjine = this.formatNumberAsRMB(this.form.huankuanjine * 10000)
-      },
+
       /* 创建成功关闭弹窗 */
       closeDialog() {
         this.open = false;
@@ -661,22 +633,19 @@
       getList() {
         this.loading = true;
         this.queryParams.params = {};
-        // if (null != this.daterangeStartDate && '' != this.daterangeStartDate) {
-        //   this.queryParams.params["beginStartDate"] = this.daterangeStartDate[0];
-        //   this.queryParams.params["endStartDate"] = this.daterangeStartDate[1];
-        // }
-        // if (null != this.daterangeDeadline && '' != this.daterangeDeadline) {
-        //   this.queryParams.params["beginDeadline"] = this.daterangeDeadline[0];
-        //   this.queryParams.params["endDeadline"] = this.daterangeDeadline[1];
-        // }
+        if (null != this.daterangeStartDate && '' != this.daterangeStartDate) {
+          this.queryParams.params["beginStartDate"] = this.daterangeStartDate[0];
+          this.queryParams.params["endStartDate"] = this.daterangeStartDate[1];
+        }
+        if (null != this.daterangeDeadline && '' != this.daterangeDeadline) {
+          this.queryParams.params["beginDeadline"] = this.daterangeDeadline[0];
+          this.queryParams.params["endDeadline"] = this.daterangeDeadline[1];
+        }
 
-        if (![null, undefined, ''].includes(this.daterangeStartDate1) && ![null, undefined, ''].includes(this
-            .daterangeDeadline2)) {
-          this.queryParams.params["beginStartDate"] = this.daterangeStartDate1;
-          this.queryParams.params["endStartDate"] = this.daterangeDeadline2;
-
-          this.queryParams.params["beginDeadline"] = this.daterangeStartDate1;
-          this.queryParams.params["endDeadline"] = this.daterangeDeadline2;
+        if (undefined != this.queryParams.guoqizhuangtai && null != this.queryParams.guoqizhuangtai && '' != this
+          .queryParams
+          .guoqizhuangtai) {
+          this.queryParams.params["guoqizhuangtai"] = this.queryParams.guoqizhuangtai
         }
 
         this.queryParams['orderByColumn'] = 'deadline'
@@ -769,15 +738,18 @@
           /* end */
           this.rzsrc2List = response.data.rzsrc2List;
 
-          // 还款计划 单位需要处理 10000
+          // 还款计划 金额回显需要  /10000
           this.huankuanmingxi.riqi = this.form.deadline
-          this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.huankuanjine)
           this.huankuanmingxi.changhuanben = this.formatNumberAsRMB(this.form.loanAmount)
           this.huankuanmingxi.zhifulixi = this.formatNumberAsRMB(this.form.zhifulixi)
+          this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.loanAmount + this.form.zhifulixi)
           this.huankuanmingxidata = [this.huankuanmingxi]
 
-          // 金额需要 / 10000
+          // 金额回显需要 /10000
           this.form.loanAmount = Number(this.form.loanAmount) / 10000;
+          this.form.zhifulixi = Number(this.form.zhifulixi) / 10000;
+          this.form.daoqishoufei = Number(this.form.daoqishoufei) / 10000;
+          this.form.banlishoufei = Number(this.form.banlishoufei) / 10000;
 
           this.open = true;
           this.title = "修改反向保理";
@@ -792,8 +764,10 @@
             const data = JSON.parse(JSON.stringify(this.form))
 
             this.rzaudit_data = null;
-
             // 金额需要 * 10000
+            data.daoqishoufei = Number(data.daoqishoufei) * 10000;
+            data.banlishoufei = Number(data.banlishoufei) * 10000;
+
             data.loanAmount = Number(data.loanAmount) * 10000;
             data.zhifulixi = Number(data.zhifulixi) * 10000;
             data.huankuanjine = Number(data.huankuanjine) * 10000;
@@ -814,7 +788,7 @@
               "lilv": "",
               "comment": null
             }]
-            console.log(data.huankuanmingxi2List);
+            // console.log(data.huankuanmingxi2List);
             if (this.form.id != null) {
               data.scrUuid = Number(this.scrUuid);
               this.rzaudit_data = {

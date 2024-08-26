@@ -4,7 +4,7 @@
       <el-form-item label="岗位编码" prop="postCode">
         <el-input
           v-model="queryParams.postCode"
-          placeholder="请输入岗位编码"
+          placeholder="岗位编码"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -12,7 +12,7 @@
       <el-form-item label="岗位名称" prop="postName">
         <el-input
           v-model="queryParams.postName"
-          placeholder="请输入岗位名称"
+          placeholder="岗位名称"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -127,10 +127,10 @@
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="岗位名称" prop="postName">
-          <el-input v-model="form.postName" placeholder="请输入岗位名称" />
+          <el-input v-model="form.postName" placeholder="岗位名称" />
         </el-form-item>
         <el-form-item label="岗位编码" prop="postCode">
-          <el-input v-model="form.postCode" placeholder="请输入编码名称" />
+          <el-input v-model="form.postCode" placeholder="编码名称" />
         </el-form-item>
         <el-form-item label="岗位顺序" prop="postSort">
           <el-input-number v-model="form.postSort" controls-position="right" :min="0" />
@@ -145,7 +145,7 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="备注" prop="remark">
-          <el-input v-model="form.remark" type="textarea" placeholder="请输入内容" />
+          <el-input v-model="form.remark" type="textarea" placeholder="内容" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">

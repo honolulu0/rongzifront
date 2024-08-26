@@ -4,7 +4,7 @@
       <el-form-item label="基本信息id外键" prop="basicDataId">
         <el-input
           v-model="queryParams.basicDataId"
-          placeholder="请输入基本信息id外键"
+          placeholder="基本信息id外键"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -12,7 +12,7 @@
       <el-form-item label="子信息名称" prop="childName">
         <el-input
           v-model="queryParams.childName"
-          placeholder="请输入子信息名称"
+          placeholder="子信息名称"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -28,7 +28,7 @@
       <el-form-item label="创建人" prop="childCreatedBy">
         <el-input
           v-model="queryParams.childCreatedBy"
-          placeholder="请输入创建人"
+          placeholder="创建人"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -128,10 +128,10 @@
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="基本信息id外键" prop="basicDataId">
-          <el-input v-model="form.basicDataId" placeholder="请输入基本信息id外键" />
+          <el-input v-model="form.basicDataId" placeholder="基本信息id外键" />
         </el-form-item>
         <el-form-item label="子信息名称" prop="childName">
-          <el-input v-model="form.childName" placeholder="请输入子信息名称" />
+          <el-input v-model="form.childName" placeholder="子信息名称" />
         </el-form-item>
         <el-form-item label="创建时间" prop="childCreateTime">
           <el-date-picker format='yyyy/MM/dd' clearable
@@ -142,7 +142,7 @@
           </el-date-picker>
         </el-form-item>
         <el-form-item label="创建人" prop="childCreatedBy">
-          <el-input v-model="form.childCreatedBy" placeholder="请输入创建人" />
+          <el-input v-model="form.childCreatedBy" placeholder="创建人" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">

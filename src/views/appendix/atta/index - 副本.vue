@@ -4,7 +4,7 @@
       <el-form-item label="url地址" prop="url">
         <el-input
           v-model="queryParams.url"
-          placeholder="请输入url地址"
+          placeholder="url地址"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -12,7 +12,7 @@
       <el-form-item label="数据唯一编号" prop="scrUuid">
         <el-input
           v-model="queryParams.scrUuid"
-          placeholder="请输入数据唯一编号"
+          placeholder="数据唯一编号"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -20,7 +20,7 @@
       <el-form-item label="各个项目管理编号" prop="projectManagementId">
         <el-input
           v-model="queryParams.projectManagementId"
-          placeholder="请输入各个项目管理编号"
+          placeholder="各个项目管理编号"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -28,7 +28,7 @@
       <el-form-item label="种类筛选：下拉" prop="type">
         <el-input
           v-model="queryParams.type"
-          placeholder="请输入种类筛选：下拉"
+          placeholder="种类筛选：下拉"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -46,19 +46,19 @@
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="管理编号" prop="projectManagementId">
-              <el-input v-model="queryParams.projectManagementId" placeholder="请输入各个项目管理编号" clearable
+              <el-input v-model="queryParams.projectManagementId" placeholder="各个项目管理编号" clearable
                 @keyup.enter.native="handleQuery"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="关键字" prop="url">
-              <el-input v-model="queryParams.url" placeholder="请输入关键字" clearable
+              <el-input v-model="queryParams.url" placeholder="关键字" clearable
                 @keyup.enter.native="handleQuery"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="种类" prop="type">
-              <!-- <el-input v-model="queryParams.type" placeholder="请输入种类筛选：下拉" clearable
+              <!-- <el-input v-model="queryParams.type" placeholder="种类筛选：下拉" clearable
               @keyup.enter.native="handleQuery"></el-input> -->
               <el-select filterable v-model="queryParams.type" clearable placeholder="请选择">
                 <el-option v-for="item in tooGens" :key="item.value" :label="item.name"
@@ -150,16 +150,16 @@
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="url地址" prop="url">
-          <el-input v-model="form.url" placeholder="请输入url地址" />
+          <el-input v-model="form.url" placeholder="url地址" />
         </el-form-item>
         <el-form-item label="数据唯一编号" prop="scrUuid">
-          <el-input v-model="form.scrUuid" placeholder="请输入数据唯一编号" />
+          <el-input v-model="form.scrUuid" placeholder="数据唯一编号" />
         </el-form-item>
         <el-form-item label="各个项目管理编号" prop="projectManagementId">
-          <el-input v-model="form.projectManagementId" placeholder="请输入各个项目管理编号" />
+          <el-input v-model="form.projectManagementId" placeholder="各个项目管理编号" />
         </el-form-item>
         <el-form-item label="种类筛选：下拉" prop="type">
-          <el-input v-model="form.type" placeholder="请输入种类筛选：下拉" />
+          <el-input v-model="form.type" placeholder="种类筛选：下拉" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">

@@ -7,7 +7,7 @@
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="管理编号" prop="managementId">
-              <el-input v-model="queryParams.managementId" placeholder="请输入管理编号" clearable
+              <el-input v-model="queryParams.managementId" placeholder="管理编号" clearable
                 @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col>
@@ -63,7 +63,7 @@
           </el-col>
           <!-- <el-col :span="8">
             <el-form-item label="交易合同号码" prop="contractNumber">
-              <el-input v-model="queryParams.contractNumber" placeholder="请输入合同号码" clearable
+              <el-input v-model="queryParams.contractNumber" placeholder="合同号码" clearable
                 @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col> -->
@@ -116,7 +116,7 @@
             <el-col :span="8">
               <el-form-item label="贴现手续费" prop="discountedHandlingFee">
                 <el-input-number  class="w" :controls="false" :precision="2"
-                   v-model.trim="queryParams.discountedHandlingFee" placeholder="请输入贴现手续费" />
+                   v-model.trim="queryParams.discountedHandlingFee" placeholder="贴现手续费" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -124,7 +124,7 @@
           <el-row :gutter="20">
             <el-col :span="8">
               <el-form-item label="贴现费用承担情况" prop="assumptionOfDiscountFees">
-                <el-input v-model.trim="queryParams.assumptionOfDiscountFees" placeholder="请输入贴现费用承担情况" />
+                <el-input v-model.trim="queryParams.assumptionOfDiscountFees" placeholder="贴现费用承担情况" />
               </el-form-item>
             </el-col>
           </el-row> -->
@@ -246,7 +246,7 @@
           <el-row :gutter="20">
             <el-col :span="8">
               <el-form-item label="商业承兑管理编号" prop="managementId">
-                <el-input :readonly="title === '修改商业承兑汇票'" v-model="form.managementId" placeholder="请输入商业承兑管理编号" />
+                <el-input :readonly="title === '修改商业承兑汇票'" v-model="form.managementId" placeholder="商业承兑管理编号" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -270,7 +270,7 @@
             <el-col :span="8">
               <el-form-item label="出票金额（万元）" prop="invoiceAmount">
                 <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
-                  :readonly="!isEditable" type="number" v-model.trim="form.invoiceAmount" placeholder="请输入出票金额" />
+                  :readonly="!isEditable" type="number" v-model.trim="form.invoiceAmount" placeholder="出票金额" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -289,7 +289,7 @@
           <el-row :gutter="20">
             <!-- <el-col :span="8">
               <el-form-item label="交易合同号码" prop="contractNumber">
-                <el-input :readonly="!isEditable" v-model="form.contractNumber" placeholder="请输入合同号码" />
+                <el-input :readonly="!isEditable" v-model="form.contractNumber" placeholder="合同号码" />
               </el-form-item>
             </el-col> -->
             <el-col :span="8">
@@ -326,14 +326,14 @@
             <el-col :span="8">
               <el-form-item label="贴现手续费（万元）" prop="discountedHandlingFee">
                 <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
-                  :readonly="!isEditable" v-model.trim="form.discountedHandlingFee" placeholder="请输入贴现手续费" />
+                  :readonly="!isEditable" v-model.trim="form.discountedHandlingFee" placeholder="贴现手续费" />
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item label="贴现费用承担情况" prop="assumptionOfDiscountFees">
                 <el-input :readonly="!isEditable" type="textarea" v-model.trim="form.assumptionOfDiscountFees"
-                  placeholder="请输入贴现费用承担情况" />
+                  placeholder="贴现费用承担情况" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -344,7 +344,7 @@
             <el-col :span="24">
               <el-form-item label="备注" prop="comment">
                 <el-input :readonly="!isEditable" v-model="form.comment" show-word-limit maxlength="200" type="textarea"
-                  :rows="4" placeholder="请输入备注信息，最多不超过200字" />
+                  :rows="4" placeholder="备注信息，最多不超过200字" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -840,7 +840,7 @@
                 "dataJson": JSON.stringify(data),
                 "tableName": "rz_business_accept_bill",
                 "auditState": "1759514891045044200",
-                "uuid": data.uuid,
+                "uuid": data.uuid,
                 "managementId": data.managementId + "|" + this.formatDateTime()
               }
               if (this.title === '修改商业承兑汇票' && this.created_successfully === false && this.isEditable === true) {

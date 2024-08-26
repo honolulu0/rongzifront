@@ -4,7 +4,7 @@
       <el-form-item label="审核id" prop="auditId">
         <el-input
           v-model="queryParams.auditId"
-          placeholder="请输入审核id"
+          placeholder="审核id"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -12,7 +12,7 @@
       <el-form-item label="数据唯一编号" prop="scrUuid">
         <el-input
           v-model="queryParams.scrUuid"
-          placeholder="请输入数据唯一编号"
+          placeholder="数据唯一编号"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -20,7 +20,7 @@
       <el-form-item label="创建人" prop="createBy">
         <el-input
           v-model="queryParams.createBy"
-          placeholder="请输入创建人"
+          placeholder="创建人"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -28,7 +28,7 @@
       <el-form-item label="父级表名" prop="tableName">
         <el-input
           v-model="queryParams.tableName"
-          placeholder="请输入父级表名"
+          placeholder="父级表名"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -155,16 +155,16 @@
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="审核id" prop="auditId">
-          <el-input v-model="form.auditId" placeholder="请输入审核id" />
+          <el-input v-model="form.auditId" placeholder="审核id" />
         </el-form-item>
         <el-form-item label="数据唯一编号" prop="scrUuid">
-          <el-input v-model="form.scrUuid" placeholder="请输入数据唯一编号" />
+          <el-input v-model="form.scrUuid" placeholder="数据唯一编号" />
         </el-form-item>
         <el-form-item label="数据json文件" prop="dataJson">
-          <el-input v-model="form.dataJson" type="textarea" placeholder="请输入内容" />
+          <el-input v-model="form.dataJson" type="textarea" placeholder="内容" />
         </el-form-item>
         <el-form-item label="父级表名" prop="tableName">
-          <el-input v-model="form.tableName" placeholder="请输入父级表名" />
+          <el-input v-model="form.tableName" placeholder="父级表名" />
         </el-form-item>
         <el-form-item label="审核状态：待审批、审批不通过、审批通过、已撤回" prop="auditState">
           <el-select filterable v-model="form.auditState" placeholder="请选择审核状态：待审批、审批不通过、审批通过、已撤回">

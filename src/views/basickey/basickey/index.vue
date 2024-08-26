@@ -4,7 +4,7 @@
       <el-form-item label="基本信息名称" prop="basicName">
         <el-input
           v-model="queryParams.basicName"
-          placeholder="请输入基本信息名称"
+          placeholder="基本信息名称"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -20,7 +20,7 @@
       <el-form-item label="创建人" prop="basicDataCreatorBy">
         <el-input
           v-model="queryParams.basicDataCreatorBy"
-          placeholder="请输入创建人"
+          placeholder="创建人"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -119,7 +119,7 @@
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="基本信息名称" prop="basicName">
-          <el-input v-model="form.basicName" placeholder="请输入基本信息名称" />
+          <el-input v-model="form.basicName" placeholder="基本信息名称" />
         </el-form-item>
         <el-form-item label="创建时间" prop="basicDataTime">
           <el-date-picker format='yyyy/MM/dd' clearable
@@ -130,7 +130,7 @@
           </el-date-picker>
         </el-form-item>
         <el-form-item label="创建人" prop="basicDataCreatorBy">
-          <el-input v-model="form.basicDataCreatorBy" placeholder="请输入创建人" />
+          <el-input v-model="form.basicDataCreatorBy" placeholder="创建人" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">

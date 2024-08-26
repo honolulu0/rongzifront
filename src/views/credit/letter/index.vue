@@ -6,13 +6,13 @@
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="管理编号" prop="managementId">
-              <el-input v-model="queryParams.managementId" placeholder="请输入管理编号" clearable
+              <el-input v-model="queryParams.managementId" placeholder="管理编号" clearable
                 @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="信用证号码" prop="creditNumber">
-              <el-input v-model="queryParams.creditNumber" placeholder="请输入信用证号码" clearable
+              <el-input v-model="queryParams.creditNumber" placeholder="信用证号码" clearable
                 @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col>
@@ -186,18 +186,18 @@
           <el-row :gutter="20">
             <el-col :span="8">
               <el-form-item label="管理编号" prop="managementId">
-                <el-input :readonly="title === '修改信用证'" v-model="form.managementId" placeholder="请输入管理编号" />
+                <el-input :readonly="title === '修改信用证'" v-model="form.managementId" placeholder="管理编号" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="信用证号码" prop="creditNumber">
-                <el-input :readonly="!isEditable" v-model="form.creditNumber" placeholder="请输入信用证号码" />
+                <el-input :readonly="!isEditable" v-model="form.creditNumber" placeholder="信用证号码" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="开证金额（万元）" prop="issuingAmount">
                 <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
-                  :readonly="!isEditable" type="number" v-model.trim="form.issuingAmount" placeholder="请输入开证金额" />
+                  :readonly="!isEditable" type="number" v-model.trim="form.issuingAmount" placeholder="开证金额" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -247,7 +247,7 @@
             <el-col :span="24">
               <el-form-item label="备注" prop="comment">
                 <el-input :readonly="!isEditable" v-model="form.comment" show-word-limit maxlength="200" type="textarea"
-                  :rows="4" placeholder="请输入备注信息，最多不超过200字" />
+                  :rows="4" placeholder="备注信息，最多不超过200字" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -671,7 +671,7 @@ export default {
               "dataJson": JSON.stringify(data),
               "tableName": "rz_credit_letter",
               "auditState": "1759514891045044200",
-              "uuid": data.uuid,
+              "uuid": data.uuid,
                 "managementId": data.managementId + "|" + this.formatDateTime()
             }
             if (this.title === '修改信用证' && this.created_successfully === false && this.isEditable === true) {

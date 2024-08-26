@@ -23,7 +23,7 @@
             >
               <el-input
                 v-model="formData.label"
-                placeholder="请输入选项名"
+                placeholder="选项名"
                 clearable
               />
             </el-form-item>
@@ -35,7 +35,7 @@
             >
               <el-input
                 v-model="formData.value"
-                placeholder="请输入选项值"
+                placeholder="选项值"
                 clearable
               >
                 <el-select filterable
@@ -88,14 +88,14 @@ export default {
         label: [
           {
             required: true,
-            message: '请输入选项名',
+            message: '选项名',
             trigger: 'blur'
           }
         ],
         value: [
           {
             required: true,
-            message: '请输入选项值',
+            message: '选项值',
             trigger: 'blur'
           }
         ]

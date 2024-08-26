@@ -4,7 +4,7 @@
       <el-form-item label="公告标题" prop="noticeTitle">
         <el-input
           v-model="queryParams.noticeTitle"
-          placeholder="请输入公告标题"
+          placeholder="公告标题"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -12,7 +12,7 @@
       <el-form-item label="操作人员" prop="createBy">
         <el-input
           v-model="queryParams.createBy"
-          placeholder="请输入操作人员"
+          placeholder="操作人员"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -128,7 +128,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="公告标题" prop="noticeTitle">
-              <el-input v-model="form.noticeTitle" placeholder="请输入公告标题" />
+              <el-input v-model="form.noticeTitle" placeholder="公告标题" />
             </el-form-item>
           </el-col>
           <el-col :span="12">

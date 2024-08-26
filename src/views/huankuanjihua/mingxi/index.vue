@@ -6,7 +6,7 @@
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="管理编号" prop="managerId">
-              <el-input v-model="queryParams.managerId" placeholder="请输入管理编号" clearable
+              <el-input v-model="queryParams.managerId" placeholder="管理编号" clearable
                 @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col>
@@ -109,10 +109,10 @@
     <el-dialog :title="title" :visible.sync="open" min-width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="还款计划对应项目的管理编号" prop="managerId">
-          <el-input v-model="form.managerId" placeholder="请输入还款计划对应项目的管理编号" />
+          <el-input v-model="form.managerId" placeholder="还款计划对应项目的管理编号" />
         </el-form-item>
         <el-form-item label="期数" prop="qishu">
-          <el-input v-model="form.qishu" placeholder="请输入期数" />
+          <el-input v-model="form.qishu" placeholder="期数" />
         </el-form-item>
         <el-form-item label="日期" prop="riqi">
           <el-date-picker format='yyyy/MM/dd' clearable v-model="form.riqi" type="date" value-format="yyyy-MM-dd"
@@ -120,19 +120,19 @@
           </el-date-picker>
         </el-form-item>
         <el-form-item label="还款金额" prop="huankuanjine">
-          <el-input v-model="form.huankuanjine" placeholder="请输入还款金额" />
+          <el-input v-model="form.huankuanjine" placeholder="还款金额" />
         </el-form-item>
         <el-form-item label="偿还本金" prop="changhuanben">
-          <el-input v-model="form.changhuanben" placeholder="请输入偿还本金" />
+          <el-input v-model="form.changhuanben" placeholder="偿还本金" />
         </el-form-item>
         <el-form-item label="支付利息" prop="zhifulixi">
-          <el-input v-model="form.zhifulixi" placeholder="请输入支付利息" />
+          <el-input v-model="form.zhifulixi" placeholder="支付利息" />
         </el-form-item>
         <el-form-item label="本金剩余" prop="benjinshengyu">
-          <el-input v-model="form.benjinshengyu" placeholder="请输入本金剩余" />
+          <el-input v-model="form.benjinshengyu" placeholder="本金剩余" />
         </el-form-item>
         <el-form-item label="备注" prop="comment">
-          <el-input v-model="form.comment" type="textarea" placeholder="请输入内容" />
+          <el-input v-model="form.comment" type="textarea" placeholder="内容" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">

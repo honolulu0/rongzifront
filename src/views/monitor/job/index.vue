@@ -4,7 +4,7 @@
       <el-form-item label="任务名称" prop="jobName">
         <el-input
           v-model="queryParams.jobName"
-          placeholder="请输入任务名称"
+          placeholder="任务名称"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -157,7 +157,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="任务名称" prop="jobName">
-              <el-input v-model="form.jobName" placeholder="请输入任务名称" />
+              <el-input v-model="form.jobName" placeholder="任务名称" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -185,12 +185,12 @@
                   <i class="el-icon-question"></i>
                 </el-tooltip>
               </span>
-              <el-input v-model="form.invokeTarget" placeholder="请输入调用目标字符串" />
+              <el-input v-model="form.invokeTarget" placeholder="调用目标字符串" />
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="cron表达式" prop="cronExpression">
-              <el-input v-model="form.cronExpression" placeholder="请输入cron执行表达式">
+              <el-input v-model="form.cronExpression" placeholder="cron执行表达式">
                 <template slot="append">
                   <el-button type="primary" @click="handleShowCron">
                     生成表达式

@@ -6,7 +6,7 @@
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="管理编号" prop="managementId">
-              <el-input v-model="queryParams.managementId" placeholder="请输入授信管理编号" clearable
+              <el-input v-model="queryParams.managementId" placeholder="授信管理编号" clearable
                 @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col>
@@ -52,7 +52,7 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="授信有效期（月）" prop="creditCycle">
-              <el-input v-model="queryParams.creditCycle" placeholder="请输入授信有效期" clearable
+              <el-input v-model="queryParams.creditCycle" placeholder="授信有效期" clearable
                 @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col>
@@ -197,13 +197,13 @@
           <el-row :gutter="20">
             <el-col :span="8">
               <el-form-item label="管理编号" prop="managementId">
-                <el-input :readonly="title === '修改授信管理'" v-model="form.managementId" placeholder="请输入管理编号" />
+                <el-input :readonly="title === '修改授信管理'" v-model="form.managementId" placeholder="管理编号" />
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item label="借款人" prop="creditor">
-                <el-input :readonly="!isEditable" v-model="form.creditor" placeholder="请输入借款人" />
+                <el-input :readonly="!isEditable" v-model="form.creditor" placeholder="借款人" />
               </el-form-item>
             </el-col>
 
@@ -230,14 +230,14 @@
 
             <el-col :span="8">
               <el-form-item label="项目名称" prop="creditDetail">
-                <el-input :readonly="!isEditable" v-model="form.creditDetail" placeholder="请输入项目名称" />
+                <el-input :readonly="!isEditable" v-model="form.creditDetail" placeholder="项目名称" />
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item label="授信金额（万元）" prop="creditAmount">
                 <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
-                  :readonly="!isEditable" type="number" v-model.trim="form.creditAmount" placeholder="请输入授信金额" />
+                  :readonly="!isEditable" type="number" v-model.trim="form.creditAmount" placeholder="授信金额" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -246,14 +246,14 @@
             <el-col :span="8">
               <el-form-item label="已用授信金额（万元）" prop="usedCreditAmount">
                 <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
-                  :readonly="!isEditable" type="number" v-model.trim="form.usedCreditAmount" placeholder="请输入已用授信金额" />
+                  :readonly="!isEditable" type="number" v-model.trim="form.usedCreditAmount" placeholder="已用授信金额" />
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item label="授信余额（万元）" prop="remainingCreditAmount">
                 <el-input-number class="w" :controls="false" :precision="2" :readonly="true" :disabled="true"
-                  type="number" v-model.trim="remainingCreditAmount" placeholder="请输入剩余授信金额" />
+                  type="number" v-model.trim="remainingCreditAmount" placeholder="剩余授信金额" />
               </el-form-item>
             </el-col>
 
@@ -283,7 +283,7 @@
 
             <el-col :span="8">
               <el-form-item label="授信有效期（月）" prop="creditCycle">
-                <el-input :disabled="true" :readonly="true" v-model="creditCycle" placeholder="请输入授信有效期" />
+                <el-input :disabled="true" :readonly="true" v-model="creditCycle" placeholder="授信有效期" />
               </el-form-item>
             </el-col>
 
@@ -293,7 +293,7 @@
           <!-- 备注和附件单独处理，不包含在三列布局中 -->
           <el-form-item label="备注" prop="comment">
             <el-input :readonly="!isEditable" v-model="form.comment" show-word-limit maxlength="200" type="textarea"
-              :rows="4" placeholder="请输入备注信息，最多不超过200字" />
+              :rows="4" placeholder="备注信息，最多不超过200字" />
           </el-form-item>
 
           <el-form-item label="附件" prop="scrUuid">
@@ -827,7 +827,7 @@
                 "dataJson": JSON.stringify(data),
                 "tableName": "rz_credit_management",
                 "auditState": "1759514891045044200",
-                "uuid": data.uuid,
+                "uuid": data.uuid,
                 "managementId": data.managementId + "|" + this.formatDateTime()
               }
               if (this.title === '修改授信管理' && this.created_successfully === false && this.isEditable === true) {

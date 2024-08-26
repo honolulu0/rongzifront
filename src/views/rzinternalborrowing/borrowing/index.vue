@@ -7,14 +7,14 @@
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="管理编号" prop="managementId">
-              <el-input v-model="queryParams.managementId" placeholder="请输入管理编号" clearable
+              <el-input v-model="queryParams.managementId" placeholder="管理编号" clearable
                 @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="借款金额（万元）" prop="loanAmount">
               <el-input-number class="w" :controls="false" :precision="2" type="number"
-                v-model.trim="queryParams.loanAmount" placeholder="请输入借款金额" clearable @keyup.enter.native="handleQuery" />
+                v-model.trim="queryParams.loanAmount" placeholder="借款金额" clearable @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -38,13 +38,13 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="借款期限" prop="loanTerm">
-              <el-input v-model="queryParams.loanTerm" placeholder="请输入借款期限" clearable
+              <el-input v-model="queryParams.loanTerm" placeholder="借款期限" clearable
                 @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="利率" prop="rate">
-              <el-input v-model="queryParams.rate" placeholder="请输入利率" clearable @keyup.enter.native="handleQuery" />
+              <el-input v-model="queryParams.rate" placeholder="利率" clearable @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -52,7 +52,7 @@
         <el-row :gutter="20">
           <!-- <el-col :span="8">
             <el-form-item label="合同编号" prop="contractId">
-              <el-input v-model="queryParams.contractId" placeholder="请输入合同编号" clearable
+              <el-input v-model="queryParams.contractId" placeholder="合同编号" clearable
                 @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col> -->
@@ -196,13 +196,13 @@
           <el-row :gutter="20">
             <el-col :span="8">
               <el-form-item label="管理编号" prop="managementId">
-                <el-input :readonly="title === '修改内部借款'" v-model="form.managementId" placeholder="请输入管理编号" />
+                <el-input :readonly="title === '修改内部借款'" v-model="form.managementId" placeholder="管理编号" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="借款金额（万元）" prop="loanAmount">
                 <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2" :readonly="!isEditable" type="number"
-                  v-model.trim="form.loanAmount" placeholder="请输入借款金额" />
+                  v-model.trim="form.loanAmount" placeholder="借款金额" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -252,13 +252,13 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="借款期限" prop="loanTerm">
-                <!-- <el-input :readonly="!isEditable" v-model="form.loanTerm" placeholder="请输入借款期限" /> -->
-                <el-input :disabled="true" :readonly="true" v-model="creditCycle" placeholder="请输入借款期限" />
+                <!-- <el-input :readonly="!isEditable" v-model="form.loanTerm" placeholder="借款期限" /> -->
+                <el-input :disabled="true" :readonly="true" v-model="creditCycle" placeholder="借款期限" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="利率" prop="rate">
-                <el-input :readonly="!isEditable" v-model="rate" placeholder="请输入利率" />
+                <el-input :readonly="!isEditable" v-model="rate" placeholder="利率" />
               </el-form-item>
             </el-col>
 
@@ -267,7 +267,7 @@
           <el-row :gutter="20">
             <!-- <el-col :span="8">
               <el-form-item label="合同编号" prop="contractId">
-                <el-input :readonly="!isEditable" v-model="form.contractId" placeholder="请输入合同编号" />
+                <el-input :readonly="!isEditable" v-model="form.contractId" placeholder="合同编号" />
               </el-form-item>
             </el-col> -->
             <el-col :span="8">
@@ -294,7 +294,7 @@
             <el-col :span="24">
               <el-form-item label="备注" prop="comment">
                 <el-input :readonly="!isEditable" v-model="form.comment" show-word-limit maxlength="200" type="textarea"
-                  :rows="4" placeholder="请输入备注信息，最多不超过200字" />
+                  :rows="4" placeholder="备注信息，最多不超过200字" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -704,7 +704,7 @@ export default {
               "dataJson": JSON.stringify(data),
               "tableName": "rz_internal_borrowing",
               "auditState": "1759514891045044200",
-              "uuid": data.uuid,
+              "uuid": data.uuid,
                 "managementId": data.managementId + "|" + this.formatDateTime()
             }
             if (this.title === '修改内部借款' && this.created_successfully === false && this.isEditable === true) {

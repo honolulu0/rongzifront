@@ -5,13 +5,13 @@
         <el-row :gutter="20">
           <!-- <el-col :span="8">
             <el-form-item label="管理编号" prop="managementId">
-              <el-input v-model="queryParams.managementId" placeholder="请输入管理编号" clearable
+              <el-input v-model="queryParams.managementId" placeholder="管理编号" clearable
                 @keyup.enter.native="handleQuery"></el-input>
             </el-form-item>
           </el-col> -->
           <!-- <el-col :span="8">
             <el-form-item label="担保合同编号" prop="contractId">
-              <el-input v-model="queryParams.contractId" placeholder="请输入担保合同编号" clearable
+              <el-input v-model="queryParams.contractId" placeholder="担保合同编号" clearable
                 @keyup.enter.native="handleQuery"></el-input>
             </el-form-item>
           </el-col> -->
@@ -53,13 +53,13 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="担保金额（万元）" prop="guaranteeAmount">
-              <el-input type="number" v-model.trim="queryParams.guaranteeAmount" placeholder="请输入担保金额" clearable
+              <el-input type="number" v-model.trim="queryParams.guaranteeAmount" placeholder="担保金额" clearable
                 @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="担保余额（万元）" prop="guaranteeBalance">
-              <el-input type="number" v-model.trim="queryParams.guaranteeBalance" placeholder="请输入担保余额" clearable
+              <el-input type="number" v-model.trim="queryParams.guaranteeBalance" placeholder="担保余额" clearable
                 @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col>
@@ -113,7 +113,7 @@
           </el-col>
           <!-- <el-col :span="8">
             <el-form-item label="融资金额（万元）" prop="financingAmount">
-              <el-input-number class="w" :controls="false" :precision="2" v-model.trim="queryParams.financingAmount" placeholder="请输入融资金额" clearable
+              <el-input-number class="w" :controls="false" :precision="2" v-model.trim="queryParams.financingAmount" placeholder="融资金额" clearable
                 @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col> -->
@@ -121,7 +121,7 @@
           <!-- Column 2: 担保比例 -->
           <!-- <el-col :span="8">
             <el-form-item label="担保比例" prop="guaranteeRatio">
-              <el-input-number class="w" :controls="false" :precision="2" v-model.trim="queryParams.guaranteeRatio" placeholder="请输入担保比例" clearable
+              <el-input-number class="w" :controls="false" :precision="2" v-model.trim="queryParams.guaranteeRatio" placeholder="担保比例" clearable
                 @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col> -->
@@ -136,7 +136,7 @@
         <el-row :gutter="20">
           <!-- <el-col :span="8">
             <el-form-item label="贷款用途" prop="purposeOfLoan">
-              <el-input v-model.trim="queryParams.purposeOfLoan" placeholder="请输入贷款用途" clearable
+              <el-input v-model.trim="queryParams.purposeOfLoan" placeholder="贷款用途" clearable
                 @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col> -->
@@ -285,12 +285,12 @@
           <el-row :gutter="20">
             <!-- <el-col :span="8">
               <el-form-item label="管理编号" prop="managementId">
-                <el-input :readonly="title === '修改对内担保台账'" v-model="form.managementId" placeholder="请输入管理编号" />
+                <el-input :readonly="title === '修改对内担保台账'" v-model="form.managementId" placeholder="管理编号" />
               </el-form-item>
             </el-col> -->
             <!-- <el-col :span="8">
               <el-form-item label="担保合同编号" prop="contractId">
-                <el-input :readonly="!isEditable" v-model="form.contractId" placeholder="请输入担保合同编号" />
+                <el-input :readonly="!isEditable" v-model="form.contractId" placeholder="担保合同编号" />
               </el-form-item>
             </el-col> -->
             <el-col :span="8">
@@ -332,7 +332,7 @@
             <el-col :span="8">
               <el-form-item label="融资金额（万元）" prop="financingAmount">
                 <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
-                  :readonly="!isEditable" type="number" v-model.trim="form.financingAmount" placeholder="请输入融资金额"
+                  :readonly="!isEditable" type="number" v-model.trim="form.financingAmount" placeholder="融资金额"
                   clearable />
               </el-form-item>
             </el-col>
@@ -340,7 +340,7 @@
             <el-col :span="8">
               <el-form-item label="担保比例" prop="guaranteeRatio">
                 <!-- <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
-                  :readonly="!isEditable" type="number"  v-model.trim="form.guaranteeRatio" placeholder="请输入担保比例" clearable
+                  :readonly="!isEditable" type="number"  v-model.trim="form.guaranteeRatio" placeholder="担保比例" clearable
                   @keyup.enter.native="handleQuery" /> -->
                 <tiny-numeric :disabled="!isEditable"   :empty-value="0"
                   :readonly="!isEditable" class="w" show-left :controls="false" size="small" v-model="form.guaranteeRatio" :format="{
@@ -355,7 +355,7 @@
                   fractionGroupSize: 0, // 小数部分分组间隔
                   fractionGroupSeparator: '\xA0', // 小数分组分隔符
                   suffix: '%' // 后置标识
-                }" placeholder="请输入担保比例"></tiny-numeric>
+                }" placeholder="担保比例"></tiny-numeric>
               </el-form-item>
             </el-col>
 
@@ -366,19 +366,19 @@
             <el-col :span="8">
               <el-form-item label="贷款用途" prop="purposeOfLoan">
                 <el-input :readonly="!isEditable" type="textarea" v-model.trim="form.purposeOfLoan"
-                  placeholder="请输入贷款用途" />
+                  placeholder="贷款用途" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="担保金额（万元）" prop="guaranteeAmount">
                 <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
-                  :readonly="!isEditable" type="number" v-model.trim="form.guaranteeAmount" placeholder="请输入担保金额" />
+                  :readonly="!isEditable" type="number" v-model.trim="form.guaranteeAmount" placeholder="担保金额" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="担保余额（万元）" prop="guaranteeBalance">
                 <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
-                  :readonly="!isEditable" type="number" v-model.trim="form.guaranteeBalance" placeholder="请输入担保余额" />
+                  :readonly="!isEditable" type="number" v-model.trim="form.guaranteeBalance" placeholder="担保余额" />
               </el-form-item>
             </el-col>
 
@@ -436,7 +436,7 @@
             <el-col :span="24">
               <el-form-item label="备注" prop="comment">
                 <el-input :readonly="!isEditable" v-model="form.comment" show-word-limit maxlength="200" type="textarea"
-                  :rows="4" placeholder="请输入备注信息，最多不超过200字" />
+                  :rows="4" placeholder="备注信息，最多不超过200字" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -1000,7 +1000,7 @@
                 "dataJson": JSON.stringify(data),
                 "tableName": "rz_gl_internal",
                 "auditState": "1759514891045044200",
-                "uuid": data.uuid,
+                "uuid": data.uuid,
                 "managementId": data.managementId + "|" + this.formatDateTime()
               }
               if (this.title === '修改对内担保台账' && this.created_successfully === false && this.isEditable ===

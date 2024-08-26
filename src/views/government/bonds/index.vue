@@ -6,13 +6,13 @@
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="管理编号" prop="managementId">
-              <el-input v-model="queryParams.managementId" placeholder="请输入管理编号" clearable
+              <el-input v-model="queryParams.managementId" placeholder="管理编号" clearable
                 @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="债券名称" prop="bondName">
-              <el-input v-model="queryParams.bondName" placeholder="请输入债券名称" clearable
+              <el-input v-model="queryParams.bondName" placeholder="债券名称" clearable
                 @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col>
@@ -63,7 +63,7 @@
           <!-- <el-col :span="8">
             <el-form-item label="累计到账金额（万元）" prop="accumulatedAmountReceived">
               <el-input-number class="w" :controls="false" :precision="2"
-                v-model.trim="queryParams.accumulatedAmountReceived" placeholder="请输入累计到账金额" clearable
+                v-model.trim="queryParams.accumulatedAmountReceived" placeholder="累计到账金额" clearable
                 @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col> -->
@@ -220,12 +220,12 @@
           <el-row :gutter="20">
             <el-col :span="8">
               <el-form-item label="管理编号" prop="managementId">
-                <el-input :readonly="title === '修改政府专项债'" v-model="form.managementId" placeholder="请输入管理编号" />
+                <el-input :readonly="title === '修改政府专项债'" v-model="form.managementId" placeholder="管理编号" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="债券名称" prop="bondName">
-                <el-input :readonly="!isEditable" v-model="form.bondName" placeholder="请输入债券名称" />
+                <el-input :readonly="!isEditable" v-model="form.bondName" placeholder="债券名称" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -235,7 +235,7 @@
                     :value="dict.label"></el-option>
                 </el-select> -->
                 <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2" :readonly="!isEditable" type="number"
-                  v-model.trim="form.bondSize" placeholder="请输入规模（万元）" />
+                  v-model.trim="form.bondSize" placeholder="规模（万元）" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -247,7 +247,7 @@
                   <el-option v-for="dict in dict.type.sys_1762824761903153200" :key="dict.value" :label="dict.label"
                     :value="dict.label"></el-option>
                 </el-select> -->
-                <el-input :readonly="!isEditable" v-model="rate" placeholder="请输入利率" />
+                <el-input :readonly="!isEditable" v-model="rate" placeholder="利率" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -256,8 +256,8 @@
                   <el-option v-for="dict in dict.type.sys_1762824852571422700" :key="dict.value" :label="dict.label"
                     :value="dict.label"></el-option>
                 </el-select> -->
-                <!-- <el-input-number class="w" :controls="false" v-model="form.bondDuration" :precision="2" placeholder="请输入债券发行期限"></el-input-number> -->
-                <el-input :disabled="true" :readonly="true" v-model="creditCycle" placeholder="请输入借款期限" />
+                <!-- <el-input-number class="w" :controls="false" v-model="form.bondDuration" :precision="2" placeholder="债券发行期限"></el-input-number> -->
+                <el-input :disabled="true" :readonly="true" v-model="creditCycle" placeholder="借款期限" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -274,19 +274,19 @@
             <el-col :span="8">
               <el-form-item label="专项批复金额（万元）" prop="approvedAmount">
                 <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2" :readonly="!isEditable" type="number"
-                  v-model.trim="form.approvedAmount" placeholder="请输入专项批复金额" />
+                  v-model.trim="form.approvedAmount" placeholder="专项批复金额" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="累计到账金额（万元）" prop="accumulatedAmountReceived">
                 <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2" :readonly="!isEditable" type="number"
-                  v-model.trim="form.accumulatedAmountReceived" placeholder="请输入累计到账金额" />
+                  v-model.trim="form.accumulatedAmountReceived" placeholder="累计到账金额" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="已还金额（万元）" prop="repaidAmount">
                 <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2" :readonly="!isEditable" type="number"
-                  v-model.trim="form.repaidAmount" placeholder="请输入已还金额" />
+                  v-model.trim="form.repaidAmount" placeholder="已还金额" />
               </el-form-item>
             </el-col>
 
@@ -296,7 +296,7 @@
             <el-col :span="8">
               <el-form-item label="待还金额（万元）" prop="remainingAmount">
                 <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2" :readonly="!isEditable" type="number"
-                  v-model.trim="remainingCreditAmount" placeholder="请输入待还金额" />
+                  v-model.trim="remainingCreditAmount" placeholder="待还金额" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -337,7 +337,7 @@
             <el-col :span="24">
               <el-form-item label="备注" prop="comment">
                 <el-input :readonly="!isEditable" v-model="form.comment" show-word-limit maxlength="200" type="textarea"
-                  :rows="4" placeholder="请输入备注信息，最多不超过200字" />
+                  :rows="4" placeholder="备注信息，最多不超过200字" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -785,7 +785,7 @@
                 "dataJson": JSON.stringify(data),
                 "tableName": "rz_government_special_bonds",
                 "auditState": "1759514891045044200",
-                "uuid": data.uuid,
+                "uuid": data.uuid,
                 "managementId": data.managementId + "|" + this.formatDateTime()
               }
               if (this.title === '修改政府专项债' && this.created_successfully === false && this.isEditable === true) {

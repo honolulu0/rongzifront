@@ -2,11 +2,11 @@
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
       <el-form-item label="信息名称" prop="dictName">
-        <el-input v-model="queryParams.dictName" placeholder="请输入信息名称" clearable style="width: 240px"
+        <el-input v-model="queryParams.dictName" placeholder="信息名称" clearable style="width: 240px"
           @keyup.enter.native="handleQuery" />
       </el-form-item>
       <el-form-item label="信息类型" prop="dictType">
-        <el-input v-model="queryParams.dictType" placeholder="请输入信息类型" clearable style="width: 240px"
+        <el-input v-model="queryParams.dictType" placeholder="信息类型" clearable style="width: 240px"
           @keyup.enter.native="handleQuery" />
       </el-form-item>
       <el-form-item label="状态" prop="status">
@@ -102,10 +102,10 @@
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="信息名称" prop="dictName">
-          <el-input v-model="form.dictName" placeholder="请输入信息名称" />
+          <el-input v-model="form.dictName" placeholder="信息名称" />
         </el-form-item>
         <!-- <el-form-item label="信息类型" prop="dictType" v-if="roles.includes('admin')">
-          <el-input v-model="form.dictType" placeholder="请输入信息类型" />
+          <el-input v-model="form.dictType" placeholder="信息类型" />
         </el-form-item> -->
         <el-form-item label="状态" prop="status">
           <el-radio-group v-model="form.status">
@@ -115,7 +115,7 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="备注" prop="remark">
-          <el-input v-model="form.remark" type="textarea" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.remark" type="textarea" placeholder="内容"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">

@@ -2,13 +2,13 @@
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
       <el-form-item label="一级标题" prop="title">
-        <el-input v-model="queryParams.title" placeholder="请输入一级标题" clearable @keyup.enter.native="handleQuery" />
+        <el-input v-model="queryParams.title" placeholder="一级标题" clearable @keyup.enter.native="handleQuery" />
       </el-form-item>
       <el-form-item label="二级标题" prop="title2">
-        <el-input v-model="queryParams.title2" placeholder="请输入二级标题" clearable @keyup.enter.native="handleQuery" />
+        <el-input v-model="queryParams.title2" placeholder="二级标题" clearable @keyup.enter.native="handleQuery" />
       </el-form-item>
       <el-form-item label="备注" prop="comment">
-        <el-input v-model="queryParams.comment" placeholder="请输入备注" clearable @keyup.enter.native="handleQuery" />
+        <el-input v-model="queryParams.comment" placeholder="备注" clearable @keyup.enter.native="handleQuery" />
       </el-form-item>
 
       <el-form-item>
@@ -56,10 +56,12 @@
       <el-table-column label="备注" align="center" prop="comment" />
       <el-table-column label="文件名" align="center" prop="url" min-width="180">
         <template slot-scope="scope">
-          <div v-for="(url,index)  in ( scope.row.url.split(','))" :key="index" class="mb5">
-            <el-link type="primary"  :href="`${baseUrl}${url}`" :underline="true" target="_blank">
-              {{extractAndCleanFileName(url)}}<i class="el-icon-download el-icon--right"></i>
-            </el-link>
+          <div v-if="scope.row.url!=null&&scope.row.url!='null'">
+            <div v-for="(url,index)  in ( scope.row.url.split(','))" :key="index" class="mb5">
+              <el-link type="primary" :href="`${baseUrl}${url}`" :underline="true" target="_blank">
+                {{extractAndCleanFileName(url)}}<i class="el-icon-download el-icon--right"></i>
+              </el-link>
+            </div>
           </div>
         </template>
       </el-table-column>
@@ -85,13 +87,13 @@
     <el-dialog :title="title" :visible.sync="open" width="600px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="一级标题" prop="title">
-          <el-input v-model="form.title" placeholder="请输入一级标题" />
+          <el-input v-model="form.title" placeholder="一级标题" />
         </el-form-item>
         <el-form-item label="二级标题" prop="title2">
-          <el-input v-model="form.title2" placeholder="请输入二级标题" />
+          <el-input v-model="form.title2" placeholder="二级标题" />
         </el-form-item>
         <el-form-item label="备注" prop="comment">
-          <el-input v-model="form.comment" placeholder="请输入备注" />
+          <el-input v-model="form.comment" placeholder="备注" />
         </el-form-item>
 
         <el-form-item label="附件" prop="scrUuid">

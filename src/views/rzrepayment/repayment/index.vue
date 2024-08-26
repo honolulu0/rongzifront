@@ -8,7 +8,7 @@
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="管理编号" prop="managementId">
-              <el-input v-model="queryParams.managementId" placeholder="请输入管理编号" clearable
+              <el-input v-model="queryParams.managementId" placeholder="管理编号" clearable
                 @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col>
@@ -184,7 +184,7 @@
           <el-row :gutter="20">
             <el-col :span="8">
               <el-form-item label="管理编号" prop="managementId">
-                <el-input :readonly="!isEditable" v-model="form.managementId" placeholder="请输入管理编号" />
+                <el-input :readonly="!isEditable" v-model="form.managementId" placeholder="管理编号" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -235,17 +235,17 @@
           <el-row :gutter="20">
             <el-col :span="8">
               <el-form-item label="借款金额（万元）" prop="loanAmount">
-                <el-input-number class="w" :controls="false" :precision="2" :readonly="!isEditable" v-model="form.loanAmount" placeholder="请输入借款金额" />
+                <el-input-number class="w" :controls="false" :precision="2" :readonly="!isEditable" v-model="form.loanAmount" placeholder="借款金额" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="手续费（万元）" prop="commission">
-                <el-input-number class="w" :controls="false" :precision="2" :readonly="!isEditable" v-model="form.commission" placeholder="请输入手续费" />
+                <el-input-number class="w" :controls="false" :precision="2" :readonly="!isEditable" v-model="form.commission" placeholder="手续费" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="保证金（万元）" prop="margin">
-                <el-input-number class="w" :controls="false" :precision="2" :readonly="!isEditable" v-model="form.margin" placeholder="请输入保证金" />
+                <el-input-number class="w" :controls="false" :precision="2" :readonly="!isEditable" v-model="form.margin" placeholder="保证金" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -253,7 +253,7 @@
           <el-row :gutter="20">
             <el-col :span="8">
               <el-form-item label="利率" prop="rate">
-                <el-input :readonly="!isEditable" v-model="form.rate" placeholder="请输入利率" />
+                <el-input :readonly="!isEditable" v-model="form.rate" placeholder="利率" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -275,7 +275,7 @@
           <el-row :gutter="20">
             <el-col :span="8">
               <el-form-item label="借款期限" prop="loanTerm">
-                <el-input :readonly="!isEditable" v-model="form.loanTerm" placeholder="请输入借款期限" />
+                <el-input :readonly="!isEditable" v-model="form.loanTerm" placeholder="借款期限" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -299,7 +299,7 @@
           <el-row :gutter="20">
             <el-col :span="8">
               <el-form-item label="还款账户" prop="repaymentAccount">
-                <el-input :readonly="!isEditable" v-model="form.repaymentAccount" placeholder="请输入还款账户" />
+                <el-input :readonly="!isEditable" v-model="form.repaymentAccount" placeholder="还款账户" />
               </el-form-item>
             </el-col>
           </el-row>

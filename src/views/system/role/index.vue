@@ -4,7 +4,7 @@
       <el-form-item label="角色名称" prop="roleName">
         <el-input
           v-model="queryParams.roleName"
-          placeholder="请输入角色名称"
+          placeholder="角色名称"
           clearable
           style="width: 240px"
           @keyup.enter.native="handleQuery"
@@ -13,7 +13,7 @@
       <el-form-item label="权限字符" prop="roleKey">
         <el-input
           v-model="queryParams.roleKey"
-          placeholder="请输入权限字符"
+          placeholder="权限字符"
           clearable
           style="width: 240px"
           @keyup.enter.native="handleQuery"
@@ -167,7 +167,7 @@
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="100px">
         <el-form-item label="角色名称" prop="roleName">
-          <el-input v-model="form.roleName" placeholder="请输入角色名称" />
+          <el-input v-model="form.roleName" placeholder="角色名称" />
         </el-form-item>
         <el-form-item prop="roleKey">
           <span slot="label">
@@ -176,7 +176,7 @@
             </el-tooltip>
             权限字符
           </span>
-          <el-input v-model="form.roleKey" placeholder="请输入权限字符" />
+          <el-input v-model="form.roleKey" placeholder="权限字符" />
         </el-form-item>
         <el-form-item label="角色顺序" prop="roleSort">
           <el-input-number v-model="form.roleSort" controls-position="right" :min="0" />
@@ -206,7 +206,7 @@
           ></el-tree>
         </el-form-item>
         <el-form-item label="备注">
-          <el-input v-model="form.remark" type="textarea" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.remark" type="textarea" placeholder="内容"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">

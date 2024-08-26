@@ -9,7 +9,7 @@
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="管理编号" prop="managementId">
-              <el-input v-model="queryParams.managementId" placeholder="请输入管理编号" clearable
+              <el-input v-model="queryParams.managementId" placeholder="管理编号" clearable
                 @keyup.enter.native="handleQuery"></el-input>
             </el-form-item>
           </el-col>
@@ -81,7 +81,7 @@
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="项目名称" prop="entryName">
-              <el-input v-model="queryParams.entryName" placeholder="请输入项目名称" clearable
+              <el-input v-model="queryParams.entryName" placeholder="项目名称" clearable
                 @keyup.enter.native="handleQuery"></el-input>
             </el-form-item>
           </el-col>
@@ -117,18 +117,18 @@
             <el-col :span="8">
               <el-form-item label="出票手续费" prop="ticketProcessingFee">
                 <el-input-number  class="w" :controls="false" :precision="2"
-                  v-model.trim="queryParams.ticketProcessingFee" placeholder="请输入出票手续费" />
+                  v-model.trim="queryParams.ticketProcessingFee" placeholder="出票手续费" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="保证金比例" prop="marginLevel">
                 <el-input-number class="w" :controls="false" :precision="2"
-                   type="number" v-model.trim="queryParams.marginLevel" placeholder="请输入保证金比例" />
+                   type="number" v-model.trim="queryParams.marginLevel" placeholder="保证金比例" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="保证金利率" prop="marginInterestRate">
-                <el-input v-model="queryParams.marginInterestRate" placeholder="请输入保证金利率" />
+                <el-input v-model="queryParams.marginInterestRate" placeholder="保证金利率" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -137,7 +137,7 @@
             <el-col :span="8">
               <el-form-item label="保证金收益金额" prop="marginIncomeAmount">
                 <el-input-number class="w" :controls="false" :precision="2"
-                  type="number" v-model.trim="queryParams.marginIncomeAmount" placeholder="请输入保证金收益金额" />
+                  type="number" v-model.trim="queryParams.marginIncomeAmount" placeholder="保证金收益金额" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -164,12 +164,12 @@
             <el-col :span="8">
               <el-form-item label="贴现手续费" prop="discountedHandlingFee">
                 <el-input-number  class="w" :controls="false" :precision="2"
-                   v-model.trim="queryParams.discountedHandlingFee" placeholder="请输入贴现手续费" />
+                   v-model.trim="queryParams.discountedHandlingFee" placeholder="贴现手续费" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="贴现费用承担情况" prop="assumptionOfDiscountFees">
-                <el-input v-model.trim="queryParams.assumptionOfDiscountFees" placeholder="请输入贴现费用承担情况" />
+                <el-input v-model.trim="queryParams.assumptionOfDiscountFees" placeholder="贴现费用承担情况" />
               </el-form-item>
             </el-col>
           </el-row> -->
@@ -288,7 +288,7 @@
           <el-row :gutter="20">
             <el-col :span="8">
               <el-form-item label="管理编号" prop="managementId">
-                <el-input :readonly="title === '修改银行承兑汇票'" v-model="form.managementId" placeholder="请输入银行承兑管理编号" />
+                <el-input :readonly="title === '修改银行承兑汇票'" v-model="form.managementId" placeholder="银行承兑管理编号" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -322,7 +322,7 @@
             <el-col :span="8">
               <el-form-item label="出票金额（万元）" prop="invoiceAmount">
                 <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
-                  :readonly="!isEditable" type="number" v-model.trim="form.invoiceAmount" placeholder="请输入出票金额" />
+                  :readonly="!isEditable" type="number" v-model.trim="form.invoiceAmount" placeholder="出票金额" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -345,18 +345,18 @@
             </el-col>
             <!-- <el-col :span="8">
               <el-form-item label="协议编号" prop="acceptAgreementId">
-                <el-input :readonly="!isEditable" v-model="form.acceptAgreementId" placeholder="请输入协议编号" />
+                <el-input :readonly="!isEditable" v-model="form.acceptAgreementId" placeholder="协议编号" />
               </el-form-item>
             </el-col> -->
             <el-col :span="8">
               <el-form-item label="项目名称" prop="entryName">
-                <el-input :readonly="!isEditable" v-model="form.entryName" placeholder="请输入项目名称" />
+                <el-input :readonly="!isEditable" v-model="form.entryName" placeholder="项目名称" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="出票手续费（万元）" prop="ticketProcessingFee">
                 <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
-                  :readonly="!isEditable" v-model.trim="form.ticketProcessingFee" placeholder="请输入出票手续费" />
+                  :readonly="!isEditable" v-model.trim="form.ticketProcessingFee" placeholder="出票手续费" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -367,7 +367,7 @@
             <el-col :span="8">
               <el-form-item label="保证金比例" prop="marginLevel">
                 <!--               <el-input-number class="w" :controls="false" :precision="2" :disabled="!isEditable"
-                  :readonly="!isEditable" type="number" v-model.trim="form.marginLevel" placeholder="请输入保证金比例" /> -->
+                  :readonly="!isEditable" type="number" v-model.trim="form.marginLevel" placeholder="保证金比例" /> -->
 
                 <tiny-numeric :disabled="!isEditable" :empty-value="0" :readonly="!isEditable" class="w" show-left
                   :controls="false" size="small" v-model="form.marginLevel" :format="{
@@ -382,14 +382,14 @@
                    fractionGroupSize: 0, // 小数部分分组间隔
                    fractionGroupSeparator: '\xA0', // 小数分组分隔符
                    suffix: '%' // 后置标识
-                 }" placeholder="请输入保证金比例"></tiny-numeric>
+                 }" placeholder="保证金比例"></tiny-numeric>
 
 
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="保证金利率" prop="marginInterestRate">
-                <!-- <el-input :readonly="!isEditable" v-model="marginInterestRate" placeholder="请输入保证金利率" /> -->
+                <!-- <el-input :readonly="!isEditable" v-model="marginInterestRate" placeholder="保证金利率" /> -->
 
                 <tiny-numeric :disabled="!isEditable" :empty-value="0" :readonly="!isEditable" class="w" show-left
                   :controls="false" size="small" v-model="form.marginInterestRate" :format="{
@@ -404,7 +404,7 @@
                   fractionGroupSize: 0, // 小数部分分组间隔
                   fractionGroupSeparator: '\xA0', // 小数分组分隔符
                   suffix: '%' // 后置标识
-                }" placeholder="请输入保证金利率"></tiny-numeric>
+                }" placeholder="保证金利率"></tiny-numeric>
 
 
               </el-form-item>
@@ -413,7 +413,7 @@
               <el-form-item label="保证金收益金额（万元）" prop="marginIncomeAmount">
                 <el-input-number class="w" :controls="false" :precision="2" :disabled="!isEditable"
                   :readonly="!isEditable" type="number" v-model.trim="form.marginIncomeAmount"
-                  placeholder="请输入保证金收益金额" />
+                  placeholder="保证金收益金额" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -441,7 +441,7 @@
             <el-col :span="8">
               <el-form-item label="贴现手续费（万元）" prop="discountedHandlingFee">
                 <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
-                  :readonly="!isEditable" v-model.trim="form.discountedHandlingFee" placeholder="请输入贴现手续费" />
+                  :readonly="!isEditable" v-model.trim="form.discountedHandlingFee" placeholder="贴现手续费" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -451,7 +451,7 @@
             <el-col :span="8">
               <el-form-item label="贴现费用承担情况" prop="assumptionOfDiscountFees">
                 <el-input :readonly="!isEditable" type="textarea" v-model.trim="form.assumptionOfDiscountFees"
-                  placeholder="请输入贴现费用承担情况" />
+                  placeholder="贴现费用承担情况" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -461,7 +461,7 @@
             <el-col :span="24">
               <el-form-item label="备注" prop="comment">
                 <el-input :readonly="!isEditable" v-model="form.comment" show-word-limit maxlength="200" type="textarea"
-                  :rows="4" placeholder="请输入备注信息，最多不超过200字" />
+                  :rows="4" placeholder="备注信息，最多不超过200字" />
               </el-form-item>
             </el-col>
           </el-row>
