@@ -280,9 +280,7 @@
                 <el-input :readonly="!isEditable" v-model="form.collectionAccount" placeholder="回款账户名称" />
               </el-form-item>
             </el-col>
-          </el-row>
 
-          <el-row :gutter="20">
             <el-col :span="8">
               <el-form-item label="回款账号" prop="account">
                 <el-input :readonly="!isEditable" v-model="form.account" placeholder="回款账号" />
@@ -293,9 +291,7 @@
                 <el-input :readonly="!isEditable" v-model="form.bank" placeholder="回款开户行" />
               </el-form-item>
             </el-col>
-          </el-row>
 
-          <el-row :gutter="20">
             <el-col :span="8">
               <el-form-item label="支付利息（万元）" prop="zhifulixi">
                 <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
@@ -746,10 +742,10 @@
           this.huankuanmingxidata = [this.huankuanmingxi]
 
           // 金额回显需要 /10000
-          this.form.loanAmount = Number(this.form.loanAmount) / 10000;
-          this.form.zhifulixi = Number(this.form.zhifulixi) / 10000;
-          this.form.daoqishoufei = Number(this.form.daoqishoufei) / 10000;
-          this.form.banlishoufei = Number(this.form.banlishoufei) / 10000;
+          this.form.loanAmount = (Number(this.form.loanAmount) || 0) / 10000;
+          this.form.zhifulixi = (Number(this.form.zhifulixi) || 0) / 10000;
+          this.form.daoqishoufei = (Number(this.form.daoqishoufei) || 0) / 10000;
+          this.form.banlishoufei = (Number(this.form.banlishoufei) || 0) / 10000;
 
           this.open = true;
           this.title = "修改反向保理";
@@ -777,7 +773,7 @@
               "managerId": data.managementId,
               "borrowingUnit": "",
               "financialInstitution": "",
-              "daikuanyongtu": "",
+              "daikuanyongtu": data.zijinyongtu,
               "qishu": "1",
               "riqi": data.deadline,
               "huankuanjine": data.huankuanjine,

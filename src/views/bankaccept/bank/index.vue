@@ -29,10 +29,8 @@
               </el-select>
             </el-form-item>
           </el-col>
-        </el-row>
 
-        <!-- 第二组表单项 -->
-        <el-row :gutter="20">
+          <!-- 第二组表单项 -->
           <el-col :span="8">
             <el-form-item label="承兑人" prop="financialInstitution">
               <el-select filterable v-model="queryParams.financialInstitution" placeholder="请选择承兑人（金融机构）" clearable>
@@ -41,44 +39,22 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="出票起止日" :error="error1">
-              <el-row>
-                <el-col :span="11">
-                  <el-date-picker format='yyyy/MM/dd' :picker-options="pickerOptions3" v-model="daterangeDraftDate1"
-                    style="width: 100%" value-format="yyyy-MM-dd" type="date" placeholder="请选择出票起始日"></el-date-picker>
-                </el-col>
-                <el-col :span="2" class="flex fjc">-</el-col>
-                <el-col :span="11">
-                  <el-date-picker format='yyyy/MM/dd' :picker-options="pickerOptions4" v-model="daterangeDraftDate2"
-                    style="width: 100%" value-format="yyyy-MM-dd" type="date" placeholder="请选择出票到期日"></el-date-picker>
-                </el-col>
-              </el-row>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="汇票到期起止日" :erorr="error2">
-              <el-row>
-                <el-col :span="11">
-                  <el-date-picker format='yyyy/MM/dd' :picker-options="pickerOptions5" clearable
-                    v-model="daterangeDueDate1" type="date" style="width: 100%" value-format="yyyy-MM-dd"
-                    placeholder="请选择汇票到期起始日">
-                  </el-date-picker>
-                </el-col>
-                <el-col :span="2" class="flex fjc">-</el-col>
-                <el-col :span="11">
-                  <el-date-picker format='yyyy/MM/dd' :picker-options="pickerOptions6" clearable
-                    v-model="daterangeDueDate2" type="date" style="width: 100%" value-format="yyyy-MM-dd"
-                    placeholder="请选择汇票到期日">
-                  </el-date-picker>
-                </el-col>
-              </el-row>
-            </el-form-item>
-          </el-col>
-        </el-row>
 
-        <!-- 第三组表单项 -->
-        <el-row :gutter="20">
+          <el-col :span="8">
+            <el-form-item label="开始日期">
+              <el-date-picker v-model="daterangeDraftDate" style="width: 240px" value-format="yyyy-MM-dd"
+                type="daterange" range-separator="-" start-placeholder="点击选择日期"></el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="结束日期">
+              <el-date-picker v-model="daterangeDueDate" style="width: 240px" value-format="yyyy-MM-dd" type="daterange"
+                range-separator="-" start-placeholder="点击选择日期"></el-date-picker>
+            </el-form-item>
+          </el-col>
+
+
+          <!-- 第三组表单项 -->
           <el-col :span="8">
             <el-form-item label="项目名称" prop="entryName">
               <el-input v-model="queryParams.entryName" placeholder="项目名称" clearable
@@ -93,6 +69,15 @@
               </el-select>
             </el-form-item>
           </el-col>
+
+          <el-col :span="8">
+            <el-form-item label="过期状态" prop="guoqizhuangtai">
+              <el-select filterable v-model="queryParams.guoqizhuangtai" placeholder="请选择过期状态" clearable>
+                <el-option v-for="dict in dict.type.sys_1827911313532125200" :key="dict.value" :label="dict.label"
+                  :value="dict.label" />
+              </el-select>
+            </el-form-item>
+          </el-col>
           <el-col :span="8">
             <el-form-item label="是否已贴现" prop="discountedOrNot">
               <el-select clearable filterable v-model="queryParams.discountedOrNot" placeholder="请选择是否已贴现">
@@ -102,7 +87,6 @@
             </el-form-item>
           </el-col>
         </el-row>
-
         <el-row :gutter="20">
           <el-col :span="24">
             <el-form-item class="flex" style="display: flex; justify-content: flex-end;">
@@ -111,69 +95,6 @@
             </el-form-item>
           </el-col>
         </el-row>
-
-
-        <!-- <el-row :gutter="20">
-            <el-col :span="8">
-              <el-form-item label="出票手续费" prop="ticketProcessingFee">
-                <el-input-number  class="w" :controls="false" :precision="2"
-                  v-model.trim="queryParams.ticketProcessingFee" placeholder="出票手续费" />
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="保证金比例" prop="marginLevel">
-                <el-input-number class="w" :controls="false" :precision="2"
-                   type="number" v-model.trim="queryParams.marginLevel" placeholder="保证金比例" />
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="保证金利率" prop="marginInterestRate">
-                <el-input v-model="queryParams.marginInterestRate" placeholder="保证金利率" />
-              </el-form-item>
-            </el-col>
-          </el-row>
-
-          <el-row :gutter="20">
-            <el-col :span="8">
-              <el-form-item label="保证金收益金额" prop="marginIncomeAmount">
-                <el-input-number class="w" :controls="false" :precision="2"
-                  type="number" v-model.trim="queryParams.marginIncomeAmount" placeholder="保证金收益金额" />
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="是否已贴现" prop="discountedOrNot">
-                <el-select  v-model="queryParams.discountedOrNot"
-                  placeholder="请选择是否已贴现">
-                  <el-option v-for="dict in dict.type.sys_1796070671776743400" :key="dict.value" :label="dict.label"
-                    :value="dict.label"></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="贴现金融机构" prop="discountedFinancialInstitutions">
-                <el-select  v-model="queryParams.discountedFinancialInstitutions"
-                  placeholder="请选择贴现金融机构">
-                  <el-option v-for="dict in dict.type.sys_1796081713651122200" :key="dict.value" :label="dict.label"
-                    :value="dict.label"></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-          </el-row>
-
-          <el-row :gutter="20">
-            <el-col :span="8">
-              <el-form-item label="贴现手续费" prop="discountedHandlingFee">
-                <el-input-number  class="w" :controls="false" :precision="2"
-                   v-model.trim="queryParams.discountedHandlingFee" placeholder="贴现手续费" />
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="贴现费用承担情况" prop="assumptionOfDiscountFees">
-                <el-input v-model.trim="queryParams.assumptionOfDiscountFees" placeholder="贴现费用承担情况" />
-              </el-form-item>
-            </el-col>
-          </el-row> -->
-
 
       </el-form>
     </search-panel>
@@ -245,7 +166,13 @@
       </el-table-column>
       <!-- <el-table-column show-overflow-tooltip label="承兑协议编号" min-width="180" align="center" prop="acceptAgreementId" /> -->
       <el-table-column show-overflow-tooltip label="项目名称" align="center" min-width="160" prop="entryName" />
-      <el-table-column show-overflow-tooltip label="备注" align="center" min-width="200" prop="comment" />
+
+      <el-table-column show-overflow-tooltip label="敞口额度(万元)" min-width="160" align="center" prop="changkouedu">
+        <template slot-scope="scope">
+          <span>{{ formatNumberAsRMB(scope.row.changkouedu) }}</span>
+        </template>
+      </el-table-column>
+      <!-- <el-table-column show-overflow-tooltip label="备注" align="center" min-width="200" prop="comment" /> -->
       <!-- <el-table-column label="ID" align="center" prop="id" /> -->
 
       <!-- <el-table-column label="出票手续费" align="center" prop="ticketProcessingFee" />
@@ -337,7 +264,7 @@
           <el-row :gutter="20">
 
             <el-col :span="8">
-              <el-form-item label="到期日" prop="dueDate">
+              <el-form-item label="到期日期" prop="dueDate">
                 <el-date-picker format='yyyy/MM/dd' :picker-options="pickerOptions2" :disabled="!isEditable" clearable
                   v-model="form.dueDate" type="date" value-format="yyyy-MM-dd" placeholder="请选择到期日">
                 </el-date-picker>
@@ -387,6 +314,15 @@
 
               </el-form-item>
             </el-col>
+
+
+            <el-col :span="8">
+              <el-form-item label="敞口额度（万元）" prop="changkouedu">
+                <el-input-number class="w" :controls="false" :precision="2" :readonly="true" :disabled="true"
+                  type="number" v-model.trim="form.changkouedu" placeholder="敞口额度" />
+              </el-form-item>
+            </el-col>
+
             <el-col :span="8">
               <el-form-item label="保证金利率" prop="marginInterestRate">
                 <!-- <el-input :readonly="!isEditable" v-model="marginInterestRate" placeholder="保证金利率" /> -->
@@ -412,13 +348,10 @@
             <el-col :span="8">
               <el-form-item label="保证金收益金额（万元）" prop="marginIncomeAmount">
                 <el-input-number class="w" :controls="false" :precision="2" :disabled="!isEditable"
-                  :readonly="!isEditable" type="number" v-model.trim="form.marginIncomeAmount"
-                  placeholder="保证金收益金额" />
+                  :readonly="!isEditable" type="number" v-model.trim="form.marginIncomeAmount" placeholder="保证金收益金额" />
               </el-form-item>
             </el-col>
-          </el-row>
 
-          <el-row :gutter="20">
 
             <el-col :span="8">
               <el-form-item label="是否已贴现" prop="discountedOrNot">
@@ -439,14 +372,33 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
+              <el-form-item label="贴现利率" prop="tiexianlilv">
+
+                <tiny-numeric :disabled="!isEditable" :empty-value="0" :readonly="!isEditable" class="w" show-left
+                  :controls="false" size="small" v-model="form.tiexianlilv" :format="{
+                  zeroize: true, // 是否保留多余的0字符
+                  fraction: 2, // 保留小数位数
+                  rounding: 2, // 舍入点
+                  prefix: '', // 前置标识
+                  groupSize: 3, // 整数部分分组间隔，即第一个分组位数
+                  secondaryGroupSize: 2, // 整数部分第二级分组间隔，不设置或为0时 自动取groupSize
+                  groupSeparator: ',', // 整数部分分组分隔符
+                  decimalSeparator: '.', // 小数点符号
+                  fractionGroupSize: 0, // 小数部分分组间隔
+                  fractionGroupSeparator: '\xA0', // 小数分组分隔符
+                  suffix: '%' // 后置标识
+                }" placeholder="贴现利率"></tiny-numeric>
+
+
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
               <el-form-item label="贴现手续费（万元）" prop="discountedHandlingFee">
                 <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
                   :readonly="!isEditable" v-model.trim="form.discountedHandlingFee" placeholder="贴现手续费" />
               </el-form-item>
             </el-col>
-          </el-row>
 
-          <el-row :gutter="20">
 
             <el-col :span="8">
               <el-form-item label="贴现费用承担情况" prop="assumptionOfDiscountFees">
@@ -454,9 +406,21 @@
                   placeholder="贴现费用承担情况" />
               </el-form-item>
             </el-col>
+            <el-col :span="8">
+              <el-form-item label="支付利息（万元）" prop="zhifulixi">
+                <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
+                  :readonly="!isEditable" type="number" v-model.trim="form.zhifulixi" placeholder="支付利息" />
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="资金用途" prop="zijinyongtu">
+                <el-input :readonly="!isEditable" v-model="form.zijinyongtu" placeholder="资金用途" />
+              </el-form-item>
+            </el-col>
           </el-row>
 
 
+          <!-- 备注占一行 -->
           <el-row>
             <el-col :span="24">
               <el-form-item label="备注" prop="comment">
@@ -473,6 +437,25 @@
                   <file-upload :disabled="!isEditable" v-model="form.scrUuid" :managementId="form.managementId"
                     @input="upload_completed" :fileSize="10000" :limit="1000" :isShowTip="false" />
                 </div>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <!-- 还款计划占一行 -->
+          <el-row :gutter="20">
+            <el-col :span="24">
+              <el-form-item label="还款计划明细（万元）">
+                <tiny-grid align="center" max-height="300" :data="huankuanmingxidata">
+                  <tiny-grid-column width="60" title="期数" field="qishu"></tiny-grid-column>
+                  <tiny-grid-column title="日期" field="riqi">
+                  </tiny-grid-column>
+                  <tiny-grid-column title="还款金额" field="huankuanjine">
+                  </tiny-grid-column>
+                  <tiny-grid-column title="偿还本金" field="changhuanben">
+                  </tiny-grid-column>
+                  <tiny-grid-column title="支付利息" field="zhifulixi">
+                  </tiny-grid-column>
+                  <tiny-grid-column title="本金剩余">0.00</tiny-grid-column>
+                </tiny-grid>
               </el-form-item>
             </el-col>
           </el-row>
@@ -530,7 +513,7 @@
   export default {
     name: "Bank",
     dicts: ['sys_1754491769220759600', 'sys_drawer', 'sys_acceptor', 'sys_1796070671776743400',
-      'sys_1796081713651122200'
+      'sys_1796081713651122200', 'sys_1827911313532125200'
     ],
     components: {
       CreateSuccess,
@@ -633,14 +616,21 @@
           discountedOrNot: null,
           discountedFinancialInstitutions: null,
           discountedHandlingFee: null,
-          assumptionOfDiscountFees: null
+          assumptionOfDiscountFees: null,
+          guoqizhuangtai: "未过期"
         },
         /* str 需要添加的 */
         scrUuid: null,
         /* end */
 
         // 表单参数
-        form: {},
+        form: {
+          invoiceAmount: 0,
+          marginInterestRate: 0,
+          zhifulixi: 0,
+          changkouedu: 0,
+          huankuanjine: 0
+        },
         // 表单校验
         rules: {
           managementId: [{
@@ -704,24 +694,7 @@
             trigger: "blur"
           }],
         },
-        pickerOptions3: {
-          // 禁用开始日期中，所有大于结束日期的日期
-          disabledDate: (date) => {
-            if (this.daterangeDraftDate2) {
-              return date.getTime() > new Date(this.daterangeDraftDate2).getTime();
-            }
-          }
-        },
-        pickerOptions4: {
-          // 禁用结束日期中，所有小于开始日期的日期
-          disabledDate: (date) => {
-            if (this.daterangeDraftDate1) {
-              // 一天的毫秒数
-              var oneDayInMilliseconds = 24 * 60 * 60 * 1000;
-              return date.getTime() < new Date(this.daterangeDraftDate1).getTime() - oneDayInMilliseconds;
-            }
-          }
-        },
+
 
         pickerOptions5: {
           // 禁用开始日期中，所有大于结束日期的日期
@@ -748,7 +721,28 @@
         },
         zongji: {
           totalInvoiceAmount: 0
-        }
+        },
+        huankuanmingxi: {
+          "createBy": null,
+          "createTime": null,
+          "updateBy": null,
+          "updateTime": null,
+          "remark": null,
+          "managerId": "",
+          "borrowingUnit": "",
+          "financialInstitution": "",
+          "daikuanyongtu": "",
+          "qishu": "1",
+          "riqi": "",
+          "huankuanjine": "",
+          "changhuanben": "",
+          "zhifulixi": "",
+          "shouxufei": null,
+          "benjinshengyu": "0.00",
+          "lilv": "",
+          "comment": null
+        },
+        huankuanmingxidata: [],
       };
     },
     watch: {
@@ -758,31 +752,17 @@
           this.isEditable = true;
         }
       },
-      daterangeDraftDate1(n, o) {
-        if (n !== '' && n !== null) {
-          if (this.daterangeDraftDate2 === '' || this.daterangeDraftDate2 === null) {
-            this.error1 = '出票到期日不能为空';
-          } else {
-            this.error1 = ''; // 清空错误信息
-          }
-        } else if (this.daterangeDraftDate2 === '' || this.daterangeDraftDate2 === null) {
-          this.error1 = ''; // 两个日期都为空时，清空错误信息
-        } else {
-          this.error1 = '出票起始日不能为空';
-        }
+
+      'form.dueDate'(newVal) {
+        this.huankuanmingxi.dueDate = newVal;
       },
-      daterangeDraftDate2(n, o) {
-        if (n !== '' && n !== null) {
-          if (this.daterangeDraftDate1 === '' || this.daterangeDraftDate1 === null) {
-            this.error1 = '出票起始日不能为空';
-          } else {
-            this.error1 = ''; // 清空错误信息
-          }
-        } else if (this.daterangeDraftDate1 === '' || this.daterangeDraftDate1 === null) {
-          this.error1 = ''; // 两个日期都为空时，清空错误信息
-        } else {
-          this.error1 = '出票到期日不能为空';
-        }
+      'form.invoiceAmount': 'calculateValues',
+      'form.marginInterestRate': 'calculateValues',
+      'form.zhifulixi'(newVal, o) {
+        // console.log('huankuanmingxi.zhifulixi', newVal);
+        this.huankuanmingxi.zhifulixi = this.formatNumberAsRMB(newVal * 10000);
+        this.form.huankuanjine = (Number(this.form.changkouedu) + Number(this.form.zhifulixi))
+        this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.huankuanjine * 10000)
       },
 
       daterangeDueDate1(n, o) {
@@ -816,19 +796,7 @@
       ...mapGetters([
         'name', 'avatar'
       ]),
-      // marginInterestRate: {
-      //     get() {
-      //       if (this.form.marginInterestRate) {
-      //         // 当读取值时，添加百分号
-      //         return this.form.marginInterestRate + (this.form.marginInterestRate ? '%' : '');
-      //       } else {
-      //         return this.form.marginInterestRate;
-      //       }
-      //     },
-      //     set(value) {
-      //       this.form.marginInterestRate = value.replace(/%/g, '');
-      //     }
-      //   },
+
     },
     created() {
       this.getList();
@@ -837,6 +805,22 @@
     },
     mounted() {},
     methods: {
+      calculateValues() {
+        this.form.changkouedu = (
+          this.form.invoiceAmount *
+          (1 - Number(this.form.marginInterestRate) / 100)
+        ).toFixed(2);
+
+        this.huankuanmingxi.changhuanben = this.formatNumberAsRMB(this.form.changkouedu * 10000);
+        this.form.huankuanjine = (
+          Number(this.form.changkouedu) +
+          Number(this.form.zhifulixi)
+        ).toFixed(2);
+
+        this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.huankuanjine * 10000);
+        this.huankuanmingxi.zhifulixi = this.formatNumberAsRMB(this.form.zhifulixi * 10000)
+        console.log('this.form.zhifulixi', this.huankuanmingxi.zhifulixi, this.form.zhifulixi);
+      },
       /* 到期提醒选择 */
       handleSelect(val) {
         // this.queryParams.remark = null;
@@ -865,21 +849,23 @@
       getList() {
         this.loading = true;
         this.queryParams.params = {};
-        if (![null, undefined, ''].includes(this.daterangeDraftDate1) && ![null, undefined, ''].includes(this
-            .daterangeDraftDate2)) {
-          this.queryParams.params["beginDraftDate"] = this.daterangeDraftDate1;
-          this.queryParams.params["endDraftDate"] = this.daterangeDraftDate2;
+        if (null != this.daterangeDraftDate && '' != this.daterangeDraftDate) {
+          this.queryParams.params["beginDraftDate"] = this.daterangeDraftDate[0];
+          this.queryParams.params["endDraftDate"] = this.daterangeDraftDate[1];
         }
         if (null != this.daterangeDueDate && '' != this.daterangeDueDate) {
           this.queryParams.params["beginDueDate"] = this.daterangeDueDate[0];
           this.queryParams.params["endDueDate"] = this.daterangeDueDate[1];
         }
 
-        if (![null, undefined, ''].includes(this.daterangeDueDate1) && ![null, undefined, ''].includes(this
-            .daterangeDueDate2)) {
-          this.queryParams.params["beginDueDate"] = this.daterangeDueDate1;
-          this.queryParams.params["endDueDate"] = this.daterangeDueDate2;
+        if (undefined != this.queryParams.guoqizhuangtai && null != this.queryParams.guoqizhuangtai && '' != this
+          .queryParams
+          .guoqizhuangtai) {
+          this.queryParams.params["guoqizhuangtai"] = this.queryParams.guoqizhuangtai
         }
+
+        this.queryParams['orderByColumn'] = 'due_date'
+        this.queryParams['isAsc'] = "asc"
 
         const searchData = JSON.parse(JSON.stringify(this.queryParams));
         searchData.remark = null;
@@ -977,19 +963,36 @@
           response.data.rzsrc2List.forEach(i => {
             i.id = null;
           })
-          // 金额需要 / 10000
-          response.data.invoiceAmount = Number(response.data.invoiceAmount) / 10000;
-          response.data.ticketProcessingFee = Number(response.data.ticketProcessingFee) / 10000;
-          response.data.marginIncomeAmount = Number(response.data.marginIncomeAmount) / 10000;
-          response.data.discountedHandlingFee = Number(response.data.discountedHandlingFee) / 10000;
-          this.scrUuid = response.data.scrUuid;
+
           this.form = response.data;
+
+          this.scrUuid = response.data.scrUuid;
           this.form.scrUuid = response.data.rzsrc2List.map(i => i.url)
           /* end */
 
           this.rzsrc2List = response.data.rzsrc2List;
+
+
+          // 还款计划 金额回显需要  /10000
+          this.huankuanmingxi.riqi = this.form.dueDate
+          this.huankuanmingxi.changhuanben = this.formatNumberAsRMB(this.form.changkouedu)
+          this.huankuanmingxi.zhifulixi = this.formatNumberAsRMB(this.form.zhifulixi)
+          this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.changkouedu + this.form.zhifulixi)
+          this.huankuanmingxidata = [this.huankuanmingxi]
+
+          // 金额回显需要 /10000
+          this.form.invoiceAmount = (Number(this.form.invoiceAmount) || 0) / 10000;
+          this.form.ticketProcessingFee = (Number(this.form.ticketProcessingFee) || 0) / 10000;
+          this.form.marginIncomeAmount = (Number(this.form.marginIncomeAmount) || 0) / 10000;
+          this.form.discountedHandlingFee = (Number(this.form.discountedHandlingFee) || 0) / 10000;
+
+          this.form.changkouedu = (Number(this.form.changkouedu) || 0) / 10000;
+          this.form.zhifulixi = (Number(this.form.zhifulixi) || 0) / 10000;
+          console.log('this.form.zhifulixi', this.form.zhifulixi);
+
           this.open = true;
           this.title = "修改银行承兑汇票";
+
         });
       },
       /** 提交按钮 */
@@ -1003,10 +1006,32 @@
 
             // 金额需要 * 10000
             data.invoiceAmount = Number(data.invoiceAmount) * 10000;
-
             data.ticketProcessingFee = Number(data.ticketProcessingFee) * 10000
             data.marginIncomeAmount = Number(data.marginIncomeAmount) * 10000
             data.discountedHandlingFee = Number(data.discountedHandlingFee) * 10000
+
+            data.zhifulixi = Number(data.zhifulixi) * 10000;
+            data.changkouedu = Number(data.changkouedu) * 10000;
+            data.huankuanjine = Number(data.huankuanjine) * 10000;
+
+
+            data.huankuanmingxi2List = [{
+              "remark": null,
+              "managerId": data.managementId,
+              "borrowingUnit": data.drawer,
+              "financialInstitution": data.financialInstitution,
+              "daikuanyongtu": data.huankuanjine,
+              "qishu": "1",
+              "riqi": data.dueDate,
+              "huankuanjine": data.huankuanjine,
+              "changhuanben": data.changkouedu,
+              "zhifulixi": data.zhifulixi,
+              "shouxufei": null,
+              "benjinshengyu": "0.00",
+              "lilv": "",
+              "comment": null
+            }]
+
             if (this.form.id != null) {
               data.scrUuid = Number(this.scrUuid);
               this.rzaudit_data = {
@@ -1017,7 +1042,8 @@
                 "dataJson": JSON.stringify(data),
                 "tableName": "rz_bank_accept_bill",
                 "auditState": "1759514891045044200",
-                "uuid": data.uuid,
+                "uuid": data.uuid,
+
                 "managementId": data.managementId + "|" + this.formatDateTime()
               }
               if (this.title === '修改银行承兑汇票' && this.created_successfully === false && this.isEditable === true) {

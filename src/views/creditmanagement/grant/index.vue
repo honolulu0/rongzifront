@@ -35,25 +35,18 @@
               </el-select>
             </el-form-item>
           </el-col>
+
           <el-col :span="8">
-            <el-form-item label="起止日" :error="error1">
-              <el-row>
-                <el-col :span="11">
-                  <el-date-picker :picker-options="pickerOptions3" format='yyyy/MM/dd' v-model="daterangeStartDate"
-                    style="width: 100%" value-format="yyyy-MM-dd" type="date" placeholder="请选择起始日"></el-date-picker>
-                </el-col>
-                <el-col :span="2" class="flex fjc">-</el-col>
-                <el-col :span="11">
-                  <el-date-picker :picker-options="pickerOptions4" format='yyyy/MM/dd' v-model="daterangeDeadline"
-                    style="width: 100%" value-format="yyyy-MM-dd" type="date" placeholder="请选择到期日"></el-date-picker>
-                </el-col>
-              </el-row>
+            <el-form-item label="起始日">
+              <el-date-picker v-model="daterangeStartDate" style="width: 240px" value-format="yyyy-MM-dd"
+                type="daterange" range-separator="-" start-placeholder="点击选择日期"></el-date-picker>
             </el-form-item>
           </el-col>
+
           <el-col :span="8">
-            <el-form-item label="授信有效期（月）" prop="creditCycle">
-              <el-input v-model="queryParams.creditCycle" placeholder="授信有效期" clearable
-                @keyup.enter.native="handleQuery" />
+            <el-form-item label="到期日">
+              <el-date-picker v-model="daterangeDeadline" style="width: 240px" value-format="yyyy-MM-dd"
+                type="daterange" range-separator="-" start-placeholder="点击选择日期"></el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>
@@ -377,24 +370,7 @@
             }
           }
         },
-        pickerOptions3: {
-          // 禁用开始日期中，所有大于结束日期的日期
-          disabledDate: (date) => {
-            if (this.daterangeStartDate) {
-              return date.getTime() > new Date(this.daterangeStartDate).getTime();
-            }
-          }
-        },
-        pickerOptions4: {
-          // 禁用结束日期中，所有小于开始日期的日期
-          disabledDate: (date) => {
-            if (this.daterangeDeadline) {
-              // 一天的毫秒数
-              var oneDayInMilliseconds = 24 * 60 * 60 * 1000;
-              return date.getTime() < new Date(this.daterangeDeadline).getTime() - oneDayInMilliseconds;
-            }
-          }
-        },
+
         isSuccess: true,
         isTitle: true,
         isMessage: true,
@@ -688,13 +664,13 @@
         this.loading = true;
 
         this.queryParams.params = {};
-        if (null != this.daterangeStartDate && '' != this.daterangeDeadline) {
-          this.queryParams.params["beginStartDate"] = this.daterangeStartDate;
-          this.queryParams.params["endStartDate"] = this.daterangeDeadline;
+        if (null != this.daterangeStartDate && '' != this.daterangeStartDate) {
+          this.queryParams.params["beginStartDate"] = this.daterangeStartDate[0];
+          this.queryParams.params["endStartDate"] = this.daterangeStartDate[1];
         }
         if (null != this.daterangeDeadline && '' != this.daterangeDeadline) {
-          this.queryParams.params["beginDeadline"] = this.daterangeStartDate;
-          this.queryParams.params["endDeadline"] = this.daterangeDeadline;
+          this.queryParams.params["beginDeadline"] = this.daterangeDeadline[0];
+          this.queryParams.params["endDeadline"] = this.daterangeDeadline[1];
         }
         this.queryParams['orderByColumn'] = 'start_date'
         this.queryParams['isAsc'] = 'asc'
