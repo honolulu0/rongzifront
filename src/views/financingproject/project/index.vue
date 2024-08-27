@@ -127,23 +127,23 @@
         </template>
       </el-table-column> -->
 
-      <el-table-column show-overflow-tooltip label="融资金额（万元）" align="center" prop="financingAmount" width="140">
+      <el-table-column show-overflow-tooltip label="融资金额（万元）" align="right" prop="financingAmount" width="140">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.financingAmount) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="融资余额（万元）" align="center" prop="remainingAmount" width="150">
+      <el-table-column label="融资余额（万元）" align="right" prop="remainingAmount" width="150">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.remainingAmount) }}</span>
         </template>
       </el-table-column>
 
-      <!--      <el-table-column show-overflow-tooltip label="保证金（万元）" align="center" prop="baozhengjin" width="130">
+      <!--      <el-table-column show-overflow-tooltip label="保证金（万元）" align="right" prop="baozhengjin" width="130">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.baozhengjin) }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="手续费（万元）" align="center" prop="shouxufei" width="130">
+      <el-table-column show-overflow-tooltip label="手续费（万元）" align="right" prop="shouxufei" width="130">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.shouxufei) }}</span>
         </template>

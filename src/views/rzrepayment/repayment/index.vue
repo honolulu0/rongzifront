@@ -103,17 +103,17 @@
           <dict-tag :options="dict.type.sys_1759533566884053000" :value="scope.row.creditEnhancementMeasures" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="借款金额（万元）" align="center" prop="loanAmount" width="180">
+      <el-table-column show-overflow-tooltip label="借款金额（万元）" align="right" prop="loanAmount" width="180">
          <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.loanAmount) }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="手续费（万元）" align="center" prop="commission" width="180">
+      <el-table-column show-overflow-tooltip label="手续费（万元）" align="right" prop="commission" width="180">
          <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.commission) }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="保证金（万元）" align="center" prop="margin" width="180">
+      <el-table-column show-overflow-tooltip label="保证金（万元）" align="right" prop="margin" width="180">
          <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.margin) }}</span>
         </template>

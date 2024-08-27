@@ -119,17 +119,17 @@
 
 
 
-      <el-table-column show-overflow-tooltip label="授信金额（万元）" align="center" prop="creditAmount" min-width="150">
+      <el-table-column show-overflow-tooltip label="授信金额（万元）"  align="right"  prop="creditAmount" min-width="150">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.creditAmount) }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="已用授信金额（万元）" align="center" prop="usedCreditAmount" min-width="160">
+      <el-table-column show-overflow-tooltip label="已用授信金额（万元）" align="right" prop="usedCreditAmount" min-width="160">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.usedCreditAmount) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="授信余额（万元）" align="center" prop="remainingCreditAmount" min-width="150">
+      <el-table-column label="授信余额（万元）" align="right" prop="remainingCreditAmount" min-width="150">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.remainingCreditAmount) }}</span>
         </template>

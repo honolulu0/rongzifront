@@ -278,12 +278,12 @@
         </template>
       </el-table-column>
       <el-table-column show-overflow-tooltip label="贷款用途" align="center" prop="purposeOfLoan" min-width="120" />
-      <el-table-column show-overflow-tooltip label="担保金额（万元）" align="center" prop="guaranteeAmount" min-width="160">
+      <el-table-column show-overflow-tooltip label="担保金额（万元）" align="right" prop="guaranteeAmount" min-width="160">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.guaranteeAmount) }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="担保余额（万元）" align="center" prop="guaranteeBalance" min-width="160">
+      <el-table-column show-overflow-tooltip label="担保余额（万元）" align="right" prop="guaranteeBalance" min-width="160">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.guaranteeBalance) }}</span>
         </template>

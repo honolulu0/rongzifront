@@ -137,7 +137,7 @@
           <dict-tag :options="dict.type.sys_acceptor" :value="scope.row.financialInstitution" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="放贷金额（万元）" align="center" prop="loanAmount" min-width="160">
+      <el-table-column show-overflow-tooltip label="放贷金额（万元）" align="right" prop="loanAmount" min-width="160">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.loanAmount) }}</span>
         </template>

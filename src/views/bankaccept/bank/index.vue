@@ -141,7 +141,7 @@
           <dict-tag :options="dict.type.sys_acceptor" :value="scope.row.financialInstitution" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="出票金额(万元)" min-width="160" align="center" prop="invoiceAmount">
+      <el-table-column show-overflow-tooltip label="出票金额(万元)" min-width="160" align="right" prop="invoiceAmount">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.invoiceAmount) }}</span>
         </template>
@@ -167,7 +167,7 @@
       <!-- <el-table-column show-overflow-tooltip label="承兑协议编号" min-width="180" align="center" prop="acceptAgreementId" /> -->
       <el-table-column show-overflow-tooltip label="项目名称" align="center" min-width="160" prop="entryName" />
 
-      <el-table-column show-overflow-tooltip label="敞口额度(万元)" min-width="160" align="center" prop="changkouedu">
+      <el-table-column show-overflow-tooltip label="敞口额度(万元)" min-width="160" align="right" prop="changkouedu">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.changkouedu) }}</span>
         </template>

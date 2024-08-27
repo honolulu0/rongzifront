@@ -128,18 +128,18 @@
           <dict-tag :options="dict.type.sys_1767155302261588000" :value="scope.row.loanUse" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="借款金额（万元）" align="center" prop="loanAmount" width="160"
+      <el-table-column show-overflow-tooltip label="借款金额（万元）" align="right" prop="loanAmount" width="160"
         min-width="180">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.loanAmount) }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip width="160" label="已还金额（万元）" align="center" prop="repaidAmount">
+      <el-table-column show-overflow-tooltip width="160" label="已还金额（万元）" align="right" prop="repaidAmount">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.repaidAmount) }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip width="160" label="余额（万元）" align="center" prop="balance">
+      <el-table-column show-overflow-tooltip width="160" label="余额（万元）" align="right" prop="balance">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.balance) }}</span>
         </template>

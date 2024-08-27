@@ -169,7 +169,7 @@
           <dict-tag :options="dict.type.sys_1757235466651828200" :value="scope.row.payee" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="出票金额（万元）" min-width="160" align="center" prop="invoiceAmount">
+      <el-table-column show-overflow-tooltip label="出票金额（万元）" min-width="160"  align="right"  prop="invoiceAmount">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.invoiceAmount) }}</span>
         </template>

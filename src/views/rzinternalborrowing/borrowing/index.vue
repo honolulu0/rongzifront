@@ -114,7 +114,7 @@
       <!-- <el-table-column label="主键id" align="center" prop="id" /> -->
       <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managementId" min-width="100" />
       <!-- <el-table-column label="数据唯一编号" align="center" prop="scrUuid" /> -->
-      <el-table-column show-overflow-tooltip label="借款金额（万元）" align="center" prop="loanAmount" min-width="160">
+      <el-table-column show-overflow-tooltip label="借款金额（万元）" align="right" prop="loanAmount" min-width="160">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.loanAmount) }}</span>
         </template>

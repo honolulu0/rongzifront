@@ -115,7 +115,7 @@
       <!-- <el-table-column label="数据唯一编号" align="center" prop="scrUuid" /> -->
       <!-- <el-table-column label="审核id" align="center" prop="auditId" /> -->
       <el-table-column show-overflow-tooltip label="信用证号码" align="center" prop="creditNumber" min-width="160" />
-      <el-table-column show-overflow-tooltip label="开证金额（万元）" align="center" prop="issuingAmount" min-width="160">
+      <el-table-column show-overflow-tooltip label="开证金额（万元）"  align="right"  prop="issuingAmount" min-width="160">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.issuingAmount) }}</span>
         </template>

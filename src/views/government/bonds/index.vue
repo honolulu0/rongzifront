@@ -123,7 +123,7 @@
           <dict-tag :options="dict.type.sys_1762824996528324600" :value="scope.row.issuingEntity" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="规模（万元）" align="center" prop="bondSize" min-width="120">
+      <el-table-column show-overflow-tooltip label="规模（万元）" align="right" prop="bondSize" min-width="120">
         <template slot-scope="scope">
           <!-- <dict-tag :options="dict.type.sys_1762824645385388000" :value="scope.row.bondSize" /> -->
           {{ formatNumberAsRMB(scope.row.bondSize) }}
@@ -146,24 +146,24 @@
           <dict-tag :options="dict.type.sys_1759533864251818000" :value="scope.row.repaymentMethod" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip min-width="160" label="专项批复金额（万元）" align="center" prop="approvedAmount">
+      <el-table-column show-overflow-tooltip min-width="160" label="专项批复金额（万元）" align="right" prop="approvedAmount">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.approvedAmount) }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="累计到账金额（万元）" align="center" prop="accumulatedAmountReceived"
+      <el-table-column show-overflow-tooltip label="累计到账金额（万元）" align="right" prop="accumulatedAmountReceived"
         min-width="160">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.accumulatedAmountReceived) }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column show-overflow-tooltip min-width="140" label="已还金额（万元）" align="center" prop="repaidAmount">
+      <el-table-column show-overflow-tooltip min-width="140" label="已还金额（万元）" align="right" prop="repaidAmount">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.repaidAmount) }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip min-width="140" label="待还金额（万元）" align="center" prop="remainingAmount">
+      <el-table-column show-overflow-tooltip min-width="140" label="待还金额（万元）" align="right" prop="remainingAmount">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.remainingAmount) }}</span>
         </template>
