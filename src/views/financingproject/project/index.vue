@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
 
-    <search-panel HeaderIcon="financingprojectSvg" title="融资项目">
+    <search-panel HeaderIcon="financingprojectSvg" title="贷款清单">
       <el-form label-position="left" :model="queryParams" ref="queryForm" size="small" :inline="false"
         v-show="showSearch" label-width="130px">
         <el-row :gutter="20">
@@ -33,9 +33,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-        </el-row>
 
-        <el-row :gutter="20">
 
           <el-col :span="8">
             <el-form-item label="融资金额（万元）" :precision="2" prop="financingAmount">
@@ -59,9 +57,20 @@
               </el-select>
             </el-form-item>
           </el-col>
-
+          <el-col :span="8">
+            <el-form-item label="放款日">
+              <el-date-picker v-model="daterangeLoanDate" style="width: 240px" value-format="yyyy-MM-dd"
+                type="daterange" range-separator="-" start-placeholder="点击或者输入"
+                end-placeholder="2024-08-22"></el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="到期日">
+              <el-date-picker v-model="daterangeDueDate" style="width: 240px" value-format="yyyy-MM-dd" type="daterange"
+                range-separator="-" start-placeholder="点击或者输入" end-placeholder="2024-08-22"></el-date-picker>
+            </el-form-item>
+          </el-col>
         </el-row>
-
 
 
         <el-row :gutter="20">
@@ -327,7 +336,8 @@
               <el-form-item label="年利率" prop="rate">
                 <!-- <el-input :readonly="!isEditable" v-model="rate" placeholder="年利率" /> -->
 
-                <tiny-numeric class="w" show-left :controls="false" size="small" v-model="form.rate" :empty-value="0"  :format="{
+                <tiny-numeric class="w" show-left :controls="false" size="small" v-model="form.rate" :empty-value="0"
+                  :format="{
                   zeroize: true, // 是否保留多余的0字符
                   fraction: 2, // 保留小数位数
                   rounding: 2, // 舍入点
@@ -581,6 +591,10 @@
         open: false,
         // 创建人时间范围
         daterangeContractSigningDate: [],
+        // 创建人时间范围
+        daterangeLoanDate: [],
+        // 创建人时间范围
+        daterangeDueDate: [],
         // 查询参数
         queryParams: queryParams,
         /* str 需要添加的 */
@@ -760,6 +774,15 @@
         if (null != this.daterangeContractSigningDate && '' != this.daterangeContractSigningDate) {
           this.queryParams.params["beginContractSigningDate"] = this.daterangeContractSigningDate[0];
           this.queryParams.params["endContractSigningDate"] = this.daterangeContractSigningDate[1];
+        }
+
+        if (null != this.daterangeLoanDate && '' != this.daterangeLoanDate) {
+          this.queryParams.params["beginLoanDate"] = this.daterangeLoanDate[0];
+          this.queryParams.params["endLoanDate"] = this.daterangeLoanDate[1];
+        }
+        if (null != this.daterangeDueDate && '' != this.daterangeDueDate) {
+          this.queryParams.params["beginDueDate"] = this.daterangeDueDate[0];
+          this.queryParams.params["endDueDate"] = this.daterangeDueDate[1];
         }
         const search = JSON.parse(JSON.stringify(this.queryParams))
         if (![null, '', undefined].includes(search.financingAmount)) {

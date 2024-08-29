@@ -39,14 +39,14 @@
           <el-col :span="8">
             <el-form-item label="起始日">
               <el-date-picker v-model="daterangeStartDate" style="width: 240px" value-format="yyyy-MM-dd"
-                type="daterange" range-separator="-" start-placeholder="点击选择日期"></el-date-picker>
+                type="daterange" range-separator="-"  start-placeholder="点击或者输入" end-placeholder="2024-08-22"></el-date-picker>
             </el-form-item>
           </el-col>
 
           <el-col :span="8">
             <el-form-item label="到期日">
               <el-date-picker v-model="daterangeDeadline" style="width: 240px" value-format="yyyy-MM-dd"
-                type="daterange" range-separator="-" start-placeholder="点击选择日期"></el-date-picker>
+                type="daterange" range-separator="-"  start-placeholder="点击或者输入" end-placeholder="2024-08-22"></el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>

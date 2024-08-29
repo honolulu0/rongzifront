@@ -43,13 +43,13 @@
           <el-col :span="8">
             <el-form-item label="开始日期">
               <el-date-picker v-model="daterangeDraftDate" style="width: 240px" value-format="yyyy-MM-dd"
-                type="daterange" range-separator="-" start-placeholder="点击选择日期"></el-date-picker>
+                type="daterange" range-separator="-"  start-placeholder="点击或者输入" end-placeholder="2024-08-22"></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="结束日期">
               <el-date-picker v-model="daterangeDueDate" style="width: 240px" value-format="yyyy-MM-dd" type="daterange"
-                range-separator="-" start-placeholder="点击选择日期"></el-date-picker>
+                range-separator="-"  start-placeholder="点击或者输入" end-placeholder="2024-08-22"></el-date-picker>
             </el-form-item>
           </el-col>
 
@@ -287,10 +287,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-
-
           <el-row :gutter="20">
-
             <el-col :span="8">
               <el-form-item label="保证金比例" prop="marginLevel">
                 <!--               <el-input-number class="w" :controls="false" :precision="2" :disabled="!isEditable"
@@ -580,15 +577,8 @@
         open: false,
         // 创建人时间范围
         daterangeDraftDate: [],
-        // daterangeDueDate1: [],
         // 到期提醒
         daterangeDueDate: [],
-
-        daterangeDraftDate1: '',
-        daterangeDraftDate2: '',
-
-        daterangeDueDate1: '',
-        daterangeDueDate2: '',
 
         // 查询参数
         queryParams: {
@@ -696,24 +686,6 @@
         },
 
 
-        pickerOptions5: {
-          // 禁用开始日期中，所有大于结束日期的日期
-          disabledDate: (date) => {
-            if (this.daterangeDueDate2) {
-              return date.getTime() > new Date(this.daterangeDueDate2).getTime();
-            }
-          }
-        },
-        pickerOptions6: {
-          // 禁用结束日期中，所有小于开始日期的日期
-          disabledDate: (date) => {
-            if (this.daterangeDueDate1) {
-              // 一天的毫秒数
-              var oneDayInMilliseconds = 24 * 60 * 60 * 1000;
-              return date.getTime() < new Date(this.daterangeDueDate1).getTime() - oneDayInMilliseconds;
-            }
-          }
-        },
         error1: '',
         error2: '',
         totalKeys: {
@@ -765,32 +737,7 @@
         this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.huankuanjine * 10000)
       },
 
-      daterangeDueDate1(n, o) {
-        if (n !== '' && n !== null) {
-          if (this.daterangeDueDate2 === '' || this.daterangeDueDate2 === null) {
-            this.error2 = '汇票到期日不能为空';
-          } else {
-            this.error2 = ''; // 清空错误信息
-          }
-        } else if (this.daterangeDueDate2 === '' || this.daterangeDueDate2 === null) {
-          this.error2 = ''; // 两个日期都为空时，清空错误信息
-        } else {
-          this.error2 = '汇票起始日不能为空';
-        }
-      },
-      daterangeDueDate2(n, o) {
-        if (n !== '' && n !== null) {
-          if (this.daterangeDueDate1 === '' || this.daterangeDueDate1 === null) {
-            this.error2 = '汇票起始日不能为空';
-          } else {
-            this.error2 = ''; // 清空错误信息
-          }
-        } else if (this.daterangeDueDate1 === '' || this.daterangeDueDate1 === null) {
-          this.error2 = ''; // 两个日期都为空时，清空错误信息
-        } else {
-          this.error2 = '汇票到期日不能为空';
-        }
-      },
+
     },
     computed: {
       ...mapGetters([
@@ -926,14 +873,6 @@
       resetQuery() {
         this.daterangeDraftDate = [];
         this.daterangeDueDate = [];
-        // this.daterangeDueDate1 = [];
-
-
-        this.daterangeDraftDate1 = '';
-        this.daterangeDraftDate2 = '';
-
-        this.daterangeDueDate1 = '';
-        this.daterangeDueDate2 = '';
 
         this.queryParams.remark = null;
         this.resetForm("queryForm");

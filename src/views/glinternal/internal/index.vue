@@ -39,9 +39,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-        </el-row>
 
-        <el-row :gutter="20">
 
           <el-col :span="8">
             <el-form-item label="业务类型" prop="businessType">
@@ -64,45 +62,7 @@
             </el-form-item>
           </el-col>
 
-        </el-row>
 
-
-
-        <el-row :gutter="20">
-
-          <el-col :span="8">
-            <el-form-item label="担保期限起止日" :error="error1">
-              <el-row>
-                <el-col :span="11">
-                  <el-date-picker format='yyyy/MM/dd' v-model="daterangeStartDate1" :picker-options="pickerOptions3"
-                    style="width: 100%" value-format="yyyy-MM-dd" type="date" placeholder="请选择担保起始日"></el-date-picker>
-                </el-col>
-                <el-col :span="2" class="flex fjc">-</el-col>
-                <el-col :span="11">
-                  <el-date-picker format='yyyy/MM/dd' v-model="daterangeStartDate2" :picker-options="pickerOptions4"
-                    style="width: 100%" value-format="yyyy-MM-dd" type="date" placeholder="请选择担保到期日"></el-date-picker>
-                </el-col>
-              </el-row>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="保证方式" prop="guaranteeMethod">
-              <el-select filterable v-model="queryParams.guaranteeMethod" placeholder="请选择保证方式" clearable>
-                <el-option v-for="dict in dict.type.sys_1767155825266131000" :key="dict.value" :label="dict.label"
-                  :value="dict.label"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="是否上征信" prop="isCreditInvestigation">
-              <el-select filterable v-model="queryParams.isCreditInvestigation" placeholder="请选择是否上征信" clearable>
-                <el-option v-for="dict in dict.type.sys_1767156259322069000" :key="dict.value" :label="dict.label"
-                  :value="dict.label"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="担保状态" prop="danbaozhuangtai">
               <el-select filterable v-model="queryParams.danbaozhuangtai" placeholder="请选择担保状态" clearable>
@@ -111,21 +71,42 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <!-- <el-col :span="8">
-            <el-form-item label="融资金额（万元）" prop="financingAmount">
-              <el-input-number class="w" :controls="false" :precision="2" v-model.trim="queryParams.financingAmount" placeholder="融资金额" clearable
-                @keyup.enter.native="handleQuery" />
-            </el-form-item>
-          </el-col> -->
 
-          <!-- Column 2: 担保比例 -->
-          <!-- <el-col :span="8">
-            <el-form-item label="担保比例" prop="guaranteeRatio">
-              <el-input-number class="w" :controls="false" :precision="2" v-model.trim="queryParams.guaranteeRatio" placeholder="担保比例" clearable
-                @keyup.enter.native="handleQuery" />
+          <el-col :span="8">
+            <el-form-item label="保证方式" prop="guaranteeMethod">
+              <el-select filterable v-model="queryParams.guaranteeMethod" placeholder="请选择保证方式" clearable>
+                <el-option v-for="dict in dict.type.sys_1767155825266131000" :key="dict.value" :label="dict.label"
+                  :value="dict.label"></el-option>
+              </el-select>
             </el-form-item>
-          </el-col> -->
-          <el-col :span="16">
+          </el-col>
+
+          <el-col :span="8">
+            <el-form-item label="是否上征信" prop="isCreditInvestigation">
+              <el-select filterable v-model="queryParams.isCreditInvestigation" placeholder="请选择是否上征信" clearable>
+                <el-option v-for="dict in dict.type.sys_1767156259322069000" :key="dict.value" :label="dict.label"
+                  :value="dict.label"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="8">
+            <el-form-item label="起始日">
+              <el-date-picker v-model="daterangeStartDate" style="width: 240px" value-format="yyyy-MM-dd"
+                type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="8">
+            <el-form-item label="到期日">
+              <el-date-picker v-model="daterangeDeadline" style="width: 240px" value-format="yyyy-MM-dd"
+                type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row :gutter="20">
+          <el-col :span="24">
             <el-form-item class="flex" style="display: flex; justify-content: flex-end;">
               <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">查 询</el-button>
               <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重 置</el-button>
@@ -133,23 +114,6 @@
           </el-col>
         </el-row>
 
-        <el-row :gutter="20">
-          <!-- <el-col :span="8">
-            <el-form-item label="贷款用途" prop="purposeOfLoan">
-              <el-input v-model.trim="queryParams.purposeOfLoan" placeholder="贷款用途" clearable
-                @keyup.enter.native="handleQuery" />
-            </el-form-item>
-          </el-col> -->
-        </el-row>
-
-        <!-- <el-row :gutter="20">
-          <el-col :span="8">
-            <el-form-item label="创建时间">
-              <el-date-picker v-model="daterangeCreateTime" style="width: 100%" value-format="yyyy-MM-dd" type="daterange"
-                range-separator="-" start-placeholder="起始日" end-placeholder="到期日"></el-date-picker>
-            </el-form-item>
-          </el-col>
-        </el-row> -->
       </el-form>
 
     </search-panel>
@@ -176,8 +140,8 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar> -->
     </el-row>
     <!-- :summary-method="(param) => getSummaries2(param, totalKeys, zongjia)" show-summary -->
-    <el-table :summary-method="(param) => getSummaries2(param, totalKeys, zongji)" show-summary  v-loading="loading" :data="internalList" @selection-change="handleSelectionChange"
-      :header-cell-style="header_cell_style">
+    <el-table :summary-method="(param) => getSummaries2(param, totalKeys, zongji)" show-summary v-loading="loading"
+      :data="internalList" @selection-change="handleSelectionChange" :header-cell-style="header_cell_style">
       <el-table-column show-overflow-tooltip fixed="left" type="selection" width="60" align="center" />
       <!-- <el-table-column label="主键id" align="center" prop="id" /> -->
       <!-- <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managementId" min-width="100"/> -->
@@ -342,8 +306,8 @@
                 <!-- <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
                   :readonly="!isEditable" type="number"  v-model.trim="form.guaranteeRatio" placeholder="担保比例" clearable
                   @keyup.enter.native="handleQuery" /> -->
-                <tiny-numeric :disabled="!isEditable"   :empty-value="0"
-                  :readonly="!isEditable" class="w" show-left :controls="false" size="small" v-model="form.guaranteeRatio" :format="{
+                <tiny-numeric :disabled="!isEditable" :empty-value="0" :readonly="!isEditable" class="w" show-left
+                  :controls="false" size="small" v-model="form.guaranteeRatio" :format="{
                   zeroize: true, // 是否保留多余的0字符
                   fraction: 2, // 保留小数位数
                   rounding: 2, // 舍入点
@@ -387,16 +351,14 @@
           <el-row :gutter="20">
             <el-col :span="8">
               <el-form-item label="担保期限起始日" prop="startDate">
-                <el-date-picker format='yyyy/MM/dd' :disabled="!isEditable" :picker-options="pickerOptions1"
-                  v-model="form.startDate" style="width: 240px" value-format="yyyy-MM-dd" type="date"
-                  placeholder="担保期限起始日"></el-date-picker>
+                <el-date-picker format='yyyy/MM/dd' :disabled="!isEditable" v-model="form.startDate"
+                  style="width: 240px" value-format="yyyy-MM-dd" type="date" placeholder="担保期限起始日"></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="担保期限到期日" prop="deadline">
-                <el-date-picker format='yyyy/MM/dd' :disabled="!isEditable" :picker-options="pickerOptions2"
-                  v-model="form.deadline" style="width: 240px" value-format="yyyy-MM-dd" type="date"
-                  placeholder="担保期限到期日"></el-date-picker>
+                <el-date-picker format='yyyy/MM/dd' :disabled="!isEditable" v-model="form.deadline" style="width: 240px"
+                  value-format="yyyy-MM-dd" type="date" placeholder="担保期限到期日"></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -518,42 +480,6 @@
     },
     data() {
       return {
-        pickerOptions1: {
-          // 禁用开始日期中，所有大于结束日期的日期
-          disabledDate: (date) => {
-            if (this.form.deadline) {
-              return date.getTime() > new Date(this.form.deadline).getTime();
-            }
-          }
-        },
-        pickerOptions2: {
-          // 禁用结束日期中，所有小于开始日期的日期
-          disabledDate: (date) => {
-            if (this.form.startDate) {
-              // 一天的毫秒数
-              var oneDayInMilliseconds = 24 * 60 * 60 * 1000;
-              return date.getTime() < new Date(this.form.startDate).getTime() - oneDayInMilliseconds;
-            }
-          }
-        },
-        pickerOptions3: {
-          // 禁用开始日期中，所有大于结束日期的日期
-          disabledDate: (date) => {
-            if (this.daterangeStartDate2) {
-              return date.getTime() > new Date(this.daterangeStartDate2).getTime();
-            }
-          }
-        },
-        pickerOptions4: {
-          // 禁用结束日期中，所有小于开始日期的日期
-          disabledDate: (date) => {
-            if (this.daterangeStartDate1) {
-              // 一天的毫秒数
-              var oneDayInMilliseconds = 24 * 60 * 60 * 1000;
-              return date.getTime() < new Date(this.daterangeStartDate1).getTime() - oneDayInMilliseconds;
-            }
-          }
-        },
         isSuccess: true,
         isTitle: true,
         isMessage: true,
@@ -599,10 +525,6 @@
         daterangeDeadline: [],
         // 创建人时间范围
         daterangeCreateTime: [],
-
-        daterangeStartDate1: '',
-        daterangeStartDate2: '',
-
         // 查询参数
         queryParams: {
           pageNum: 1,
@@ -623,7 +545,7 @@
           comment: null,
           createTime: null,
           createBy: null,
-          danbaozhuangtai: null,
+          danbaozhuangtai: "担保中",
           financingAmount: null,
           guaranteeRatio: null,
           purposeOfLoan: null
@@ -741,32 +663,7 @@
           this.isEditable = true;
         }
       },
-      daterangeStartDate1(n, o) {
-        if (n !== '' && n !== null) {
-          if (this.daterangeStartDate2 === '' || this.daterangeStartDate2 === null) {
-            this.error1 = '担保到期日不能为空';
-          } else {
-            this.error1 = ''; // 清空错误信息
-          }
-        } else if (this.daterangeStartDate2 === '' || this.daterangeStartDate2 === null) {
-          this.error1 = ''; // 两个日期都为空时，清空错误信息
-        } else {
-          this.error1 = '担保起始日不能为空';
-        }
-      },
-      daterangeStartDate2(n, o) {
-        if (n !== '' && n !== null) {
-          if (this.daterangeStartDate1 === '' || this.daterangeStartDate1 === null) {
-            this.error1 = '担保起始日不能为空';
-          } else {
-            this.error1 = ''; // 清空错误信息
-          }
-        } else if (this.daterangeStartDate1 === '' || this.daterangeStartDate1 === null) {
-          this.error1 = ''; // 两个日期都为空时，清空错误信息
-        } else {
-          this.error1 = '担保到期日不能为空';
-        }
-      },
+
       "form.guaranteeRatio"(n, o) {
         // 担保比例改变或者融资金额改变的时候,都要改变担保额
         if (n !== '' && n !== null) {
@@ -833,38 +730,18 @@
       getList() {
         this.loading = true;
         this.queryParams.params = {};
-        // if (null != this.daterangeStartDate && '' != this.daterangeStartDate) {
-        //   this.queryParams.params["beginStartDate"] = this.daterangeStartDate[0];
-        //   this.queryParams.params["endStartDate"] = this.daterangeStartDate[1];
-        // }
-        // if (null != this.daterangeDeadline && '' != this.daterangeDeadline) {
-        //   this.queryParams.params["beginDeadline"] = this.daterangeDeadline[0];
-        //   this.queryParams.params["endDeadline"] = this.daterangeDeadline[1];
-        // }
-        // if (null != this.daterangeStartDate && '' != this.daterangeStartDate) {
-        //   // 直接合并 开始时间和结束时间
-        //   this.queryParams.params["beginStartDate"] = this.daterangeStartDate[0];
-        //   this.queryParams.params["endStartDate"] = this.daterangeStartDate[1];
 
-        //   this.queryParams.params["beginDeadline"] = this.daterangeStartDate[0];
-        //   this.queryParams.params["endDeadline"] = this.daterangeStartDate[1];
-
-        // }
-
-        if (![null, '', undefined].includes(this.daterangeStartDate1) && ![null, '', undefined].includes(this
-            .daterangeStartDate2)) {
-          this.queryParams.params["beginStartDate"] = this.daterangeStartDate1;
-          this.queryParams.params["endStartDate"] = this.daterangeStartDate2;
-
-          this.queryParams.params["beginDeadline"] = this.daterangeStartDate1;
-          this.queryParams.params["endDeadline"] = this.daterangeStartDate2;
+        if (null != this.daterangeStartDate && '' != this.daterangeStartDate) {
+          this.queryParams.params["beginStartDate"] = this.daterangeStartDate[0];
+          this.queryParams.params["endStartDate"] = this.daterangeStartDate[1];
+        }
+        if (null != this.daterangeDeadline && '' != this.daterangeDeadline) {
+          this.queryParams.params["beginDeadline"] = this.daterangeDeadline[0];
+          this.queryParams.params["endDeadline"] = this.daterangeDeadline[1];
         }
 
-        if (null != this.daterangeCreateTime && '' != this.daterangeCreateTime) {
-          this.queryParams.params["beginCreateTime"] = this.daterangeCreateTime[0];
-          this.queryParams.params["endCreateTime"] = this.daterangeCreateTime[1];
-        }
-        this.queryParams['orderByColumn'] = 'id'
+        this.queryParams['orderByColumn'] = 'deadline'
+        this.queryParams['isAsc'] = "asc"
 
         let search = JSON.parse(JSON.stringify(this.queryParams));
         if (![null, '', undefined].includes(search.guaranteeAmount)) {

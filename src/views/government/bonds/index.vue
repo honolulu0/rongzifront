@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <search-panel HeaderIcon="government" title="政府专项债">
+    <search-panel HeaderIcon="government" title="专项债">
       <el-form :model="queryParams" ref="queryForm" size="small" label-width="160px" label-position="left"
         v-show="showSearch">
         <el-row :gutter="20">
@@ -12,8 +12,7 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="债券名称" prop="bondName">
-              <el-input v-model="queryParams.bondName" placeholder="债券名称" clearable
-                @keyup.enter.native="handleQuery" />
+              <el-input v-model="queryParams.bondName" placeholder="债券名称" clearable @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col>
           <!-- <el-col :span="8">
@@ -40,9 +39,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-        </el-row>
 
-        <el-row :gutter="20">
 
           <!-- <el-col :span="8">
             <el-form-item label="债券发行期限" prop="bondDuration">
@@ -75,7 +72,23 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="16">
+          <el-col :span="8">
+            <el-form-item label="借款日期">
+              <el-date-picker v-model="daterangeLoanDate" style="width: 240px" value-format="yyyy-MM-dd"
+                type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+            </el-form-item>
+
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="到期日期">
+              <el-date-picker v-model="daterangeDueDate" style="width: 240px" value-format="yyyy-MM-dd" type="daterange"
+                range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+            </el-form-item>
+
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :span="24">
             <el-form-item class="flex" style="display: flex; justify-content: flex-end;">
               <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">查 询</el-button>
               <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重 置</el-button>
@@ -110,9 +123,8 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar> -->
     </el-row>
     <!-- :summary-method="(param) => getSummaries(param, totalKeys)" show-summary -->
-    <el-table :summary-method="(param) => getSummaries2(param, totalKeys, zongji)" show-summary
-       v-loading="loading" :data="bondsList" @selection-change="handleSelectionChange"
-      :header-cell-style="header_cell_style">
+    <el-table :summary-method="(param) => getSummaries2(param, totalKeys, zongji)" show-summary v-loading="loading"
+      :data="bondsList" @selection-change="handleSelectionChange" :header-cell-style="header_cell_style">
       <el-table-column show-overflow-tooltip fixed="left" type="selection" width="60" min-width="60" align="center" />
       <!-- <el-table-column label="主键id" align="center" prop="id" /> -->
       <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managementId" min-width="100" />
@@ -189,8 +201,7 @@
         </template>
       </el-table-column> -->
       <!-- <el-table-column label="uuid" align="center" prop="uuid" /> -->
-      <el-table-column show-overflow-tooltip fixed="right" label="操作" align="center"
-        class-name="''">
+      <el-table-column show-overflow-tooltip fixed="right" label="操作" align="center" class-name="''">
         <template slot-scope="scope">
           <el-button size="mini" type="text" @click="handleUpdate(scope.row)" v-hasPermi="['government:bonds:edit']">查
             看</el-button>
@@ -234,8 +245,8 @@
                   <el-option v-for="dict in dict.type.sys_1762824645385388000" :key="dict.value" :label="dict.label"
                     :value="dict.label"></el-option>
                 </el-select> -->
-                <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2" :readonly="!isEditable" type="number"
-                  v-model.trim="form.bondSize" placeholder="规模（万元）" />
+                <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
+                  :readonly="!isEditable" type="number" v-model.trim="form.bondSize" placeholder="规模（万元）" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -273,20 +284,21 @@
           <el-row :gutter="20">
             <el-col :span="8">
               <el-form-item label="专项批复金额（万元）" prop="approvedAmount">
-                <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2" :readonly="!isEditable" type="number"
-                  v-model.trim="form.approvedAmount" placeholder="专项批复金额" />
+                <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
+                  :readonly="!isEditable" type="number" v-model.trim="form.approvedAmount" placeholder="专项批复金额" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="累计到账金额（万元）" prop="accumulatedAmountReceived">
-                <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2" :readonly="!isEditable" type="number"
-                  v-model.trim="form.accumulatedAmountReceived" placeholder="累计到账金额" />
+                <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
+                  :readonly="!isEditable" type="number" v-model.trim="form.accumulatedAmountReceived"
+                  placeholder="累计到账金额" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="已还金额（万元）" prop="repaidAmount">
-                <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2" :readonly="!isEditable" type="number"
-                  v-model.trim="form.repaidAmount" placeholder="已还金额" />
+                <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
+                  :readonly="!isEditable" type="number" v-model.trim="form.repaidAmount" placeholder="已还金额" />
               </el-form-item>
             </el-col>
 
@@ -295,22 +307,22 @@
           <el-row :gutter="20">
             <el-col :span="8">
               <el-form-item label="待还金额（万元）" prop="remainingAmount">
-                <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2" :readonly="!isEditable" type="number"
-                  v-model.trim="remainingCreditAmount" placeholder="待还金额" />
+                <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
+                  :readonly="!isEditable" type="number" v-model.trim="remainingCreditAmount" placeholder="待还金额" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="起始日" prop="loanDate">
-                 <el-date-picker format='yyyy/MM/dd' clearable :disabled="!isEditable" v-model="form.loanDate" type="date" value-format="yyyy-MM-dd"
-                   placeholder="请选择起始日">
-                 </el-date-picker>
-               </el-form-item>
+                <el-date-picker format='yyyy/MM/dd' clearable :disabled="!isEditable" v-model="form.loanDate"
+                  type="date" value-format="yyyy-MM-dd" placeholder="请选择起始日">
+                </el-date-picker>
+              </el-form-item>
 
             </el-col>
             <el-col :span="8">
               <el-form-item label="到期日" prop="dueDate">
-                <el-date-picker format='yyyy/MM/dd' clearable :disabled="!isEditable" v-model="form.dueDate" type="date" value-format="yyyy-MM-dd"
-                  placeholder="请选择到期日">
+                <el-date-picker format='yyyy/MM/dd' clearable :disabled="!isEditable" v-model="form.dueDate" type="date"
+                  value-format="yyyy-MM-dd" placeholder="请选择到期日">
                 </el-date-picker>
               </el-form-item>
             </el-col>
@@ -444,6 +456,10 @@
         title: "",
         // 是否显示弹出层
         open: false,
+        // 创建人时间范围
+        daterangeLoanDate: [],
+        // 创建人时间范围
+        daterangeDueDate: [],
         // 查询参数
         queryParams: {
           pageNum: 1,
@@ -533,17 +549,17 @@
           }]
         },
         isAutoCalculated: false,
-        totalKeys:{
-          '专项批复金额（万元）':'totalApprovedAmount',
-          '累计到账金额（万元）':'totalAccumulatedAmountReceived',
-          '已还金额（万元）':'totalRepaidAmount',
-          '待还金额（万元）':'totalRemainingAmount',
+        totalKeys: {
+          '专项批复金额（万元）': 'totalApprovedAmount',
+          '累计到账金额（万元）': 'totalAccumulatedAmountReceived',
+          '已还金额（万元）': 'totalRepaidAmount',
+          '待还金额（万元）': 'totalRemainingAmount',
         },
-        zongji:{
-          totalApprovedAmount:0,
-          totalAccumulatedAmountReceived:0,
-          totalRepaidAmount:0,
-          totalRemainingAmount:0,
+        zongji: {
+          totalApprovedAmount: 0,
+          totalAccumulatedAmountReceived: 0,
+          totalRepaidAmount: 0,
+          totalRemainingAmount: 0,
         }
       };
     },
@@ -602,13 +618,14 @@
       remainingCreditAmount: {
         set(val) {},
         get() {
-        // 确保值为数值类型，避免NaN
-        const creditAmount = Number(this.form.approvedAmount) || 0;
-        const usedCreditAmount = Number(this.form.repaidAmount) || 0;
+          // 确保值为数值类型，避免NaN
+          const creditAmount = Number(this.form.approvedAmount) || 0;
+          const usedCreditAmount = Number(this.form.repaidAmount) || 0;
 
-        const residue = creditAmount - usedCreditAmount;
-        this.form.remainingAmount = residue;
-        return residue;}
+          const residue = creditAmount - usedCreditAmount;
+          this.form.remainingAmount = residue;
+          return residue;
+        }
       },
       ...mapGetters([
         'name', 'avatar'
@@ -652,8 +669,17 @@
       /** 查询政府专项债列表 */
       getList() {
         this.loading = true;
-        this.queryParams['orderByColumn'] = 'id'
-
+        this.queryParams.params = {};
+        this.queryParams['orderByColumn'] = 'due_date'
+        this.queryParams['isAsc'] = "asc"
+        if (null != this.daterangeLoanDate && '' != this.daterangeLoanDate) {
+          this.queryParams.params["beginLoanDate"] = this.daterangeLoanDate[0];
+          this.queryParams.params["endLoanDate"] = this.daterangeLoanDate[1];
+        }
+        if (null != this.daterangeDueDate && '' != this.daterangeDueDate) {
+          this.queryParams.params["beginDueDate"] = this.daterangeDueDate[0];
+          this.queryParams.params["endDueDate"] = this.daterangeDueDate[1];
+        }
         const search = JSON.parse(JSON.stringify(this.queryParams))
         if (![null, '', undefined].includes(search.accumulatedAmountReceived)) {
           search.accumulatedAmountReceived = Number(search.accumulatedAmountReceived) * 10000
