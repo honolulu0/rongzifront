@@ -67,7 +67,7 @@
           <el-col :span="8">
             <el-form-item label="到期日">
               <el-date-picker v-model="daterangeDueDate" style="width: 240px" value-format="yyyy-MM-dd" type="daterange"
-                range-separator="-" start-placeholder="点击或者输入" end-placeholder="2024-08-22"></el-date-picker>
+                range-separator="-" start-placeholder="点击或者输入" end-placeholder="例子:2024-08-22"></el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>
@@ -513,6 +513,7 @@
   import {
     listProject,
     getProject,
+    getFinancingProject,
     delProject,
     addProject,
     updateProject,
@@ -717,23 +718,14 @@
           }
         }
       },
-      // rate: {
-      //   get() {
-      //     if (this.form.rate) {
-      //       // 当读取值时，添加百分号
-      //       return this.form.rate + (this.form.rate ? '%' : '');
-      //     } else {
-      //       return this.form.rate;
-      //     }
-      //   },
-      //   set(value) {
-      //     this.form.rate = value.replace(/%/g, '');
-      //   }
-      // },
+
     },
     created() {
+      if (this.$route.params.managementId != undefined && this.$route.params.managementId != "") {
+        console.log(this.$route.params.managementId);
+        this.handleUpdate(this.$route.params)
+      }
       this.getList();
-
       this.created_successfully = false;
       this.isEditable = true;
     },
@@ -869,8 +861,8 @@
       handleUpdate(row) {
         this.isEditable = false;
         this.reset();
-        const id = row.id || this.ids
-        getProject(id).then(response => {
+        const managementId = row.managementId
+        getFinancingProject(managementId).then(response => {
           /* str 需要赋值粘贴到的 */
           response.data.rzsrc2List.forEach(i => {
             i.id = null;

@@ -42,3 +42,10 @@ export function delBill(id) {
     method: 'delete'
   })
 }
+
+export function getProjectByManagementId(id) {
+  return request({
+    url: '/business/bill/managementId/' + id,
+    method: 'get'
+  })
+}

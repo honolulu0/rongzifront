@@ -18,7 +18,7 @@
                 placeholder="请选择到期日期">
               </el-date-picker> -->
               <el-date-picker format='yyyy/MM/dd' v-model="daterangeDueDate" clearable value-format="yyyy-MM-dd" type="daterange"
-                range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+                range-separator="-" start-placeholder="点击或者输入" end-placeholder="例子:2024-08-22"></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="8">

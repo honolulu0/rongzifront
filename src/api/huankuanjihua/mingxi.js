@@ -50,3 +50,13 @@ export function getFinancingProject(id) {
     method: 'get'
   })
 }
+
+
+//  按月汇总 还款明细
+export function getRepaymentPlanData(query) {
+  return request({
+    url: '/huankuanjihua/mingxi/paymentSummary',
+    method: 'get',
+    params: query
+  })
+}

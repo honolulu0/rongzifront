@@ -42,3 +42,10 @@ export function delFactoring(id) {
     method: 'delete'
   })
 }
+
+export function getProjectByManagementId(id) {
+  return request({
+    url: '/reverse/factoring/managementId/' + id,
+    method: 'get'
+  })
+}

@@ -56,13 +56,13 @@
           <el-col :span="8">
             <el-form-item label="借款日期">
               <el-date-picker v-model="daterangeLoanDate" style="width: 240px" value-format="yyyy-MM-dd"
-                type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+                type="daterange" range-separator="-" start-placeholder="点击或者输入" end-placeholder="例子:2024-08-22"></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="到期日期">
               <el-date-picker v-model="daterangeDueDate" style="width: 240px" value-format="yyyy-MM-dd" type="daterange"
-                range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+                range-separator="-" start-placeholder="点击或者输入" end-placeholder="例子:2024-08-22"></el-date-picker>
             </el-form-item>
 
           </el-col>
@@ -589,6 +589,7 @@
       this.isEditable = true;
     },
     methods: {
+
       calculateLoanTerm() {
         if (this.form.loanDate && this.form.dueDate) {
           const start = moment(this.form.loanDate);

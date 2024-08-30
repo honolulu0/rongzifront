@@ -1,6 +1,6 @@
 <template>
   <div class="app-container" v-loading="loading2">
-    <search-panel HeaderIcon="repaymentplan" title="明细查询">
+    <search-panel HeaderIcon="repaymentplan" title="明细查询(单位:元)">
       <el-form :model="queryParams" ref="queryForm" size="small" label-width="80px" label-position="left">
         <!-- Row 1 -->
         <el-row :gutter="20">
@@ -26,18 +26,19 @@
               </el-select>
             </el-form-item>
           </el-col>
+
+          <el-col :span="8">
+            <el-form-item label="还款日期">
+              <el-date-picker v-model="daterangeRiqi" style="width: 240px" value-format="yyyy-MM-dd" type="daterange"
+                range-separator="-" start-placeholder="点击或者输入" end-placeholder="例子:2024-08-22"></el-date-picker>
+            </el-form-item>
+          </el-col>
         </el-row>
 
         <!-- Row 2 -->
         <el-row :gutter="20">
 
-          <el-col :span="8">
-            <el-form-item label="还款日期">
-              <el-date-picker v-model="daterangeRiqi" style="width: 240px" value-format="yyyy-MM-dd" type="daterange"
-                range-separator="-" start-placeholder="点击或者输入" end-placeholder="2024-08-22"></el-date-picker>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
+          <el-col :span="24">
             <!-- Buttons can be placed anywhere, here is an example -->
             <el-form-item class="flex" style="display: flex; justify-content: flex-end;">
               <el-button type="primary" icon="el-icon-search" @click="handleQuery">搜 索</el-button>
@@ -65,6 +66,7 @@
           <el-link type="primary" @click="openDetail(scope.row)">{{ scope.row.managerId }}</el-link>
         </template>
       </el-table-column>
+      <el-table-column label="项目类型" align="center" prop="xiangmuleixing" />
       <el-table-column label="期数" align="center" prop="qishu" min-width="80" />
       <el-table-column label="还款日期" align="center" prop="riqi" min-width="100" />
       <el-table-column show-overflow-tooltip label="借款人" align="center" prop="borrowingUnit" min-width="260">
@@ -192,8 +194,12 @@
         // 是否显示弹出层
         open: false,
         daterangeRiqi: [],
-
-
+        pathMap: {
+          "贷款清单": "Project",
+          "反向保理": "Factoring",
+          "银行承兑汇票": "Bank",
+          "商业承兑汇票": "Bill",
+        },
         // 查询参数
         queryParams: {
           pageNum: 1,
@@ -234,6 +240,7 @@
       this.getList();
     },
     methods: {
+
       /** 查询还款计划明细列表 */
       getList() {
         this.loading = true;
@@ -382,38 +389,53 @@
         console.log(sums);
         return sums;
       },
-      // 通过管理编号获取当前管理编号对应的 融资项目的详细信息
-      async openDetail(row) {
-        this.loading2 = true;
+      openDetail(row) {
         const {
-          managerId
+          managerId,
+          xiangmuleixing
         } = row;
-        try {
+        // console.log(this.$route);
+        // console.log(this.pathMap[xiangmuleixing]);
 
-          const res = await getFinancingProject(managerId);
-          const hjmxRes = await getRepaymentPlan({
-            managerId: managerId
-          });
-          if (res.code === 200) {
-            res.data.financingAmount = Number(res.data.financingAmount) / 10000;
-            res.data.repaidAmount = Number(res.data.repaidAmount) / 10000;
-            res.data.remainingAmount = Number(res.data.remainingAmount) / 10000;
-            res.data.baozhengjin = Number(res.data.baozhengjin) / 10000;
-            res.data.shouxufei = Number(res.data.shouxufei) / 10000;
-            this.detailForm = res.data;
-            this.detailForm.scrUuid = res.data.rzsrc2List.map(i => i.url)
+        this.$router.push({
+          name: this.pathMap[xiangmuleixing],
+          params: {
+            managementId: managerId
           }
-          if (hjmxRes.code === 200) {
-            this.EchoHuankuanmingxi2List1 = hjmxRes.rows;
-          }
-
-        } catch (error) {
-          this.$modal.msgSuccess("出现错误，请重新尝试");
-        } finally {
-          this.detailVisible = true;
-          this.loading2 = false;
-        }
+        });
       },
+      // 通过管理编号获取当前管理编号对应的 融资项目的详细信息
+      // async openDetail(row) {
+      //   this.loading2 = true;
+      //   const {
+      //     managerId
+      //   } = row;
+      //   try {
+
+      //     const res = await getFinancingProject(managerId);
+      //     const hjmxRes = await getRepaymentPlan({
+      //       managerId: managerId
+      //     });
+      //     if (res.code === 200) {
+      //       res.data.financingAmount = Number(res.data.financingAmount) / 10000;
+      //       res.data.repaidAmount = Number(res.data.repaidAmount) / 10000;
+      //       res.data.remainingAmount = Number(res.data.remainingAmount) / 10000;
+      //       res.data.baozhengjin = Number(res.data.baozhengjin) / 10000;
+      //       res.data.shouxufei = Number(res.data.shouxufei) / 10000;
+      //       this.detailForm = res.data;
+      //       this.detailForm.scrUuid = res.data.rzsrc2List.map(i => i.url)
+      //     }
+      //     if (hjmxRes.code === 200) {
+      //       this.EchoHuankuanmingxi2List1 = hjmxRes.rows;
+      //     }
+
+      //   } catch (error) {
+      //     this.$modal.msgSuccess("出现错误，请重新尝试");
+      //   } finally {
+      //     this.detailVisible = true;
+      //     this.loading2 = false;
+      //   }
+      // },
     }
   };
 </script>

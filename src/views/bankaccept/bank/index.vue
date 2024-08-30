@@ -43,13 +43,14 @@
           <el-col :span="8">
             <el-form-item label="开始日期">
               <el-date-picker v-model="daterangeDraftDate" style="width: 240px" value-format="yyyy-MM-dd"
-                type="daterange" range-separator="-"  start-placeholder="点击或者输入" end-placeholder="2024-08-22"></el-date-picker>
+                type="daterange" range-separator="-" start-placeholder="点击或者输入"
+                end-placeholder="例子:2024-08-22"></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="结束日期">
               <el-date-picker v-model="daterangeDueDate" style="width: 240px" value-format="yyyy-MM-dd" type="daterange"
-                range-separator="-"  start-placeholder="点击或者输入" end-placeholder="2024-08-22"></el-date-picker>
+                range-separator="-" start-placeholder="点击或者输入" end-placeholder="例子:2024-08-22"></el-date-picker>
             </el-form-item>
           </el-col>
 
@@ -483,6 +484,7 @@
   import {
     listBank,
     getBank,
+    getProjectByManagementId,
     delBank,
     addBank,
     updateBank
@@ -729,6 +731,7 @@
           "updateTime": null,
           "remark": null,
           "managerId": "",
+          "xiangmuleixing": "银行承兑汇票",
           "borrowingUnit": "",
           "financialInstitution": "",
           "daikuanyongtu": "",
@@ -799,6 +802,10 @@
 
     },
     created() {
+      if (this.$route.params.managementId != undefined && this.$route.params.managementId != "") {
+        console.log(this.$route.params.managementId);
+        this.handleUpdate(this.$route.params)
+      }
       this.getList();
       this.created_successfully = false;
       this.isEditable = true;
@@ -956,8 +963,8 @@
       handleUpdate(row) {
         this.isEditable = false;
         this.reset();
-        const id = row.id || this.ids
-        getBank(id).then(response => {
+        const managementId = row.managementId
+        getProjectByManagementId(managementId).then(response => {
           /* str 需要赋值粘贴到的 */
           response.data.rzsrc2List.forEach(i => {
             i.id = null;
@@ -1017,6 +1024,7 @@
             data.huankuanmingxi2List = [{
               "remark": null,
               "managerId": data.managementId,
+              "xiangmuleixing": "银行承兑汇票",
               "borrowingUnit": data.drawer,
               "financialInstitution": data.financialInstitution,
               "daikuanyongtu": data.huankuanjine,

@@ -42,3 +42,10 @@ export function delBank(id) {
     method: 'delete'
   })
 }
+
+export function getProjectByManagementId(id) {
+  return request({
+    url: '/bankaccept/bank/managementId/' + id,
+    method: 'get'
+  })
+}

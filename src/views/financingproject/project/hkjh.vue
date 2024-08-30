@@ -770,6 +770,7 @@
           plan.borrowingUnit = this.form.borrowingUnit
           plan.financialInstitution = this.form.financialInstitution
           plan.daikuanyongtu = this.form.daikuanyongtu
+          plan.xiangmuleixing = "贷款清单"
         });
       },
       // 数组清空
