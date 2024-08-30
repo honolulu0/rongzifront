@@ -4,17 +4,10 @@
       <el-form :model="queryParams" label-position="left" ref="queryForm" size="small" :inline="false"
         v-show="showSearch" label-width="130px">
         <el-row :gutter="20">
-          <!-- <el-col :span="8">
-            <el-form-item label="管理编号" prop="managementId">
-              <el-input v-model="queryParams.managementId" placeholder="管理编号" clearable
-                @keyup.enter.native="handleQuery" />
-            </el-form-item>
-          </el-col> -->
           <el-col :span="8">
             <el-form-item label="借款金额（万元）" prop="loanAmount">
               <el-input-number class="w" :controls="false" :precision="2" type="number"
-                v-model.trim="queryParams.loanAmount" placeholder="借款金额" clearable
-                @keyup.enter.native="handleQuery" />
+                v-model.trim="queryParams.loanAmount" placeholder="借款金额" clearable @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -33,13 +26,10 @@
               </el-select>
             </el-form-item>
           </el-col>
-        </el-row>
 
-        <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="借款期限" prop="loanTerm">
-              <el-input v-model="queryParams.loanTerm" placeholder="借款期限" clearable
-                @keyup.enter.native="handleQuery" />
+              <el-input v-model="queryParams.loanTerm" placeholder="借款期限" clearable @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -47,12 +37,6 @@
               <el-input v-model="queryParams.rate" placeholder="利率" clearable @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col>
-          <!-- <el-col :span="8">
-            <el-form-item label="合同编号" prop="contractId">
-              <el-input v-model="queryParams.contractId" placeholder="合同编号" clearable
-                @keyup.enter.native="handleQuery" />
-            </el-form-item>
-          </el-col> -->
           <el-col :span="8">
             <el-form-item label="还款方式" prop="repaymentMethod">
               <el-select filterable v-model="queryParams.repaymentMethod" placeholder="请选择还款方式" clearable>
@@ -61,10 +45,6 @@
               </el-select>
             </el-form-item>
           </el-col>
-        </el-row>
-
-        <el-row :gutter="20">
-
           <el-col :span="8">
             <el-form-item label="业务类型" prop="loanUse">
               <el-select filterable v-model="queryParams.loanUse" placeholder="请选择业务类型" clearable>
@@ -73,14 +53,28 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="16">
+          <el-col :span="8">
+            <el-form-item label="借款日期">
+              <el-date-picker v-model="daterangeLoanDate" style="width: 240px" value-format="yyyy-MM-dd"
+                type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="到期日期">
+              <el-date-picker v-model="daterangeDueDate" style="width: 240px" value-format="yyyy-MM-dd" type="daterange"
+                range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+            </el-form-item>
+
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :span="24">
             <el-form-item class="flex" style="display: flex; justify-content: flex-end;">
               <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">查 询</el-button>
               <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重 置</el-button>
             </el-form-item>
           </el-col>
         </el-row>
-
       </el-form>
     </search-panel>
 
@@ -630,7 +624,8 @@
           this.queryParams.params["beginDueDate"] = this.daterangeDueDate[0];
           this.queryParams.params["endDueDate"] = this.daterangeDueDate[1];
         }
-        this.queryParams['orderByColumn'] = 'id'
+        this.queryParams['orderByColumn'] = 'due_date'
+        this.queryParams['isAsc'] = "asc"
 
         let search = JSON.parse(JSON.stringify(this.queryParams))
         if (![null, '', undefined].includes(search.loanAmount)) {

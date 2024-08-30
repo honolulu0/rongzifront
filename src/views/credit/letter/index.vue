@@ -1,8 +1,8 @@
 <template>
   <div class="app-container">
     <search-panel HeaderIcon="credit" title="信用证">
-      <el-form label-position="left" :model="queryParams" ref="queryForm" size="small" :inline="false" v-show="showSearch"
-        label-width="120px" :rules="searchRules">
+      <el-form label-position="left" :model="queryParams" ref="queryForm" size="small" :inline="false"
+        v-show="showSearch" label-width="120px" :rules="searchRules">
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="管理编号" prop="managementId">
@@ -16,39 +16,7 @@
                 @keyup.enter.native="handleQuery" />
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="开证起止日期" :error="error1">
-              <el-row>
-                <el-col :span="11">
-                  <el-date-picker :picker-options="pickerOptions3" format='yyyy/MM/dd' v-model="daterangeIssuingDate1"
-                    style="width: 100%" value-format="yyyy-MM-dd" type="date" placeholder="开证起始日"></el-date-picker>
-                </el-col>
-                <el-col :span="2" class="flex fjc">-</el-col>
-                <el-col :span="11">
-                  <el-date-picker :picker-options="pickerOptions4" format='yyyy/MM/dd' v-model="daterangeIssuingDate2"
-                    style="width: 100%" value-format="yyyy-MM-dd" type="date" placeholder="开证到期日"></el-date-picker>
-                </el-col>
-              </el-row>
-            </el-form-item>
-          </el-col>
 
-        </el-row>
-        <el-row :gutter="20">
-          <el-col :span="8">
-            <el-form-item label="有效起止日期" :error="error2">
-              <el-row>
-                <el-col :span="11">
-                  <el-date-picker :picker-options="pickerOptions5" format='yyyy/MM/dd' v-model="daterangeEffectiveDate1"
-                    style="width: 100%" value-format="yyyy-MM-dd" type="date" placeholder="有效起始日"></el-date-picker>
-                </el-col>
-                <el-col :span="2" class="flex fjc">-</el-col>
-                <el-col :span="11">
-                  <el-date-picker :picker-options="pickerOptions6" format='yyyy/MM/dd' v-model="daterangeEffectiveDate2"
-                    style="width: 100%" value-format="yyyy-MM-dd" type="date" placeholder="有效到期日"></el-date-picker>
-                </el-col>
-              </el-row>
-            </el-form-item>
-          </el-col>
           <el-col :span="8">
             <el-form-item label="开证申请人" prop="applicant">
               <el-select filterable v-model="queryParams.applicant" placeholder="请选择开证申请人" clearable>
@@ -65,9 +33,6 @@
               </el-select>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row :gutter="20">
-
           <el-col :span="8">
             <el-form-item label="金融机构" prop="financialInstitution">
               <el-select filterable v-model="queryParams.financialInstitution" placeholder="请选择金融机构" clearable>
@@ -76,7 +41,22 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="16">
+          <el-col :span="8">
+            <el-form-item label="开证日期">
+              <el-date-picker v-model="daterangeIssuingDate" style="width: 240px" value-format="yyyy-MM-dd"
+                type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="有效日期">
+              <el-date-picker v-model="daterangeEffectiveDate" style="width: 240px" value-format="yyyy-MM-dd"
+                type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row :gutter="20">
+          <el-col :span="24">
             <el-form-item style="display: flex; justify-content: flex-end;">
               <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">查 询</el-button>
               <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重 置</el-button>
@@ -108,14 +88,14 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar> -->
     </el-row>
     <!-- :summary-method="(param) => getSummaries(param, totalKeys)" show-summary -->
-    <el-table  v-loading="loading" :data="letterList" @selection-change="handleSelectionChange"
+    <el-table v-loading="loading" :data="letterList" @selection-change="handleSelectionChange"
       :header-cell-style="header_cell_style">
       <el-table-column show-overflow-tooltip fixed="left" type="selection" min-width="60" width="60px" align="center" />
       <el-table-column show-overflow-tooltip label="管理编号" align="center" min-width="100" prop="managementId" />
       <!-- <el-table-column label="数据唯一编号" align="center" prop="scrUuid" /> -->
       <!-- <el-table-column label="审核id" align="center" prop="auditId" /> -->
       <el-table-column show-overflow-tooltip label="信用证号码" align="center" prop="creditNumber" min-width="160" />
-      <el-table-column show-overflow-tooltip label="开证金额（万元）"  align="right"  prop="issuingAmount" min-width="160">
+      <el-table-column show-overflow-tooltip label="开证金额（万元）" align="right" prop="issuingAmount" min-width="160">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.issuingAmount) }}</span>
         </template>
@@ -200,19 +180,17 @@
                   :readonly="!isEditable" type="number" v-model.trim="form.issuingAmount" placeholder="开证金额" />
               </el-form-item>
             </el-col>
-          </el-row>
-          <el-row :gutter="20">
+
             <el-col :span="8">
-              <el-form-item label="开证日期" prop="issuingDate">
-                <el-date-picker :picker-options="pickerOptions1" format='yyyy/MM/dd' :disabled="!isEditable" clearable
-                  v-model="form.issuingDate" type="date" value-format="yyyy-MM-dd" placeholder="请选择开证日期"></el-date-picker>
+              <el-form-item label="开证日期">
+                <el-date-picker v-model="daterangeIssuingDate" style="width: 240px" value-format="yyyy-MM-dd"
+                  type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item label="有效日期" prop="effectiveDate">
-                <el-date-picker :picker-options="pickerOptions2" format='yyyy/MM/dd' :disabled="!isEditable" clearable
-                  v-model="form.effectiveDate" type="date" value-format="yyyy-MM-dd"
-                  placeholder="请选择有效日期"></el-date-picker>
+              <el-form-item label="有效日期">
+                <el-date-picker v-model="daterangeEffectiveDate" style="width: 240px" value-format="yyyy-MM-dd"
+                  type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -270,8 +248,9 @@
         </div>
       </div>
       <div v-else>
-        <CreateSuccess @close-dialog="closeDialog" @create-again="create_again" :isSuccess="isSuccess" :isTitle="isTitle"
-          :isMessage="isMessage" :title="ctitle" :isEdit="isEdit" @confirm="handleaddList" @cancel="cancel">
+        <CreateSuccess @close-dialog="closeDialog" @create-again="create_again" :isSuccess="isSuccess"
+          :isTitle="isTitle" :isMessage="isMessage" :title="ctitle" :isEdit="isEdit" @confirm="handleaddList"
+          @cancel="cancel">
         </CreateSuccess>
       </div>
 
@@ -280,562 +259,500 @@
 </template>
 
 <script>
-import { listLetter, getLetter, delLetter, addLetter, updateLetter } from "@/api/credit/letter";
-import { listList, getList, delList, addList, updateList } from "@/api/rzauditlist/list";
-import { mapGetters } from 'vuex';
-import { SnowflakeIdGenerator } from '@/utils/index'
-import moment from 'moment'
-import CreateSuccess from '@/components/createSuccess/index.vue'
-import SearchPanel from '@/components/SearchPanel/index.vue'
+  import {
+    listLetter,
+    getLetter,
+    delLetter,
+    addLetter,
+    updateLetter
+  } from "@/api/credit/letter";
+  import {
+    listList,
+    getList,
+    delList,
+    addList,
+    updateList
+  } from "@/api/rzauditlist/list";
+  import {
+    mapGetters
+  } from 'vuex';
+  import {
+    SnowflakeIdGenerator
+  } from '@/utils/index'
+  import moment from 'moment'
+  import CreateSuccess from '@/components/createSuccess/index.vue'
+  import SearchPanel from '@/components/SearchPanel/index.vue'
 
-import { checkDueReminderWithConfig } from '@/utils/expirationreminder';
-import { reminderConfig } from '@/config/expirationreminder'
+  import {
+    checkDueReminderWithConfig
+  } from '@/utils/expirationreminder';
+  import {
+    reminderConfig
+  } from '@/config/expirationreminder'
 
-export default {
-  name: "Letter",
-  dicts: ['sys_1757265915323351000', 'sys_1757265828501258200', 'sys_acceptor'],
-  components: {
-    CreateSuccess,
-    SearchPanel
-  },
-  data() {
-    return {
-      isSuccess: true,
-      isTitle: true,
-      isMessage: true,
-      ctitle: '',
-      isEdit: false,
-      rzaudit_data: null,
+  export default {
+    name: "Letter",
+    dicts: ['sys_1757265915323351000', 'sys_1757265828501258200', 'sys_acceptor'],
+    components: {
+      CreateSuccess,
+      SearchPanel
+    },
+    data() {
+      return {
+        isSuccess: true,
+        isTitle: true,
+        isMessage: true,
+        ctitle: '',
+        isEdit: false,
+        rzaudit_data: null,
 
-      reminderConfig: reminderConfig.slice(1),
-      checkDueReminderWithConfig: checkDueReminderWithConfig,
-      created_successfully: true,
-      isEditable: false,
-      header_cell_style: {
-        backgroundColor: '#f2f4f5',
-        color: '#000000',
-        fontSize: '14px',
-        fontWeight: 'bold',
-      },
-      // 遮罩层
-      loading: true,
-      // 选中数组
-      ids: [],
-      // 子表选中数据
-      checkedrzsrc2: [],
-      // 非单个禁用
-      single: true,
-      // 非多个禁用
-      multiple: true,
-      // 显示搜索条件
-      showSearch: true,
-      // 总条数
-      total: 0,
-      // 信用证表格数据
-      letterList: [],
-      // 附件表表格数据
-      rzsrc2List: [],
-      // 弹出层标题
-      title: "",
-      // 是否显示弹出层
-      open: false,
-      // 创建人时间范围
-      // daterangeIssuingDate: [],
-      daterangeIssuingDate1: '',
-      daterangeIssuingDate2: '',
-      // 创建人时间范围
-      daterangeEffectiveDate1: '',
-      daterangeEffectiveDate2: '',
-      // 查询参数
-      queryParams: {
-        pageNum: 1,
-        pageSize: 100,
-        managementId: null,
-        scrUuid: null,
-        auditId: null,
-        creditNumber: null,
-        issuingAmount: null,
-        issuingDate: null,
-        effectiveDate: null,
-        remark: null,
-        applicant: null,
-        beneficiary: null,
-        financialInstitution: null,
-        comment: null,
-      },
-      searchRules: {},
-      // 表单参数
-      form: {},
-      /* str 需要添加的 */
-      scrUuid: null,
-      /* end */
-      // 表单校验
-      rules: {
-        managementId: [
-          { required: true, message: "管理编号不能为空", trigger: "blur" }
-        ],
-        scrUuid: [
-          { required: false, message: "附件不能为空", trigger: "blur" }
-        ],
-        auditId: [
-          { required: true, message: "审核id不能为空", trigger: "blur" }
-        ],
-        creditNumber: [
-          { required: true, message: "信用证号码不能为空", trigger: "blur" }
-        ],
-        issuingAmount: [
-          { required: true, message: "开证金额不能为空", trigger: "blur" }
-        ],
-        issuingDate: [
-          { required: true, message: "开证日期不能为空", trigger: "blur" }
-        ],
-        effectiveDate: [
-          { required: true, message: "有效日期不能为空", trigger: "blur" }
-        ],
-        applicant: [
-          { required: true, message: "开证申请人不能为空", trigger: "change" }
-        ],
-        beneficiary: [
-          { required: true, message: "收益人不能为空", trigger: "change" }
-        ],
-        financialInstitution: [
-          { required: true, message: "金融机构不能为空", trigger: "change" }
-        ],
-      },
-      pickerOptions1: {
-        // 禁用开始日期中，所有大于结束日期的日期
-        disabledDate: (date) => {
-          if (this.form.effectiveDate) {
-            return date.getTime() > new Date(this.form.effectiveDate).getTime();
-          }
-        }
-      },
-      pickerOptions2: {
-        // 禁用结束日期中，所有小于开始日期的日期
-        disabledDate: (date) => {
-          if (this.form.issuingDate) {
-            // 一天的毫秒数
-            var oneDayInMilliseconds = 24 * 60 * 60 * 1000;
-            return date.getTime() < new Date(this.form.issuingDate).getTime() - oneDayInMilliseconds;
-          }
-        }
-      },
-      pickerOptions3: {
-        // 禁用开始日期中，所有大于结束日期的日期
-        disabledDate: (date) => {
-          if (this.daterangeIssuingDate2) {
-            return date.getTime() > new Date(this.daterangeIssuingDate2).getTime();
-          }
-        }
-      },
-      pickerOptions4: {
-        // 禁用结束日期中，所有小于开始日期的日期
-        disabledDate: (date) => {
-          if (this.daterangeIssuingDate1) {
-            // 一天的毫秒数
-            var oneDayInMilliseconds = 24 * 60 * 60 * 1000;
-            return date.getTime() < new Date(this.daterangeIssuingDate1).getTime() - oneDayInMilliseconds;
-          }
-        }
-      },
-      pickerOptions5: {
-        // 禁用开始日期中，所有大于结束日期的日期
-        disabledDate: (date) => {
-          if (this.daterangeEffectiveDate2) {
-            return date.getTime() > new Date(this.daterangeEffectiveDate2).getTime();
-          }
-        }
-      },
-      pickerOptions6: {
-        // 禁用结束日期中，所有小于开始日期的日期
-        disabledDate: (date) => {
-          if (this.daterangeEffectiveDate1) {
-            // 一天的毫秒数
-            var oneDayInMilliseconds = 24 * 60 * 60 * 1000;
-            return date.getTime() < new Date(this.daterangeEffectiveDate1).getTime() - oneDayInMilliseconds;
-          }
-        }
-      },
-      error1: '',
-      error2: '',
-      totalKeys: [
-        '开证金额（万元）'
-      ]
-    };
-  },
-  watch: {
-    open(n, o) {
-      if (n == false) {
-        this.created_successfully = false;
-        this.isEditable = true;
-      }
-    },
-    daterangeIssuingDate1(n, o) {
-      if (n !== '' && n !== null) {
-        if (this.daterangeIssuingDate2 === '' || this.daterangeIssuingDate2 === null) {
-          this.error1 = '开证到期日不能为空';
-        } else {
-          this.error1 = ''; // 清空错误信息
-        }
-      } else if (this.daterangeIssuingDate2 === '' || this.daterangeIssuingDate2 === null) {
-        this.error1 = ''; // 两个日期都为空时，清空错误信息
-      } else {
-        this.error1 = '开证起始日不能为空';
-      }
-    },
-    daterangeIssuingDate2(n, o) {
-      if (n !== '' && n !== null) {
-        if (this.daterangeIssuingDate1 === '' || this.daterangeIssuingDate1 === null) {
-          this.error1 = '开证起始日不能为空';
-        } else {
-          this.error1 = ''; // 清空错误信息
-        }
-      } else if (this.daterangeIssuingDate1 === '' || this.daterangeIssuingDate1 === null) {
-        this.error1 = ''; // 两个日期都为空时，清空错误信息
-      } else {
-        this.error1 = '开证到期日不能为空';
-      }
-    },
-
-    daterangeEffectiveDate1(n, o) {
-      if (n !== '' && n !== null) {
-        if (this.daterangeEffectiveDate2 === '' || this.daterangeEffectiveDate2 === null) {
-          this.error2 = '有效到期日不能为空';
-        } else {
-          this.error2 = ''; // 清空错误信息
-        }
-      } else if (this.daterangeEffectiveDate2 === '' || this.daterangeEffectiveDate2 === null) {
-        this.error2 = ''; // 两个日期都为空时，清空错误信息
-      } else {
-        this.error2 = '有效起始日不能为空';
-      }
-    },
-    daterangeEffectiveDate2(n, o) {
-      if (n !== '' && n !== null) {
-        if (this.daterangeEffectiveDate1 === '' || this.daterangeEffectiveDate1 === null) {
-          this.error2 = '有效起始日不能为空';
-        } else {
-          this.error2 = ''; // 清空错误信息
-        }
-      } else if (this.daterangeEffectiveDate1 === '' || this.daterangeEffectiveDate1 === null) {
-        this.error2 = ''; // 两个日期都为空时，清空错误信息
-      } else {
-        this.error2 = '有效到期日不能为空';
-      }
-    }
-  },
-  computed: {
-    ...mapGetters([
-      'name', 'avatar'
-    ])
-  },
-  created() {
-    this.getList();
-
-    this.created_successfully = false;
-    this.isEditable = true;
-  },
-  methods: {
-    /* 创建成功关闭弹窗 */
-    closeDialog() {
-      this.open = false;
-      this.created_successfully = false;
-    },
-    /* 再次创建 */
-    create_again() {
-      this.reset();
-      this.created_successfully = false;
-    },
-    toggleEdit() {
-      this.isEditable = !this.isEditable;
-    },
-    /** 查询信用证列表 */
-    getList() {
-      this.loading = true;
-      this.queryParams.params = {};
-      if (null != this.daterangeIssuingDate1 && '' != this.daterangeIssuingDate2) {
-        this.queryParams.params["beginIssuingDate"] = this.daterangeIssuingDate1;
-        this.queryParams.params["endIssuingDate"] = this.daterangeIssuingDate2;
-      }
-      if (null != this.daterangeEffectiveDate1 && '' != this.daterangeEffectiveDate2) {
-        this.queryParams.params["beginEffectiveDate"] = this.daterangeEffectiveDate1;
-        this.queryParams.params["endEffectiveDate"] = this.daterangeEffectiveDate2;
-      }
-      this.queryParams['orderByColumn'] = 'id'
-      listLetter(this.queryParams).then(response => {
-        this.letterList = response.rows;
-        this.total = response.total;
-        this.loading = false;
-      });
-    },
-    // 取消按钮
-    cancel() {
-      this.open = false;
-      this.created_successfully = false;
-      this.reset();
-    },
-    // 表单重置
-    reset() {
-      this.form = {
-        managementId: null,
-        scrUuid: null,
-        auditId: null,
-        creditNumber: null,
-        issuingAmount: null,
-        issuingDate: null,
-        effectiveDate: null,
-        remark: null,
-        applicant: null,
-        beneficiary: null,
-        financialInstitution: null,
-        comment: null,
-        createTime: null,
-        createBy: null,
-        updateTime: null,
-        updateBy: null,
-        id: null
-      };
-      this.rzsrc2List = [];
-      this.resetForm("form");
-    },
-    /** 搜索按钮操作 */
-    handleQuery() {
-      this.queryParams.pageNum = 1;
-      this.getList();
-    },
-    /** 重置按钮操作 */
-    resetQuery() {
-      this.daterangeIssuingDate1 = '',
-        this.daterangeIssuingDate2 = '',
+        reminderConfig: reminderConfig.slice(1),
+        checkDueReminderWithConfig: checkDueReminderWithConfig,
+        created_successfully: true,
+        isEditable: false,
+        header_cell_style: {
+          backgroundColor: '#f2f4f5',
+          color: '#000000',
+          fontSize: '14px',
+          fontWeight: 'bold',
+        },
+        // 遮罩层
+        loading: true,
+        // 选中数组
+        ids: [],
+        // 子表选中数据
+        checkedrzsrc2: [],
+        // 非单个禁用
+        single: true,
+        // 非多个禁用
+        multiple: true,
+        // 显示搜索条件
+        showSearch: true,
+        // 总条数
+        total: 0,
+        // 信用证表格数据
+        letterList: [],
+        // 附件表表格数据
+        rzsrc2List: [],
+        // 弹出层标题
+        title: "",
+        // 是否显示弹出层
+        open: false,
         // 创建人时间范围
-        this.daterangeEffectiveDate1 = '',
-        this.daterangeEffectiveDate2 = '',
-        this.resetForm("queryForm");
-      this.handleQuery();
+        daterangeIssuingDate: [],
+        // 创建人时间范围
+        daterangeEffectiveDate: [],
+        // 查询参数
+        queryParams: {
+          pageNum: 1,
+          pageSize: 100,
+          managementId: null,
+          scrUuid: null,
+          auditId: null,
+          creditNumber: null,
+          issuingAmount: null,
+          issuingDate: null,
+          effectiveDate: null,
+          remark: null,
+          applicant: null,
+          beneficiary: null,
+          financialInstitution: null,
+          comment: null,
+          uuid: null
+        },
+        searchRules: {},
+        // 表单参数
+        form: {},
+        /* str 需要添加的 */
+        scrUuid: null,
+        /* end */
+        // 表单校验
+        rules: {
+          managementId: [{
+            required: true,
+            message: "管理编号不能为空",
+            trigger: "blur"
+          }],
+          scrUuid: [{
+            required: false,
+            message: "附件不能为空",
+            trigger: "blur"
+          }],
+          auditId: [{
+            required: true,
+            message: "审核id不能为空",
+            trigger: "blur"
+          }],
+          creditNumber: [{
+            required: true,
+            message: "信用证号码不能为空",
+            trigger: "blur"
+          }],
+          issuingAmount: [{
+            required: true,
+            message: "开证金额不能为空",
+            trigger: "blur"
+          }],
+          issuingDate: [{
+            required: true,
+            message: "开证日期不能为空",
+            trigger: "blur"
+          }],
+          effectiveDate: [{
+            required: true,
+            message: "有效日期不能为空",
+            trigger: "blur"
+          }],
+          applicant: [{
+            required: true,
+            message: "开证申请人不能为空",
+            trigger: "change"
+          }],
+          beneficiary: [{
+            required: true,
+            message: "收益人不能为空",
+            trigger: "change"
+          }],
+          financialInstitution: [{
+            required: true,
+            message: "金融机构不能为空",
+            trigger: "change"
+          }],
+        },
+
+        error1: '',
+        error2: '',
+        totalKeys: [
+          '开证金额（万元）'
+        ]
+      };
     },
-    // 多选框选中数据
-    handleSelectionChange(selection) {
-      this.ids = selection.map(item => item.id)
-      this.single = selection.length !== 1
-      this.multiple = !selection.length
+    watch: {
+      open(n, o) {
+        if (n == false) {
+          this.created_successfully = false;
+          this.isEditable = true;
+        }
+      },
     },
-    /** 新增按钮操作 */
-    handleAdd() {
-      this.reset();
-      this.open = true;
+    computed: {
+      ...mapGetters([
+        'name', 'avatar'
+      ])
+    },
+    created() {
+      this.getList();
+
       this.created_successfully = false;
       this.isEditable = true;
-      this.title = "添加信用证";
     },
-    /** 修改按钮操作 */
-    handleUpdate(row) {
-      this.isEditable = false;
-
-      this.reset();
-      const id = row.id || this.ids
-      getLetter(id).then(response => {
-        /* str 需要赋值粘贴到的 */
-        response.data.rzsrc2List.forEach(i => {
-          i.id = null;
-        })
-        // 金额需要 / 10000
-        response.data.issuingAmount = Number(response.data.issuingAmount) / 10000;
-        this.scrUuid = response.data.scrUuid;
-        this.form = response.data;
-        this.form.scrUuid = response.data.rzsrc2List.map(i => i.url)
-        /* end */
-        this.rzsrc2List = response.data.rzsrc2List;
-        this.open = true;
-        this.title = "修改信用证";
-      });
-    },
-    /** 提交按钮 */
-    submitForm() {
-      this.$refs["form"].validate(valid => {
-        if (valid) {
-
-          this.form.rzsrc2List = this.rzsrc2List;
-          const data = JSON.parse(JSON.stringify(this.form))
-          this.rzaudit_data = null;
-
-          // 金额需要 * 10000
-          data.issuingAmount = Number(data.issuingAmount) * 10000;
-
-          if (this.form.id != null) {
-            data.scrUuid = Number(this.scrUuid);
-            this.rzaudit_data = {
-              "auditId": data.id,
-              "scrUuid": data.scrUuid,
-              "createBy": this.name,
-              "createTime": null,
-              "dataJson": JSON.stringify(data),
-              "tableName": "rz_credit_letter",
-              "auditState": "1759514891045044200",
-              "uuid": data.uuid,
-                "managementId": data.managementId + "|" + this.formatDateTime()
-            }
-            if (this.title === '修改信用证' && this.created_successfully === false && this.isEditable === true) {
-              this.created_successfully = true;
-              this.isSuccess = false;
-              this.isTitle = true;
-              this.isMessage = false;
-              this.ctitle = '确定修改信用证信息吗？';
-              this.isEdit = true;
-              return;
-            }
-          } else {
-
-            const generator = new SnowflakeIdGenerator();
-            data.scrUuid = generator.nextId();
-
-            data.createBy = this.name;
-
-            // start
-            const uuid = String(generator.nextId())
-            data.uuid = uuid;
-            // end
-
-            this.rzaudit_data = {
-              "id": null,
-              "auditId": null,
-              "scrUuid": data.scrUuid,
-              "createBy": this.name,
-              "createTime": null,
-              "dataJson": JSON.stringify(data),
-              "tableName": "rz_credit_letter",
-              "auditState": "1759514891045044200",
-              "uuid": uuid,
-              "managementId": data.managementId
-            }
-          }
-          this.handleaddList();
+    methods: {
+      /* 创建成功关闭弹窗 */
+      closeDialog() {
+        this.open = false;
+        this.created_successfully = false;
+      },
+      /* 再次创建 */
+      create_again() {
+        this.reset();
+        this.created_successfully = false;
+      },
+      toggleEdit() {
+        this.isEditable = !this.isEditable;
+      },
+      /** 查询信用证列表 */
+      getList() {
+        this.loading = true;
+        this.queryParams.params = {};
+        if (null != this.daterangeIssuingDate && '' != this.daterangeIssuingDate) {
+          this.queryParams.params["beginIssuingDate"] = this.daterangeIssuingDate[0];
+          this.queryParams.params["endIssuingDate"] = this.daterangeIssuingDate[1];
         }
-      });
-    },
-    async handleaddList() {
-      // 检验上一个数据步骤有没有审批通过
-      await this.inspectionPendingReview(this.rzaudit_data)
-
-      addList(this.rzaudit_data).then(res => {
-        this.created_successfully = true;
-        if (this.title === '修改信用证' && this.isEditable) {
-          this.isSuccess = true;
-          this.isTitle = true;
-          this.isMessage = true;
-          this.ctitle = this.isEdit ? '修改提交成功' : '提交成功';
-          this.isEdit = false;
-        } else {
-          this.ctitle = '提交成功';
-          this.isMessage = true;
-          this.isEdit = false;
+        if (null != this.daterangeEffectiveDate && '' != this.daterangeEffectiveDate) {
+          this.queryParams.params["beginEffectiveDate"] = this.daterangeEffectiveDate[0];
+          this.queryParams.params["endEffectiveDate"] = this.daterangeEffectiveDate[1];
         }
-      })
-    },
-    /** 删除按钮操作 */
-    handleDelete(row) {
-      const ids = row.id || this.ids;
-      // this.$modal.confirm('是否确认删除信用证编号为"' + ids + '"的数据项？').then(function () {
-      //   return delLetter(ids);
-      // }).then(() => {
-      //   thic.cancel();
-      //   this.getList();
-      //   this.$modal.msgSuccess("删除成功");
-      // }).catch(() => { });
-
-
-      const h = this.$createElement;
-      this.$msgbox({
-        title: '提示',
-        message: h('div', null, [
-          h('el-divider', {
-            class: {
-              "no_mt": true,
-              "mb20": true
-            },
-            attrs: { "data-role": 'el-divider' }
-          }, ''),
-          h('p', {
-            class: 'tc w mb20',
-            style: {
-              'font-size': '24px',
-              'color': '#000000',
-              'font-weight': 'bold'
-            }
-          }, '确定删除选中的信用证吗？'),
-        ]),
-        showCancelButton: true,
-        cancelButtonText: '取消',
-        confirmButtonText: '确定',
-        cancelButtonClass: "btn-custom-cancel",
-        customClass: 'custom-msgbox',
-        beforeClose: (action, instance, done) => {
-          if (action === 'confirm') {
-            delLetter(ids).then(res => {
-              done();
-            });
-          } else {
-            done();
-          }
-        }
-      }).then(action => {
-        this.cancel();
+        this.queryParams['orderByColumn'] = 'issuingDate'
+        this.queryParams['isAsc'] = 'asc'
+        listLetter(this.queryParams).then(response => {
+          this.letterList = response.rows;
+          this.total = response.total;
+          this.loading = false;
+        });
+      },
+      // 取消按钮
+      cancel() {
+        this.open = false;
+        this.created_successfully = false;
+        this.reset();
+      },
+      // 表单重置
+      reset() {
+        this.form = {
+          managementId: null,
+          scrUuid: null,
+          auditId: null,
+          creditNumber: null,
+          issuingAmount: null,
+          issuingDate: null,
+          effectiveDate: null,
+          remark: null,
+          applicant: null,
+          beneficiary: null,
+          financialInstitution: null,
+          comment: null,
+          createTime: null,
+          createBy: null,
+          updateTime: null,
+          updateBy: null,
+          id: null
+        };
+        this.rzsrc2List = [];
+        this.resetForm("form");
+      },
+      /** 搜索按钮操作 */
+      handleQuery() {
+        this.queryParams.pageNum = 1;
         this.getList();
-        this.$modal.msgSuccess("删除成功");
-      });
-    },
-    /** 附件表序号 */
-    rowrzsrc2Index({ row, rowIndex }) {
-      row.index = rowIndex + 1;
-    },
-    /** 附件表添加按钮操作 */
-    handleAddrzsrc2() {
-      let obj = {};
-      obj.url = "";
-      obj.projectManagementId = "";
-      obj.type = "rz_credit_letter";
-      this.rzsrc2List.push(obj);
-    },
-    /** 附件表删除按钮操作 */
-    handleDeleterzsrc2() {
-      if (this.checkedrzsrc2.length == 0) {
-        this.$modal.msgError("请先选择要删除的附件表数据");
-      } else {
-        const rzsrc2List = this.rzsrc2List;
-        const checkedrzsrc2 = this.checkedrzsrc2;
-        this.rzsrc2List = rzsrc2List.filter(function (item) {
-          return checkedrzsrc2.indexOf(item.index) == -1
+      },
+      /** 重置按钮操作 */
+      resetQuery() {
+        this.daterangeIssuingDate1 = '',
+          this.daterangeIssuingDate2 = '',
+          // 创建人时间范围
+          this.daterangeEffectiveDate1 = '',
+          this.daterangeEffectiveDate2 = '',
+          this.resetForm("queryForm");
+        this.handleQuery();
+      },
+      // 多选框选中数据
+      handleSelectionChange(selection) {
+        this.ids = selection.map(item => item.id)
+        this.single = selection.length !== 1
+        this.multiple = !selection.length
+      },
+      /** 新增按钮操作 */
+      handleAdd() {
+        this.reset();
+        this.open = true;
+        this.created_successfully = false;
+        this.isEditable = true;
+        this.title = "添加信用证";
+      },
+      /** 修改按钮操作 */
+      handleUpdate(row) {
+        this.isEditable = false;
+
+        this.reset();
+        const id = row.id || this.ids
+        getLetter(id).then(response => {
+          /* str 需要赋值粘贴到的 */
+          response.data.rzsrc2List.forEach(i => {
+            i.id = null;
+          })
+          // 金额需要 / 10000
+          response.data.issuingAmount = Number(response.data.issuingAmount) / 10000;
+          this.scrUuid = response.data.scrUuid;
+          this.form = response.data;
+          this.form.scrUuid = response.data.rzsrc2List.map(i => i.url)
+          /* end */
+          this.rzsrc2List = response.data.rzsrc2List;
+          this.open = true;
+          this.title = "修改信用证";
+        });
+      },
+      /** 提交按钮 */
+      submitForm() {
+        this.$refs["form"].validate(valid => {
+          if (valid) {
+
+            this.form.rzsrc2List = this.rzsrc2List;
+            const data = JSON.parse(JSON.stringify(this.form))
+            this.rzaudit_data = null;
+
+            // 金额需要 * 10000
+            data.issuingAmount = Number(data.issuingAmount) * 10000;
+
+            if (this.form.id != null) {
+              data.scrUuid = Number(this.scrUuid);
+              this.rzaudit_data = {
+                "auditId": data.id,
+                "scrUuid": data.scrUuid,
+                "createBy": this.name,
+                "createTime": null,
+                "dataJson": JSON.stringify(data),
+                "tableName": "rz_credit_letter",
+                "auditState": "1759514891045044200",
+                "uuid": data.uuid,
+                "managementId": data.managementId + "|" + this.formatDateTime()
+              }
+              if (this.title === '修改信用证' && this.created_successfully === false && this.isEditable === true) {
+                this.created_successfully = true;
+                this.isSuccess = false;
+                this.isTitle = true;
+                this.isMessage = false;
+                this.ctitle = '确定修改信用证信息吗？';
+                this.isEdit = true;
+                return;
+              }
+            } else {
+
+              const generator = new SnowflakeIdGenerator();
+              data.scrUuid = generator.nextId();
+
+              data.createBy = this.name;
+
+              // start
+              const uuid = String(generator.nextId())
+              data.uuid = uuid;
+              // end
+
+              this.rzaudit_data = {
+                "id": null,
+                "auditId": null,
+                "scrUuid": data.scrUuid,
+                "createBy": this.name,
+                "createTime": null,
+                "dataJson": JSON.stringify(data),
+                "tableName": "rz_credit_letter",
+                "auditState": "1759514891045044200",
+                "uuid": uuid,
+                "managementId": data.managementId
+              }
+            }
+            this.handleaddList();
+          }
+        });
+      },
+      async handleaddList() {
+        // 检验上一个数据步骤有没有审批通过
+        await this.inspectionPendingReview(this.rzaudit_data)
+
+        addList(this.rzaudit_data).then(res => {
+          this.created_successfully = true;
+          if (this.title === '修改信用证' && this.isEditable) {
+            this.isSuccess = true;
+            this.isTitle = true;
+            this.isMessage = true;
+            this.ctitle = this.isEdit ? '修改提交成功' : '提交成功';
+            this.isEdit = false;
+          } else {
+            this.ctitle = '提交成功';
+            this.isMessage = true;
+            this.isEdit = false;
+          }
+        })
+      },
+      /** 删除按钮操作 */
+      handleDelete(row) {
+        const ids = row.id || this.ids;
+        // this.$modal.confirm('是否确认删除信用证编号为"' + ids + '"的数据项？').then(function () {
+        //   return delLetter(ids);
+        // }).then(() => {
+        //   thic.cancel();
+        //   this.getList();
+        //   this.$modal.msgSuccess("删除成功");
+        // }).catch(() => { });
+
+
+        const h = this.$createElement;
+        this.$msgbox({
+          title: '提示',
+          message: h('div', null, [
+            h('el-divider', {
+              class: {
+                "no_mt": true,
+                "mb20": true
+              },
+              attrs: {
+                "data-role": 'el-divider'
+              }
+            }, ''),
+            h('p', {
+              class: 'tc w mb20',
+              style: {
+                'font-size': '24px',
+                'color': '#000000',
+                'font-weight': 'bold'
+              }
+            }, '确定删除选中的信用证吗？'),
+          ]),
+          showCancelButton: true,
+          cancelButtonText: '取消',
+          confirmButtonText: '确定',
+          cancelButtonClass: "btn-custom-cancel",
+          customClass: 'custom-msgbox',
+          beforeClose: (action, instance, done) => {
+            if (action === 'confirm') {
+              delLetter(ids).then(res => {
+                done();
+              });
+            } else {
+              done();
+            }
+          }
+        }).then(action => {
+          this.cancel();
+          this.getList();
+          this.$modal.msgSuccess("删除成功");
+        });
+      },
+      /** 附件表序号 */
+      rowrzsrc2Index({
+        row,
+        rowIndex
+      }) {
+        row.index = rowIndex + 1;
+      },
+      /** 附件表添加按钮操作 */
+      handleAddrzsrc2() {
+        let obj = {};
+        obj.url = "";
+        obj.projectManagementId = "";
+        obj.type = "rz_credit_letter";
+        this.rzsrc2List.push(obj);
+      },
+      /** 附件表删除按钮操作 */
+      handleDeleterzsrc2() {
+        if (this.checkedrzsrc2.length == 0) {
+          this.$modal.msgError("请先选择要删除的附件表数据");
+        } else {
+          const rzsrc2List = this.rzsrc2List;
+          const checkedrzsrc2 = this.checkedrzsrc2;
+          this.rzsrc2List = rzsrc2List.filter(function(item) {
+            return checkedrzsrc2.indexOf(item.index) == -1
+          });
+        }
+      },
+      /** 复选框选中数据 */
+      handlerzsrc2SelectionChange(selection) {
+        this.checkedrzsrc2 = selection.map(item => item.index)
+      },
+      /** 导出按钮操作 */
+      handleExport() {
+        this.download('credit/letter/export', {
+          ...this.queryParams
+        }, `letter_${new Date().getTime()}.xlsx`)
+      },
+      /* 上传完成的回调 */
+      upload_completed(url_string) {
+        const url_list = url_string.split(',')
+        url_list.forEach(url_i => {
+          let obj = {
+            url: url_i,
+            projectManagementId: this.form.managementId,
+            type: "rz_credit_letter",
+            createBy: this.name,
+            createTime: moment().format("YYYY-MM-DD HH:mm:ss"),
+          };
+
+          // 检查this.rzsrc2List中是否已经存在具有相同url的对象
+          if (!this.rzsrc2List.some(item => item.url === obj.url)) {
+            this.rzsrc2List.push(obj);
+          }
         });
       }
-    },
-    /** 复选框选中数据 */
-    handlerzsrc2SelectionChange(selection) {
-      this.checkedrzsrc2 = selection.map(item => item.index)
-    },
-    /** 导出按钮操作 */
-    handleExport() {
-      this.download('credit/letter/export', {
-        ...this.queryParams
-      }, `letter_${new Date().getTime()}.xlsx`)
-    },
-    /* 上传完成的回调 */
-    upload_completed(url_string) {
-      const url_list = url_string.split(',')
-      url_list.forEach(url_i => {
-        let obj = {
-          url: url_i,
-          projectManagementId: this.form.managementId,
-          type: "rz_credit_letter",
-          createBy: this.name,
-          createTime: moment().format("YYYY-MM-DD HH:mm:ss"),
-        };
 
-        // 检查this.rzsrc2List中是否已经存在具有相同url的对象
-        if (!this.rzsrc2List.some(item => item.url === obj.url)) {
-          this.rzsrc2List.push(obj);
-        }
-      });
     }
-
-  }
-};
+  };
 </script>

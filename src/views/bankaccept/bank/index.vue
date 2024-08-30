@@ -869,7 +869,6 @@
 
         const searchData = JSON.parse(JSON.stringify(this.queryParams));
         searchData.remark = null;
-        this.queryParams['orderByColumn'] = 'id'
         listBank(searchData).then(response => {
           this.bankList = response.rows;
           this.total = response.total;
