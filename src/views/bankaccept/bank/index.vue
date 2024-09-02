@@ -719,10 +719,12 @@
         error1: '',
         error2: '',
         totalKeys: {
-          '出票金额(万元)': 'totalInvoiceAmount'
+          '出票金额(万元)': 'totalInvoiceAmount',
+          '敞口额度(万元)': 'totalChangkouedu',
         },
         zongji: {
-          totalInvoiceAmount: 0
+          totalInvoiceAmount: 0,
+          totalChangkouedu: 0
         },
         huankuanmingxi: {
           "createBy": null,
@@ -757,7 +759,8 @@
       },
 
       'form.dueDate'(newVal) {
-        this.huankuanmingxi.dueDate = newVal;
+        console.log('dueDate', newVal);
+        this.huankuanmingxi.riqi = newVal;
       },
       'form.invoiceAmount': 'calculateValues',
       'form.marginInterestRate': 'calculateValues',
@@ -920,6 +923,7 @@
           discountedHandlingFee: null,
           assumptionOfDiscountFees: null
         };
+        this.huankuanmingxidata = [this.huankuanmingxi]
         this.rzsrc2List = [];
         this.resetForm("form");
       },

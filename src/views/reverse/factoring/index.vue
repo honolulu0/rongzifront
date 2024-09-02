@@ -582,12 +582,12 @@
         }
       },
       'form.deadline'(newVal) {
-        this.huankuanmingxi.deadline = newVal;
+        this.huankuanmingxi.riqi = newVal;
       },
 
       'form.loanAmount'(newVal) {
-        this.huankuanmingxi.loanAmount = newVal;
-        this.form.huankuanjine = (Number(this.huankuanmingxi.loanAmount) + Number(this
+        this.huankuanmingxi.changhuanben = newVal;
+        this.form.huankuanjine = (Number(this.huankuanmingxi.changhuanben) + Number(this
           .huankuanmingxi
           .zhifulixi))
         this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.huankuanjine * 10000)
@@ -595,7 +595,7 @@
 
       'form.zhifulixi'(newVal) {
         this.huankuanmingxi.zhifulixi = newVal;
-        this.form.huankuanjine = (Number(this.huankuanmingxi.loanAmount) + Number(this
+        this.form.huankuanjine = (Number(this.huankuanmingxi.changhuanben) + Number(this
           .huankuanmingxi
           .zhifulixi))
         this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.huankuanjine * 10000)
@@ -690,8 +690,9 @@
           updateBy: null,
           uuid: null,
           account: null,
-          bank: null
+          bank: null,
         };
+        this.huankuanmingxidata = [this.huankuanmingxi]
         this.rzsrc2List = [];
         this.resetForm("form");
       },
