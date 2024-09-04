@@ -42,15 +42,17 @@
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="开证日期">
+            <el-form-item label="开始日期">
               <el-date-picker v-model="daterangeIssuingDate" style="width: 240px" value-format="yyyy-MM-dd"
-                type="daterange" range-separator="-" start-placeholder="点击或者输入" end-placeholder="例子:2024-08-22"></el-date-picker>
+                type="daterange" range-separator="-" start-placeholder="点击或者输入"
+                end-placeholder="例子:2024-08-22"></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="有效日期">
+            <el-form-item label="结束日期">
               <el-date-picker v-model="daterangeEffectiveDate" style="width: 240px" value-format="yyyy-MM-dd"
-                type="daterange" range-separator="-" start-placeholder="点击或者输入" end-placeholder="例子:2024-08-22"></el-date-picker>
+                type="daterange" range-separator="-" start-placeholder="点击或者输入"
+                end-placeholder="例子:2024-08-22"></el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>
@@ -517,11 +519,9 @@
       },
       /** 重置按钮操作 */
       resetQuery() {
-        this.daterangeIssuingDate1 = '',
-          this.daterangeIssuingDate2 = '',
+        this.daterangeIssuingDate = [],
           // 创建人时间范围
-          this.daterangeEffectiveDate1 = '',
-          this.daterangeEffectiveDate2 = '',
+          this.daterangeEffectiveDate = [],
           this.resetForm("queryForm");
         this.handleQuery();
       },

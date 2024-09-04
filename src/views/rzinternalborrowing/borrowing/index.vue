@@ -63,13 +63,13 @@
           </el-col>
 
           <el-col :span="8">
-            <el-form-item label="借款日期">
+            <el-form-item label="开始日期">
               <el-date-picker v-model="daterangeBorrowDate" style="width: 240px" value-format="yyyy-MM-dd"
                 type="daterange" range-separator="-" start-placeholder="点击或者输入" end-placeholder="例子:2024-08-22"></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="到期日期">
+            <el-form-item label="结束日期">
               <el-date-picker v-model="daterangeDueDate" style="width: 240px" value-format="yyyy-MM-dd" type="daterange"
                 range-separator="-" start-placeholder="点击或者输入" end-placeholder="例子:2024-08-22"></el-date-picker>
             </el-form-item>

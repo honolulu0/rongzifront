@@ -242,7 +242,8 @@
         // console.log(excelContent);
         // 创建 Blob 对象
         const blob = new Blob([excelContent], {
-          type: 'application/vnd.ms-excel'
+          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+          // type: 'application/vnd.ms-excel'
         });
 
         // 创建链接并触发下载
