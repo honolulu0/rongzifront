@@ -80,11 +80,11 @@
         </template>
       </el-table-column>
       <el-table-column label="贷款用途" align="center" prop="daikuanyongtu" />
-      <el-table-column show-overflow-tooltip label="还款金额" align="center" prop="huankuanjine" min-width="160" />
-      <el-table-column show-overflow-tooltip label="偿还本金" align="center" prop="changhuanben" min-width="160" />
-      <el-table-column show-overflow-tooltip label="支付利息" align="center" prop="zhifulixi" min-width="160" />
+      <el-table-column show-overflow-tooltip label="还款金额" align="right" prop="huankuanjine" min-width="160" />
+      <el-table-column show-overflow-tooltip label="偿还本金" align="right" prop="changhuanben" min-width="160" />
+      <el-table-column show-overflow-tooltip label="支付利息" align="right" prop="zhifulixi" min-width="160" />
       <el-table-column label="手续费" align="center" prop="shouxufei" min-width="160" />
-      <el-table-column show-overflow-tooltip label="本金剩余" align="center" prop="benjinshengyu" min-width="160" />
+      <el-table-column show-overflow-tooltip label="本金剩余" align="right" prop="benjinshengyu" min-width="160" />
       <!-- <el-table-column label="操作" align="center" class-name="''">
         <template slot-scope="scope">
           <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"

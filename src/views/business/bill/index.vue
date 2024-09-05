@@ -103,19 +103,16 @@
     <el-row type="flex" :gutter="10" class="mb8" justify="end">
       <el-col :span="1.5">
         <el-button type="warning" plain icon="el-icon-download" size="mini" @click="handleExport"
-          v-hasPermi="['businessaccept:business:export']">导 出</el-button>
+          v-hasPermi="['business:bill:export']">导 出</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleAdd"
-          v-hasPermi="['businessaccept:business:add']">新 建</el-button>
+          v-hasPermi="['business:bill:add']">新 建</el-button>
       </el-col>
-      <!-- <el-col :span="1.5">
-        <el-button type="success" plain icon="el-icon-edit" size="mini" :disabled="single" @click="handleUpdate"
-          v-hasPermi="['businessaccept:business:edit']">修改</el-button>
-      </el-col> -->
+
       <el-col :span="1.5">
         <el-button type="danger" plain icon="el-icon-delete" size="mini" :disabled="multiple" @click="handleDelete"
-          v-hasPermi="['businessaccept:business:remove']">删 除</el-button>
+          v-hasPermi="['business:bill:remove']">删 除</el-button>
       </el-col>
       <!-- <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar> -->
     </el-row>
@@ -191,10 +188,9 @@
       <el-table-column fixed="right" label="操作" align="center" class-name="''">
         <template slot-scope="scope">
           <el-button size="mini" type="text" @click="handleUpdate(scope.row)"
-            v-hasPermi="['businessaccept:business:edit']">查
+            v-hasPermi="['business:bill:query']">查
             看</el-button>
-          <!-- <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)"
-            v-hasPermi="['businessaccept:business:remove']">删除</el-button> -->
+
         </template>
       </el-table-column>
     </el-table>
@@ -210,7 +206,7 @@
         <div v-if="title === '修改商业承兑汇票'" class="modeify-btn" style="display: flex; justify-content: end;">
           <el-button type="primary" v-if="!this.isEditable" @click="toggleEdit">编 辑</el-button>
           <el-button type="warning" v-else @click="toggleEdit">取消编辑</el-button>
-          <el-button type="danger" plain @click="handleDelete(form)">删 除</el-button>
+          <!-- <el-button type="danger" plain @click="handleDelete(form)">删 除</el-button> -->
         </div>
 
         <el-form ref="form" :model="form" :rules="rules" label-width="80px" label-position="top">
@@ -735,7 +731,7 @@
         this.huankuanmingxi.riqi = newVal;
       },
       'form.invoiceAmount': 'calculateValues',
-      'form.marginInterestRate': 'calculateValues',
+      'form.marginLevel': 'calculateValues',
       'form.zhifulixi'(newVal, o) {
         // console.log('huankuanmingxi.zhifulixi', newVal);
         this.huankuanmingxi.zhifulixi = this.formatNumberAsRMB(newVal * 10000);
@@ -765,7 +761,7 @@
       calculateValues() {
         this.form.changkouedu = (
           this.form.invoiceAmount *
-          (1 - Number(this.form.marginInterestRate) / 100)
+          (1 - Number(this.form.marginLevel) / 100)
         ).toFixed(2);
 
         this.huankuanmingxi.changhuanben = this.formatNumberAsRMB(this.form.changkouedu * 10000);
@@ -971,7 +967,7 @@
               "xiangmuleixing": "商业承兑汇票",
               "borrowingUnit": data.drawer,
               "financialInstitution": data.financialInstitution,
-              "daikuanyongtu": data.huankuanjine,
+              "daikuanyongtu": data.zijinyongtu,
               "qishu": "1",
               "riqi": data.dueDate,
               "huankuanjine": data.huankuanjine,
@@ -1139,7 +1135,7 @@
       },
       /** 导出按钮操作 */
       handleExport() {
-        this.download('businessaccept/business/export', {
+        this.download('business/bill/export', {
           ...this.queryParams
         }, `business_${new Date().getTime()}.xlsx`)
       },

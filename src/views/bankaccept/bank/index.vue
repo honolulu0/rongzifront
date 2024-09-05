@@ -209,7 +209,7 @@
         <div v-if="title === '修改银行承兑汇票'" class="modeify-btn" style="display: flex; justify-content: end;">
           <el-button type="primary" v-if="!this.isEditable" @click="toggleEdit">编 辑</el-button>
           <el-button type="warning" v-else @click="toggleEdit">取消编辑</el-button>
-          <el-button type="danger" plain @click="handleDelete(form)">删 除</el-button>
+          <!-- <el-button type="danger" plain @click="handleDelete(form)">删 除</el-button> -->
         </div>
 
         <el-form ref="form" :model="form" :rules="rules" label-width="80px" label-position="top">
@@ -763,7 +763,7 @@
         this.huankuanmingxi.riqi = newVal;
       },
       'form.invoiceAmount': 'calculateValues',
-      'form.marginInterestRate': 'calculateValues',
+      'form.marginLevel': 'calculateValues',
       'form.zhifulixi'(newVal, o) {
         // console.log('huankuanmingxi.zhifulixi', newVal);
         this.huankuanmingxi.zhifulixi = this.formatNumberAsRMB(newVal * 10000);
@@ -771,32 +771,6 @@
         this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.huankuanjine * 10000)
       },
 
-      daterangeDueDate1(n, o) {
-        if (n !== '' && n !== null) {
-          if (this.daterangeDueDate2 === '' || this.daterangeDueDate2 === null) {
-            this.error2 = '汇票到期日不能为空';
-          } else {
-            this.error2 = ''; // 清空错误信息
-          }
-        } else if (this.daterangeDueDate2 === '' || this.daterangeDueDate2 === null) {
-          this.error2 = ''; // 两个日期都为空时，清空错误信息
-        } else {
-          this.error2 = '汇票起始日不能为空';
-        }
-      },
-      daterangeDueDate2(n, o) {
-        if (n !== '' && n !== null) {
-          if (this.daterangeDueDate1 === '' || this.daterangeDueDate1 === null) {
-            this.error2 = '汇票起始日不能为空';
-          } else {
-            this.error2 = ''; // 清空错误信息
-          }
-        } else if (this.daterangeDueDate1 === '' || this.daterangeDueDate1 === null) {
-          this.error2 = ''; // 两个日期都为空时，清空错误信息
-        } else {
-          this.error2 = '汇票到期日不能为空';
-        }
-      },
     },
     computed: {
       ...mapGetters([
@@ -818,7 +792,7 @@
       calculateValues() {
         this.form.changkouedu = (
           this.form.invoiceAmount *
-          (1 - Number(this.form.marginInterestRate) / 100)
+          (1 - Number(this.form.marginLevel) / 100)
         ).toFixed(2);
 
         this.huankuanmingxi.changhuanben = this.formatNumberAsRMB(this.form.changkouedu * 10000);
@@ -1031,7 +1005,7 @@
               "xiangmuleixing": "银行承兑汇票",
               "borrowingUnit": data.drawer,
               "financialInstitution": data.financialInstitution,
-              "daikuanyongtu": data.huankuanjine,
+              "daikuanyongtu": data.zijinyongtu,
               "qishu": "1",
               "riqi": data.dueDate,
               "huankuanjine": data.huankuanjine,
