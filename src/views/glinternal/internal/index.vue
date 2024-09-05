@@ -236,7 +236,7 @@
       @pagination="getList" />
 
     <!-- 添加或修改对内担保台账对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="60%" append-to-body>
+    <el-dialog :close-on-click-modal="false" :title="title" :visible.sync="open" width="60%" append-to-body>
       <el-divider class="no_mt mb20"></el-divider>
       <div v-if="created_successfully == false">
         <div v-if="title === '修改对内担保台账'" class="modeify-btn" style="display: flex; justify-content: end;">

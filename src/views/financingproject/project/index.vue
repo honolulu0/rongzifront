@@ -191,9 +191,6 @@
         </template>
       </el-table-column> -->
 
-
-
-
       <el-table-column show-overflow-tooltip label="债务状态" align="center" prop="loanState" width="100">
         <template slot-scope="scope">
           <svg-icon class="mr5" :icon-class="scope.row.loanState"></svg-icon>

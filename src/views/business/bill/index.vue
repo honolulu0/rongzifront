@@ -199,7 +199,7 @@
       @pagination="getList" />
 
     <!-- 添加或修改商业承兑汇票对话框 -->
-    <el-dialog :title="title" :visible.sync="open" min-width="60%" append-to-body>
+    <el-dialog :close-on-click-modal="false" :title="title" :visible.sync="open" min-width="60%" append-to-body>
 
       <el-divider class="no_mt mb20"></el-divider>
       <div v-if="created_successfully == false">

@@ -145,7 +145,7 @@
       @pagination="getList" />
 
     <!-- 添加或修改贷后管理对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="60%" append-to-body>
+    <el-dialog :close-on-click-modal="false"  :title="title" :visible.sync="open" width="60%" append-to-body>
 
       <el-divider class="no_mt mb20"></el-divider>
 

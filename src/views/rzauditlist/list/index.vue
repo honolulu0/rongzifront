@@ -152,7 +152,7 @@
     <!-- </div> -->
 
     <!-- 添加或修改审核项目对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
+    <el-dialog :close-on-click-modal="false" :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="审核id" prop="auditId">
           <el-input v-model="form.auditId" placeholder="审核id" />

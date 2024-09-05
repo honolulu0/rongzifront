@@ -147,7 +147,7 @@
       @pagination="getList" />
 
     <!-- 添加或修改附件表对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
+    <el-dialog :close-on-click-modal="false" :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="url地址" prop="url">
           <el-input v-model="form.url" placeholder="url地址" />

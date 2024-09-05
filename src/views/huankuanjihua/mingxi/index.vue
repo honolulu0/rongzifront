@@ -99,7 +99,7 @@
       @pagination="getList" />
 
     <!-- 添加或修改还款计划明细对话框 -->
-    <el-dialog :title="title" :visible.sync="open" min-width="500px" append-to-body>
+    <el-dialog :close-on-click-modal="false"  :title="title" :visible.sync="open" min-width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="还款计划对应项目的管理编号" prop="managerId">
           <el-input v-model="form.managerId" placeholder="还款计划对应项目的管理编号" />

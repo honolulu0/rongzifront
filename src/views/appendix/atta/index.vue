@@ -84,7 +84,7 @@
       @pagination="getList" />
 
     <!-- 添加或修改附件表对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="600px" append-to-body>
+    <el-dialog :close-on-click-modal="false" :title="title" :visible.sync="open" width="600px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="一级标题" prop="title">
           <el-input v-model="form.title" placeholder="一级标题" />
