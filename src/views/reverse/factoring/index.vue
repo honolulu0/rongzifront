@@ -164,12 +164,12 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="办理收费" align="center" prop="banlishoufei" min-width="100">
+      <el-table-column label="办理收费（万元）" align="right" prop="banlishoufei" min-width="130">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.banlishoufei) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="到期收费" align="center" prop="daoqishoufei" min-width="100">
+      <el-table-column label="到期收费（万元）" align="right" prop="daoqishoufei" min-width="130">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.daoqishoufei) }}</span>
         </template>
@@ -546,9 +546,13 @@
         error1: '',
         totalKeys: {
           '放贷金额（万元）': 'totalLoanAmount',
+          '办理收费（万元）': 'totalBanlishoufei',
+          '到期收费（万元）': 'totalDaoqishoufei',
         },
         zongji: {
-          totalLoanAmount: 0
+          totalLoanAmount: 0,
+          totalBanlishoufei: 0,
+          totalDaoqishoufei: 0,
         },
         huankuanmingxi: {
           "createBy": null,

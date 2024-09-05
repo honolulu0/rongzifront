@@ -51,6 +51,7 @@
 
   import SearchPanel from '@/components/SearchPanel/index.vue'
   const moment = require('moment');
+  import * as XLSX from 'xlsx';
   export default {
     name: "Anyuehuizong",
     components: {
@@ -210,6 +211,31 @@
         this.handleQuery();
       },
       handleExport() {
+        // 示例数据
+        const tableData = this.mingxiList; // 假设这是您从后端获取的按月汇总数据
+
+        // 准备数据：获取列名
+        const columns = this.$refs.tableRef.columns.filter(col => col.property).map(col => col.label);
+
+        // 准备数据：将表头和数据组合
+        const data = tableData.map(row =>
+          this.$refs.tableRef.columns.filter(col => col.property).map(col => row[col.property])
+        );
+
+        // 将列名添加到数据的最前面
+        data.unshift(columns);
+
+        // 创建工作表
+        const worksheet = XLSX.utils.aoa_to_sheet(data);
+
+        // 创建工作簿并添加工作表
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, '按月汇总');
+
+        // 生成 Excel 并导出
+        XLSX.writeFile(workbook, '按月汇总.xlsx');
+      },
+      handleExport2() {
 
         // 导出过滤后去除手续费的数据
         const tableData = this.mingxiList
@@ -242,7 +268,7 @@
         // console.log(excelContent);
         // 创建 Blob 对象
         const blob = new Blob([excelContent], {
-          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+          type: 'application/vnd.ms-excel'
           // type: 'application/vnd.ms-excel'
         });
 
