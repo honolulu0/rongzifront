@@ -721,10 +721,11 @@
       if (this.$route.params.managementId != undefined && this.$route.params.managementId != "") {
         console.log(this.$route.params.managementId);
         this.handleUpdate(this.$route.params)
+      } else {
+        this.isEditable = true;
       }
       this.getList();
       this.created_successfully = false;
-      this.isEditable = true;
     },
     methods: {
       calculateLoanTerm() {

@@ -196,7 +196,7 @@
       @pagination="getList" />
 
     <!-- 添加或修改反向保理对话框 -->
-    <el-dialog :close-on-click-modal="false"  :title="title" :visible.sync="open" min-width="60%" append-to-body>
+    <el-dialog :close-on-click-modal="false" :title="title" :visible.sync="open" min-width="60%" append-to-body>
       <el-divider class="no_mt mb20"></el-divider>
 
       <div v-if="created_successfully == false">
@@ -615,10 +615,11 @@
       if (this.$route.params.managementId != undefined && this.$route.params.managementId != "") {
         console.log(this.$route.params.managementId);
         this.handleUpdate(this.$route.params)
+      } else {
+        this.isEditable = true;
       }
       this.getList();
       this.created_successfully = false;
-      this.isEditable = true;
     },
     methods: {
       renderInput2change,
@@ -783,14 +784,14 @@
               "remark": null,
               "managerId": data.managementId,
               "xiangmuleixing": "反向保理",
-              "borrowingUnit": "",
-              "financialInstitution": "",
+              "borrowingUnit": data.factor,
+              "financialInstitution": data.financialInstitution,
               "daikuanyongtu": data.zijinyongtu,
               "qishu": "1",
               "riqi": data.deadline,
-              "huankuanjine": data.huankuanjine,
-              "changhuanben": data.loanAmount,
-              "zhifulixi": data.zhifulixi,
+              "huankuanjine": (data.huankuanjine).toFixed(2),
+              "changhuanben": (data.loanAmount).toFixed(2),
+              "zhifulixi": (data.zhifulixi).toFixed(2),
               "shouxufei": null,
               "benjinshengyu": "0.00",
               "lilv": "",

@@ -782,10 +782,12 @@
       if (this.$route.params.managementId != undefined && this.$route.params.managementId != "") {
         console.log(this.$route.params.managementId);
         this.handleUpdate(this.$route.params)
+      } else {
+        this.isEditable = true;
       }
       this.getList();
       this.created_successfully = false;
-      this.isEditable = true;
+
     },
     mounted() {},
     methods: {
@@ -1008,9 +1010,9 @@
               "daikuanyongtu": data.zijinyongtu,
               "qishu": "1",
               "riqi": data.dueDate,
-              "huankuanjine": data.huankuanjine,
-              "changhuanben": data.changkouedu,
-              "zhifulixi": data.zhifulixi,
+              "huankuanjine": (data.huankuanjine).toFixed(2),
+              "changhuanben": (data.changkouedu).toFixed(2),
+              "zhifulixi": (data.zhifulixi).toFixed(2),
               "shouxufei": null,
               "benjinshengyu": "0.00",
               "lilv": "",
