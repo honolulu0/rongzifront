@@ -6,9 +6,9 @@
           <el-option v-for="item in typeOptions" :key="item.dictId" :label="item.dictName" :value="item.dictType" />
         </el-select>
       </el-form-item>
-      <el-form-item label="信息标签" prop="dictLabel">
+<!--      <el-form-item label="信息标签" prop="dictLabel">
         <el-input v-model="queryParams.dictLabel" placeholder="信息标签" clearable @keyup.enter.native="handleQuery" />
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="状态" prop="status">
         <el-select filterable v-model="queryParams.status" placeholder="数据状态" clearable>
           <el-option v-for="dict in dict.type.sys_normal_disable" :key="dict.value" :label="dict.label"
@@ -54,7 +54,7 @@
             :type="scope.row.listClass == 'primary' ? '' : scope.row.listClass">{{scope.row.dictLabel}}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="数据键值" align="center" prop="dictValue" />
+      <!-- <el-table-column label="数据键值" align="center" prop="dictValue" /> -->
       <el-table-column label="字典排序" align="center" prop="dictSort" v-if="roles.includes('admin')" />
       <!--      <el-table-column label="状态" align="center" prop="status">
         <template slot-scope="scope">

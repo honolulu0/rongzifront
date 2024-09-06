@@ -61,7 +61,7 @@
 
     <el-table :summary-method="getSummaries" show-summary v-loading="loading" :data="mingxiList"
       @selection-change="handleSelectionChange" :header-cell-style="header_cell_style">
-      <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managerId">
+      <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managerId" min-width="120" >
         <template slot-scope="scope">
           <el-link type="primary" @click="openDetail(scope.row)">{{ scope.row.managerId }}</el-link>
         </template>

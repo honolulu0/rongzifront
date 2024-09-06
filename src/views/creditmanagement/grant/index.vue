@@ -12,13 +12,15 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="借款人" prop="creditor">
-              <el-input v-model="queryParams.creditor" placeholder="请选择借款人名称" clearable
-                @keyup.enter.native="handleQuery" />
+              <el-select filterable v-model="queryParams.creditor" placeholder="借款人名称" clearable>
+                <el-option v-for="dict in dict.type.sys_1767154968256577500" :key="dict.value" :label="dict.label"
+                  :value="dict.label" />
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="债权人" prop="financialInstitution">
-              <el-select multiple filterable v-model="queryParams.financialInstitution" placeholder="请选择债权人" clearable>
+              <el-select filterable v-model="queryParams.financialInstitution" placeholder="债权人" clearable>
                 <el-option v-for="dict in dict.type.sys_1757271666666242000" :key="dict.value" :label="dict.label"
                   :value="dict.label" />
               </el-select>
@@ -29,7 +31,7 @@
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="授信类型" prop="creditType">
-              <el-select filterable v-model="queryParams.creditType" placeholder="请选择授信类型" clearable>
+              <el-select filterable v-model="queryParams.creditType" placeholder="授信类型" clearable>
                 <el-option v-for="dict in dict.type.sys_1765001578994991000" :key="dict.value" :label="dict.label"
                   :value="dict.label" />
               </el-select>
@@ -39,14 +41,16 @@
           <el-col :span="8">
             <el-form-item label="开始日期">
               <el-date-picker v-model="daterangeStartDate" style="width: 240px" value-format="yyyy-MM-dd"
-                type="daterange" range-separator="-"  start-placeholder="点击或者输入" end-placeholder="例子:2024-08-22"></el-date-picker>
+                type="daterange" range-separator="-" start-placeholder="点击或者输入"
+                end-placeholder="例子:2024-08-22"></el-date-picker>
             </el-form-item>
           </el-col>
 
           <el-col :span="8">
             <el-form-item label="结束日期">
               <el-date-picker v-model="daterangeDeadline" style="width: 240px" value-format="yyyy-MM-dd"
-                type="daterange" range-separator="-"  start-placeholder="点击或者输入" end-placeholder="例子:2024-08-22"></el-date-picker>
+                type="daterange" range-separator="-" start-placeholder="点击或者输入"
+                end-placeholder="例子:2024-08-22"></el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>
@@ -54,7 +58,7 @@
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="授信状态" prop="creditState">
-              <el-select filterable v-model="queryParams.creditState" placeholder="请选择授信状态" clearable>
+              <el-select filterable v-model="queryParams.creditState" placeholder="授信状态" clearable>
                 <el-option v-for="dict in dict.type.sys_1765002034026643500" :key="dict.value" :label="dict.label"
                   :value="dict.label" />
               </el-select>
@@ -119,7 +123,7 @@
 
 
 
-      <el-table-column show-overflow-tooltip label="授信金额（万元）"  align="right"  prop="creditAmount" min-width="150">
+      <el-table-column show-overflow-tooltip label="授信金额（万元）" align="right" prop="creditAmount" min-width="150">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.creditAmount) }}</span>
         </template>
@@ -195,15 +199,19 @@
             </el-col>
 
             <el-col :span="8">
+
               <el-form-item label="借款人" prop="creditor">
-                <el-input :readonly="!isEditable" v-model="form.creditor" placeholder="借款人" />
+                <el-select :disabled="!isEditable" v-model="form.creditor" filterable placeholder="借款人">
+                  <el-option v-for="dict in dict.type.sys_1767154968256577500" :key="dict.value" :label="dict.label"
+                    :value="dict.label"></el-option>
+                </el-select>
               </el-form-item>
+
             </el-col>
 
             <el-col :span="8">
               <el-form-item label="债权人" prop="financialInstitution">
-                <el-select multiple filterable :disabled="!isEditable" v-model="form.financialInstitution"
-                  placeholder="请选择债权人">
+                <el-select filterable :disabled="!isEditable" v-model="form.financialInstitution" placeholder="债权人">
                   <el-option v-for="dict in dict.type.sys_1757271666666242000" :key="dict.value" :label="dict.label"
                     :value="dict.label"></el-option>
                 </el-select>
@@ -214,7 +222,7 @@
           <el-row :gutter="20">
             <el-col :span="8">
               <el-form-item label="授信类型" prop="creditType">
-                <el-select filterable :disabled="!isEditable" v-model="form.creditType" placeholder="请选择授信类型">
+                <el-select filterable :disabled="!isEditable" v-model="form.creditType" placeholder="授信类型">
                   <el-option v-for="dict in dict.type.sys_1765001578994991000" :key="dict.value" :label="dict.label"
                     :value="dict.label"></el-option>
                 </el-select>
@@ -252,7 +260,7 @@
 
             <el-col :span="8">
               <el-form-item label="授信状态" prop="creditState">
-                <el-select filterable :disabled="!isEditable" v-model="form.creditState" placeholder="请选择授信状态">
+                <el-select filterable :disabled="!isEditable" v-model="form.creditState" placeholder="授信状态">
                   <el-option v-for="dict in dict.type.sys_1765002034026643500" :key="dict.value" :label="dict.label"
                     :value="dict.label"></el-option>
                 </el-select>
@@ -264,13 +272,13 @@
             <el-col :span="8">
               <el-form-item label="起始日" prop="startDate">
                 <el-date-picker format='yyyy/MM/dd' :picker-options="pickerOptions1" :disabled="!isEditable" clearable
-                  v-model="form.startDate" type="date" value-format="yyyy-MM-dd" placeholder="请选择起始日"></el-date-picker>
+                  v-model="form.startDate" type="date" value-format="yyyy-MM-dd" placeholder="起始日"></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="到期日" prop="deadline">
                 <el-date-picker format='yyyy/MM/dd' :picker-options="pickerOptions2" :disabled="!isEditable" clearable
-                  v-model="form.deadline" type="date" value-format="yyyy-MM-dd" placeholder="请选择到期日"></el-date-picker>
+                  v-model="form.deadline" type="date" value-format="yyyy-MM-dd" placeholder="到期日"></el-date-picker>
               </el-form-item>
             </el-col>
 
@@ -345,7 +353,7 @@
 
   export default {
     name: "Grant",
-    dicts: ['sys_1765001578994991000', 'sys_1765002034026643500', 'sys_1757271666666242000'],
+    dicts: ['sys_1765001578994991000', 'sys_1765002034026643500', 'sys_1757271666666242000', 'sys_1767154968256577500'],
     components: {
       CreateSuccess,
       SearchPanel

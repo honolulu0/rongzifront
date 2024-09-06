@@ -5,10 +5,10 @@
         <el-input v-model="queryParams.dictName" placeholder="信息名称" clearable style="width: 240px"
           @keyup.enter.native="handleQuery" />
       </el-form-item>
-      <el-form-item label="信息类型" prop="dictType">
+<!--      <el-form-item label="信息类型" prop="dictType">
         <el-input v-model="queryParams.dictType" placeholder="信息类型" clearable style="width: 240px"
           @keyup.enter.native="handleQuery" />
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="状态" prop="status">
         <el-select filterable v-model="queryParams.status" placeholder="信息状态" clearable style="width: 240px">
           <el-option v-for="dict in dict.type.sys_normal_disable" :key="dict.value" :label="dict.label"
@@ -59,13 +59,13 @@
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="信息编号" align="center" prop="dictId" />
       <el-table-column label="信息名称" align="center" prop="dictName" :show-overflow-tooltip="true" />
-      <el-table-column label="信息类型" align="center" :show-overflow-tooltip="true" v-if="roles.includes('admin')">
+<!--      <el-table-column label="信息类型" align="center" :show-overflow-tooltip="true" v-if="roles.includes('admin')">
         <template slot-scope="scope">
           <router-link :to="'/system/dict-data/index/' + scope.row.dictId" class="link-type">
             <span>{{ scope.row.dictType }}</span>
           </router-link>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column label="状态" align="center" prop="status">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_normal_disable" :value="scope.row.status" />
