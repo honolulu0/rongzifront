@@ -590,18 +590,14 @@
       },
 
       'form.loanAmount'(newVal) {
-        this.huankuanmingxi.changhuanben = this.formatNumberAsRMB(this.form.newVal * 10000);
-        this.form.huankuanjine = (Number(this.huankuanmingxi.changhuanben) + Number(this
-          .huankuanmingxi
-          .zhifulixi))
+        this.huankuanmingxi.changhuanben = this.formatNumberAsRMB(newVal * 10000);
+        this.form.huankuanjine = (Number(this.form.loanAmount) + Number(this.form.zhifulixi))
         this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.huankuanjine * 10000)
       },
 
       'form.zhifulixi'(newVal) {
-        this.huankuanmingxi.zhifulixi = this.formatNumberAsRMB(this.form.newVal * 10000);
-        this.form.huankuanjine = (Number(this.huankuanmingxi.changhuanben) + Number(this
-          .huankuanmingxi
-          .zhifulixi))
+        this.huankuanmingxi.zhifulixi = this.formatNumberAsRMB(newVal * 10000);
+        this.form.huankuanjine = (Number(this.form.loanAmount) + Number(this.form.zhifulixi))
         this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.huankuanjine * 10000)
       },
 
