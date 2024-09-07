@@ -590,7 +590,7 @@
       },
 
       'form.loanAmount'(newVal) {
-        this.huankuanmingxi.changhuanben = newVal;
+        this.huankuanmingxi.changhuanben = this.formatNumberAsRMB(this.form.newVal * 10000);
         this.form.huankuanjine = (Number(this.huankuanmingxi.changhuanben) + Number(this
           .huankuanmingxi
           .zhifulixi))
@@ -598,7 +598,7 @@
       },
 
       'form.zhifulixi'(newVal) {
-        this.huankuanmingxi.zhifulixi = newVal;
+        this.huankuanmingxi.zhifulixi = this.formatNumberAsRMB(this.form.newVal * 10000);
         this.form.huankuanjine = (Number(this.huankuanmingxi.changhuanben) + Number(this
           .huankuanmingxi
           .zhifulixi))
