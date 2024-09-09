@@ -20,7 +20,7 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="债权人" prop="financialInstitution">
-              <el-select filterable v-model="queryParams.financialInstitution" placeholder="债权人" clearable>
+              <el-select multiple filterable v-model="queryParams.financialInstitution" placeholder="债权人" clearable>
                 <el-option v-for="dict in dict.type.sys_1757271666666242000" :key="dict.value" :label="dict.label"
                   :value="dict.label" />
               </el-select>
@@ -211,7 +211,7 @@
 
             <el-col :span="8">
               <el-form-item label="债权人" prop="financialInstitution">
-                <el-select filterable :disabled="!isEditable" v-model="form.financialInstitution" placeholder="债权人">
+                <el-select multiple filterable :disabled="!isEditable" v-model="form.financialInstitution" placeholder="债权人">
                   <el-option v-for="dict in dict.type.sys_1757271666666242000" :key="dict.value" :label="dict.label"
                     :value="dict.label"></el-option>
                 </el-select>
@@ -460,13 +460,13 @@
         error1: '',
         totalKeys: {
           '授信金额（万元）': 'totalCreditAmount',
-          '已用授信金额（万元）': 'totalRemainingCreditAmount',
-          '授信余额（万元）': 'totalUsedCreditAmount',
+          '已用授信金额（万元）': 'totalUsedCreditAmount',
+          '授信余额（万元）': 'totalRemainingCreditAmount',
         },
         zongji: {
           totalCreditAmount: 0,
-          totalRemainingCreditAmount: 0,
           totalUsedCreditAmount: 0,
+          totalRemainingCreditAmount: 0,
         }
       };
     },
@@ -810,7 +810,7 @@
       },
       /** 删除按钮操作 */
       handleDelete(row) {
-        // const ids = row.id || this.ids;
+        const ids = row.id || this.ids;
         // this.$modal.confirm('是否确认删除授信管理编号为"' + ids + '"的数据项？').then(function () {
         //   return delGrant(ids);
         // }).then(() => {
