@@ -422,7 +422,7 @@
       },
       handlePaste() {
         // 通过换行符分割数据
-        let lines = this.textarea_bjch.split('\n');
+        let lines = this.textarea_bjch.trim().split('\n');
         // 存储分割后的数据
         this.bjch = [];
         // 遍历分割后的行数据
@@ -430,7 +430,7 @@
           // 通过制表符分割每一行数据
           let parts = line.split('\t');
           // 创建record对象并存入this.bjch list
-
+          // console.log(parts)
           if (parts.length != 2) {
             this.bjch = [];
             this.$msgbox({
@@ -447,7 +447,7 @@
             return
           }
 
-          if (this.validateDate(parts[0])) {
+          if (!this.validateDate(parts[0])) {
             this.bjch = [];
             this.$msgbox({
               title: '严重错误',
@@ -475,7 +475,7 @@
       },
       handleZJBJPaste() {
         // 通过换行符分割数据
-        let lines = this.textarea_zjbj.split('\n');
+        let lines = this.textarea_zjbj.trim().split('\n');
         // 存储分割后的数据
         this.zjbj = [];
         // 遍历分割后的行数据
@@ -498,7 +498,7 @@
             });
             return
           }
-          if (this.validateDate(parts[0])) {
+          if (!this.validateDate(parts[0])) {
             this.zjbj = [];
             this.$msgbox({
               title: '严重错误',
@@ -525,10 +525,10 @@
       },
 
       validateDate(inputDate) {
+        // console.log(inputDate)
         // 定义两种日期格式的正则表达式
         var regex1 = /^\d{4}\/\d{2}\/\d{2}$/; // 例如：2027/04/20
         var regex2 = /^\d{4}-\d{2}-\d{2}$/; // 例如：2028-03-21
-
         // 验证输入日期是否符合其中一种格式
         if (regex1.test(inputDate) || regex2.test(inputDate)) {
           return true; // 输入日期格式正确
