@@ -334,24 +334,7 @@
         deep: true,
         immediate: true
       },
-      //   'form.lilvbiangeng': {
-      //     handler(newVal) {
-      //       if (newVal) {
-      //         this.lvbg = JSON.parse(newVal);
-      //       }
-      //     },
-      //     deep: true,
-      //     immediate: true
-      //   },
-      //   'form.lixichanghuan': {
-      //     handler(newVal) {
-      //       if (newVal) {
-      //         this.lixichanghuanArray = JSON.parse(newVal);
-      //       }
-      //     },
-      //     deep: true,
-      //     immediate: true
-      //   },
+
       "bjch": {
         handler(newVal) {
           if (newVal) {
@@ -397,8 +380,6 @@
       }, {});
     },
     mounted() {
-
-
       this.zjbj = this.safeParse(this.form.tiqubenjin);
       this.bjch = this.safeParse(this.form.changhuanbenjin);
       this.lixichanghuanArray = this.safeParse(this.form.lixichanghuan);
@@ -862,17 +843,30 @@
                 //不使用cellDates: true，直接用SSF模块转换日期格式单元格里的值,避免有些电脑会出现转换时间之后少43秒的BUG
 
                 const date = this.fixPrecisionLoss(item[key]);
-                console.log(date, moment(date).format('YYYY-MM-DD'));
+                // console.log(date, moment(date).format('YYYY-MM-DD'));
                 newObj[this.temp_header[key]] = moment(date).format('YYYY-MM-DD');
               } else if (key == "期数") {
                 newObj[this.temp_header[key]] = item[key];
               } else {
-                console.log(item[key], item, key);
-                newObj[this.temp_header[key]] = (item[key]).toFixed(2);
+                // console.log(item[key], item, key);
+                let temp = 0
+                if (item[key] != 'null' && item[key] != undefined && item[key] != '') {
+                  temp = item[key]
+                }
+                newObj[this.temp_header[key]] = (temp).toFixed(2);
               }
             }
           }
           return newObj;
+        });
+
+        newObjectList.forEach((plan) => {
+          //防止导入excel的时候，缺项
+          console.log(plan, plan.zhifulixi);
+          plan.huankuanjine = plan.huankuanjine || "0.00"
+          plan.changhuanben = plan.changhuanben || "0.00"
+          plan.zhifulixi = plan.zhifulixi || "0.00"
+          plan.benjinshengyu = plan.benjinshengyu || "0.00"
         });
 
         this.huankuanmingxiFromExcel(newObjectList)
@@ -984,12 +978,13 @@
           })
         })
 
-
         this.repaymentPlanTable.forEach((plan) => {
+
           //添加借款信息
           plan.borrowingUnit = this.form.borrowingUnit
           plan.financialInstitution = this.form.financialInstitution
           plan.daikuanyongtu = this.form.daikuanyongtu
+          plan.xiangmuleixing = "贷款清单"
         });
       },
       //导出Excel
