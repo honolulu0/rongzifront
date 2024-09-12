@@ -862,7 +862,7 @@
 
         newObjectList.forEach((plan) => {
           //防止导入excel的时候，缺项
-          console.log(plan, plan.zhifulixi);
+          // console.log(plan, plan.zhifulixi);
           plan.huankuanjine = plan.huankuanjine || "0.00"
           plan.changhuanben = plan.changhuanben || "0.00"
           plan.zhifulixi = plan.zhifulixi || "0.00"

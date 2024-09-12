@@ -52,7 +52,7 @@ export function getEchartData(query) {
 }
 
 // 本月还款计划
-export function getRepaymentPlan(query) {
+export function getRepaymentPlanByMonth(query) {
   return request({
     url: `/huankuanjihua/mingxi/financialSummaryByMonth/${query}`,
     method: 'get',

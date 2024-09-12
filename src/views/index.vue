@@ -33,8 +33,8 @@
                   <div class="card-various-amounts">
                     <el-carousel height="160px" v-if="Object.keys(value).length > groupSize" direction="vertical"
                       :autoplay="true" :interval="3000">
-                      <el-carousel-item  style="display: grid; align-items: center;" v-for="groupIndex in Math.ceil(Object.keys(value).length / groupSize)"
-                        :key="groupIndex">
+                      <el-carousel-item style="display: grid; align-items: center;"
+                        v-for="groupIndex in Math.ceil(Object.keys(value).length / groupSize)" :key="groupIndex">
                         <div
                           v-for="(keyc, idx) in Object.keys(value).slice((groupIndex - 1) * groupSize, groupIndex * groupSize)"
                           :key="keyc">
@@ -145,24 +145,6 @@
 
                   </div>
 
-                  <!-- <div class="card-various-amounts flex">
-                    <div class="flex" v-for="(valuec, keyc, indexc) in value" :key="indexc">
-                      <el-tooltip v-if="keyc !== 'bgID'" content="42467000" placement="top" effect="light">
-                        <div slot="content">
-                          <p class="various-amounts-title mb3">{{ keyc }}</p>
-                          <count-to class="various-amounts-amount" :start-val='0' :end-val='valuec' :duration='1000'
-                            :decimals='2' :separator="','" :prefix="''" :suffix="''" :autoplay="true" :useEasing="true">
-                          </count-to>
-                        </div>
-                        <div class="mb15">
-                          <p class="various-amounts-title mb3">{{ keyc }}</p>
-                          <count-to class="various-amounts-amount" :start-val='0' :end-val='valuec' :duration='1000'
-                            :decimals='2' :separator="','" :prefix="''" :suffix="''" :autoplay="true" :useEasing="true">
-                          </count-to>
-                        </div>
-                      </el-tooltip>
-                    </div>
-                  </div> -->
                 </div>
               </el-col>
             </el-row>
@@ -173,80 +155,21 @@
               <el-col v-if="Object.keys(currentMonthData).length !== 0" :span="24" style="background: #fff;"
                 class="card-panel">
                 <div class="card-content pl20" :class="'card-content-bg' + 5">
-                  <!-- <div class="w">
-                    <div class="card-title">本月还款计划</div>
 
-                    <el-row :gutter="10">
-                      <el-col :span="17">
-                        <el-tooltip placement="top" effect="light">
-                          <div slot="content">
-                            <p class="various-amounts-title mb3">本金（利息）</p>
-                            <count-to class="various-amounts-amount dlb mr10" :start-val='0'
-                              :end-val='currentMonthData.totalPrincipal / 10000' :duration='1000' :decimals='2'
-                              :separator="','" :prefix="''" :suffix="''" :autoplay="true" :useEasing="true"></count-to>
-                            <count-to class="various-amounts-amount dlb" :start-val='0'
-                              :end-val='currentMonthData.totalInterest / 10000' :duration='1000' :decimals='2'
-                              :separator="','" :prefix="'('" :suffix="')'" :autoplay="true" :useEasing="true"></count-to>
-                          </div>
-                          <div class="various-amounts-amount w">
-                            <p class="various-amounts-title mb3">本金（利息）</p>
-                            <count-to class="various-amounts-amount dlb mr10" :start-val='0'
-                              :end-val='currentMonthData.totalPrincipal / 10000' :duration='1000' :decimals='2'
-                              :separator="','" :prefix="''" :suffix="''" :autoplay="true" :useEasing="true"></count-to>
-
-                            <count-to class="various-amounts-amount dlb" :start-val='0'
-                              :end-val='currentMonthData.totalInterest / 10000' :duration='1000' :decimals='2'
-                              :separator="','" :prefix="'('" :suffix="')'" :autoplay="true" :useEasing="true"></count-to>
-                          </div>
-
-                        </el-tooltip>
-                      </el-col>
-                      <el-col :span="7">
-                        <el-tooltip placement="top" effect="light">
-                          <div slot="content">
-                            <p class="various-amounts-title mb3">已还（未还）</p>
-                            <count-to class="various-amounts-amount dlb mr10" :start-val='0'
-                              :end-val='(currentMonthData.totalPaidInterest + currentMonthData.totalPaidPrincipal) / 10000'
-                              :duration='1000' :decimals='2' :separator="','" :prefix="''" :suffix="''" :autoplay="true"
-                              :useEasing="true"></count-to>
-
-                            <count-to class="various-amounts-amount dlb" :start-val='0'
-                              :end-val='(currentMonthData.totalUnpaidInterest + currentMonthData.totalUnpaidPrincipal) / 10000'
-                              :duration='1000' :decimals='2' :separator="','" :prefix="'('" :suffix="')'" :autoplay="true"
-                              :useEasing="true"></count-to>
-                          </div>
-
-                          <div class="various-amounts-amount w" style="margin-left: -5px;">
-                            <p class="various-amounts-title mb3">已还（未还）</p>
-                            <count-to class="various-amounts-amount dlb mr10" :start-val='0'
-                              :end-val='(currentMonthData.totalPaidInterest + currentMonthData.totalPaidPrincipal) / 10000'
-                              :duration='1000' :decimals='2' :separator="','" :prefix="''" :suffix="''" :autoplay="true"
-                              :useEasing="true"></count-to>
-
-                            <count-to class="various-amounts-amount dlb" :start-val='0'
-                              :end-val='(currentMonthData.totalUnpaidInterest + currentMonthData.totalUnpaidPrincipal) / 10000'
-                              :duration='1000' :decimals='2' :separator="','" :prefix="'('" :suffix="')'" :autoplay="true"
-                              :useEasing="true"></count-to>
-                          </div>
-                        </el-tooltip>
-                      </el-col>
-                    </el-row>
-                  </div> -->
 
                   <div class="pt50">
                     <div class="card-title">本月还款计划</div>
 
                     <el-tooltip placement="top" effect="light">
                       <P slot="content">
-                        <count-to class="amounts-font cp" :start-val='0' :end-val="currentMonthData.totalPrincipal +
+                        <count-to class="amounts-font cp" :start-val='0' :end-val="currentMonthData.totalPrincipal / 10000 +
                           currentMonthData.totalInterest / 10000" :duration='1000' :decimals='2' :separator="','"
                           :prefix="''" :suffix="''" :autoplay="true" :useEasing="true"></count-to>
                       </P>
-                      <count-to class="card-amount amounts-font cp" :start-val='0' :end-val="currentMonthData.totalPrincipal +
+                      <count-to class="card-amount amounts-font cp" :start-val='0' :end-val="currentMonthData.totalPrincipal / 10000 +
                         currentMonthData.totalInterest / 10000" :duration='1000' :decimals='2' :separator="','"
                         :prefix="''" :suffix="''" :autoplay="true" :useEasing="true"></count-to>
                     </el-tooltip>
-
                   </div>
 
                   <div class="card-various-amounts" style="display: grid;align-items: center; padding: 6px 0;">
@@ -289,14 +212,14 @@
                         <div slot="content">
                           <p class="various-amounts-title mb3">已还</p>
                           <count-to class="various-amounts-amount" :start-val='0'
-                            :end-val='(currentMonthData.totalPaidInterest + currentMonthData.totalPaidPrincipal) / 10000'
+                            :end-val='(currentMonthData.totalPaidInterest / 10000 + currentMonthData.totalPaidPrincipal) / 10000'
                             :duration='1000' :decimals='2' :separator="','" :prefix="''" :suffix="''" :autoplay="true"
                             :useEasing="true"></count-to>
                         </div>
                         <div>
                           <p class="various-amounts-title mb3">已还</p>
                           <count-to class="various-amounts-amount" :start-val='0'
-                            :end-val='(currentMonthData.totalPaidInterest + currentMonthData.totalPaidPrincipal) / 10000'
+                            :end-val='(currentMonthData.totalPaidInterest / 10000 + currentMonthData.totalPaidPrincipal) / 10000'
                             :duration='1000' :decimals='2' :separator="','" :prefix="''" :suffix="''" :autoplay="true"
                             :useEasing="true"></count-to>
                         </div>
@@ -308,14 +231,14 @@
                         <div slot="content">
                           <p class="various-amounts-title mb3">未还</p>
                           <count-to class="various-amounts-amount" :start-val='0'
-                            :end-val='(currentMonthData.totalUnpaidInterest + currentMonthData.totalUnpaidPrincipal) / 10000'
+                            :end-val='(currentMonthData.totalUnpaidInterest / 10000 + currentMonthData.totalUnpaidPrincipal) / 10000'
                             :duration='1000' :decimals='2' :separator="','" :prefix="''" :suffix="''" :autoplay="true"
                             :useEasing="true"></count-to>
                         </div>
                         <div>
                           <p class="various-amounts-title mb3">未还</p>
                           <count-to class="various-amounts-amount" :start-val='0'
-                            :end-val='(currentMonthData.totalUnpaidInterest + currentMonthData.totalUnpaidPrincipal) / 10000'
+                            :end-val='(currentMonthData.totalUnpaidInterest / 10000 + currentMonthData.totalUnpaidPrincipal) / 10000'
                             :duration='1000' :decimals='2' :separator="','" :prefix="''" :suffix="''" :autoplay="true"
                             :useEasing="true"></count-to>
                         </div>
@@ -405,7 +328,7 @@
     getCardData3,
     getRepaymentPlanByDate,
     getRepaymentPlanData,
-    getRepaymentPlan,
+    getRepaymentPlanByMonth,
     getNextRepaymentPlan
   } from '@/api/dashboard/index'
   import resize from './dashboard/mixins/resize'
@@ -725,22 +648,25 @@
       // 获取当月和下个月还款计划
       async getCardData4() {
         try {
-          const yesterday = moment().subtract(1, 'days').format('YYYY-MM-DD');
+          // const yesterday = moment().subtract(1, 'days').format('YYYY-MM-DD');
           const currentMonth = moment().format('YYYY-MM');
           const NextMonth = moment().add(1, 'months').format('YYYY-MM');;
 
 
-          const currentDateData = await getRepaymentPlanByDate(yesterday);
-          if (currentDateData.code === 200 && 'data' in currentDateData) {
-            // 还款计划查询本月前一天的已还和未还
-            this.currentMonthData = currentDateData.data;
-          }
+          // const currentDateData = await getRepaymentPlanByDate(yesterday);
+          // if (currentDateData.code === 200 && 'data' in currentDateData) {
+          //   // 还款计划查询本月前一天的已还和未还
+          //   this.currentMonthData = currentDateData.data;
+          //   console.log(1, currentDateData.data);
+          // }
 
-          const currentMonthData = await getRepaymentPlan(currentMonth);
+          const currentMonthData = await getRepaymentPlanByMonth(currentMonth);
           if (currentMonthData.code === 200 && 'data' in currentMonthData) {
-            // 还款计划查询本月所有本金和利息，和上个接口使用同一个变量进行处理
-            this.currentMonthData.totalInterest = currentMonthData.data.totalInterest;
-            this.currentMonthData.totalPrincipal = currentMonthData.data.totalPrincipal;
+            // 还款计划查询本月所有本金和利息,未还，前一天的已还
+            this.currentMonthData = currentMonthData.data;
+            console.log(2, currentMonthData.data);
+            // this.currentMonthData.totalInterest = currentMonthData.data.totalInterest;
+            // this.currentMonthData.totalPrincipal = currentMonthData.data.totalPrincipal;
           }
           const NextMonthData = await getNextRepaymentPlan(NextMonth);
           if (NextMonthData.code === 200 && 'data' in NextMonthData) {
@@ -748,6 +674,7 @@
           }
         } catch (error) {
           this.$modal.msgError('数据获取失败，请重新尝试。');
+          console.log(error);
         }
       },
       calculateTotal(obj) {
