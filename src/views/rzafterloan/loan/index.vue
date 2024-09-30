@@ -28,11 +28,6 @@
           </el-col>
 
           <el-col :span="8">
-            <el-form-item label="借款期限（月）" prop="loanTerm">
-              <el-input v-model="queryParams.loanTerm" placeholder="借款期限" clearable @keyup.enter.native="handleQuery" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
             <el-form-item label="贷后状态跟踪" prop="afterLoanState">
               <el-select filterable v-model="queryParams.afterLoanState" placeholder="请选择贷后状态跟踪" clearable>
                 <el-option v-for="dict in dict.type.sys_1759464706814247000" :key="dict.value" :label="dict.label"
@@ -42,15 +37,10 @@
           </el-col>
 
           <el-col :span="8">
-            <el-form-item label="开始日期">
-              <el-date-picker v-model="daterangeStartDate" style="width: 240px" value-format="yyyy-MM-dd"
-                type="daterange" range-separator="-" start-placeholder="点击或者输入" end-placeholder="例子:2024-08-22"></el-date-picker>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
             <el-form-item label="结束日期">
               <el-date-picker v-model="daterangeDeadline" style="width: 240px" value-format="yyyy-MM-dd"
-                type="daterange" range-separator="-" start-placeholder="点击或者输入" end-placeholder="例子:2024-08-22"></el-date-picker>
+                type="daterange" range-separator="-" start-placeholder="点击或者输入"
+                end-placeholder="例子:2024-08-22"></el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>
@@ -93,30 +83,32 @@
       <!-- <el-table-column label="主键id" align="center" prop="id" /> -->
       <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managementId" />
       <!-- <el-table-column label="数据唯一编号" align="center" prop="scrUuid" /> -->
-      <el-table-column show-overflow-tooltip label="金融机构" align="center" prop="financialInstitution" min-width="130">
-        <template slot-scope="scope">
-          <dict-tag :options="dict.type.sys_acceptor" :value="scope.row.financialInstitution" />
-        </template>
-      </el-table-column>
-      <el-table-column show-overflow-tooltip label="借款金额（万元）" align="right" prop="loanAmount" min-width="160">
-        <template slot-scope="scope">
-          <span>{{ formatNumberAsRMB(scope.row.loanAmount) }}</span>
-        </template>
-      </el-table-column>
+
+      <el-table-column show-overflow-tooltip label="项目名称" align="center" prop="projectName" min-width="100" />
+
       <el-table-column show-overflow-tooltip label="借款人" align="center" prop="borrowingUnit" min-width="130">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1759464239669444600" :value="scope.row.borrowingUnit" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="量化内容" align="center" prop="quantitativeContent" min-width="100" />
+
+      <el-table-column show-overflow-tooltip label="金融机构" align="center" prop="financialInstitution" min-width="130">
+        <template slot-scope="scope">
+          <dict-tag :options="dict.type.sys_acceptor" :value="scope.row.financialInstitution" />
+        </template>
+      </el-table-column>
+
+      <el-table-column show-overflow-tooltip label="借款金额（万元）" align="right" prop="loanAmount" min-width="160">
+        <template slot-scope="scope">
+          <span>{{ formatNumberAsRMB(scope.row.loanAmount) }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column show-overflow-tooltip label="贷后事项" align="center" prop="quantitativeContent" min-width="100" />
       <el-table-column show-overflow-tooltip label="量化目标" align="center" prop="quantitativeGoals" min-width="100" />
       <el-table-column show-overflow-tooltip label="当前实现" align="center" prop="currentImplementation" min-width="100" />
       <el-table-column show-overflow-tooltip label="剩余实现" align="center" prop="remainingQuantity" min-width="100" />
-      <el-table-column show-overflow-tooltip label="借款期限（月）" align="center" prop="loanTerm" min-width="140">
-        <template slot-scope="scope">
-          <span>{{ creditCycleFN(scope.row.startDate, scope.row.deadline) }}</span>
-        </template>
-      </el-table-column>
+
       <el-table-column show-overflow-tooltip label="贷后状态跟踪" align="center" prop="afterLoanState" min-width="120">
         <template slot-scope="scope">
           <!-- <dict-tag :options="dict.type.sys_1759464706814247000" :value="scope.row.afterLoanState" /> -->
@@ -145,7 +137,7 @@
       @pagination="getList" />
 
     <!-- 添加或修改贷后管理对话框 -->
-    <el-dialog :close-on-click-modal="false"  :title="title" :visible.sync="open" width="60%" append-to-body>
+    <el-dialog :close-on-click-modal="false" :title="title" :visible.sync="open" width="60%" append-to-body>
 
       <el-divider class="no_mt mb20"></el-divider>
 
@@ -165,6 +157,19 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
+              <el-form-item label="项目名称" prop="projectName">
+                <el-input :readonly="!isEditable" v-model.trim="form.projectName" placeholder="项目名称" />
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="借款人" prop="borrowingUnit">
+                <el-select filterable :disabled="!isEditable" v-model="form.borrowingUnit" placeholder="请选择借款人">
+                  <el-option v-for="dict in dict.type.sys_1759464239669444600" :key="dict.value" :label="dict.label"
+                    :value="dict.label"></el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
               <el-form-item label="金融机构" prop="financialInstitution">
                 <el-select filterable :disabled="!isEditable" v-model="form.financialInstitution" placeholder="请选择金融机构">
                   <el-option v-for="dict in dict.type.sys_acceptor" :key="dict.value" :label="dict.label"
@@ -178,50 +183,11 @@
                   :readonly="!isEditable" type="number" v-model.trim="form.loanAmount" placeholder="借款金额" />
               </el-form-item>
             </el-col>
-          </el-row>
-          <!-- 第二行 -->
-          <el-row :gutter="20">
-            <el-col :span="8">
-              <el-form-item label="借款人" prop="borrowingUnit">
-                <el-select filterable :disabled="!isEditable" v-model="form.borrowingUnit" placeholder="请选择借款人">
-                  <el-option v-for="dict in dict.type.sys_1759464239669444600" :key="dict.value" :label="dict.label"
-                    :value="dict.label"></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
+
 
             <el-col :span="8">
-              <el-form-item label="起始日" prop="startDate">
-                <el-date-picker format='yyyy/MM/dd' :picker-options="pickerOptions1" :disabled="!isEditable" clearable
-                  v-model="form.startDate" type="date" value-format="yyyy-MM-dd" placeholder="请选择起始日"></el-date-picker>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="到期日" prop="deadline">
-                <el-date-picker format='yyyy/MM/dd' :picker-options="pickerOptions2" :disabled="!isEditable" clearable
-                  v-model="form.deadline" type="date" value-format="yyyy-MM-dd" placeholder="请选择到期日"></el-date-picker>
-              </el-form-item>
-            </el-col>
-
-          </el-row>
-          <!-- 第三行 -->
-          <el-row :gutter="20">
-            <el-col :span="8">
-              <el-form-item label="借款期限（月）" prop="loanTerm">
-                <el-input :disabled="true" :readonly="true" v-model="creditCycle" placeholder="借款期限" />
-                <!-- <el-input :readonly="!isEditable" placeholder="借款期限" v-model.trim="form.loanTerm" type="number"
-                  class="input-with-select">
-                  <el-select filterable class="w150" :disabled="!isEditable" v-model="termType" slot="prepend" placeholder="选择期限类型">
-                    <el-option label="年" value="年"></el-option>
-                    <el-option label="月" value="月"></el-option>
-                  </el-select>
-                </el-input> -->
-              </el-form-item>
-            </el-col>
-
-            <el-col :span="8">
-              <el-form-item label="量化内容" prop="quantitativeContent">
-                <el-input :readonly="!isEditable" v-model.trim="form.quantitativeContent" placeholder="量化内容" />
+              <el-form-item label="贷后事项" prop="quantitativeContent">
+                <el-input :readonly="!isEditable" v-model.trim="form.quantitativeContent" placeholder="贷后事项" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -230,8 +196,7 @@
                   placeholder="量化目标" />
               </el-form-item>
             </el-col>
-          </el-row>
-          <el-row :gutter="20">
+
             <el-col :span="8">
               <el-form-item label="当前实现（数量）" prop="currentImplementation">
                 <el-input :readonly="!isEditable" type="number" v-model.trim="form.currentImplementation"
@@ -241,6 +206,12 @@
             <el-col :span="8">
               <el-form-item label="剩余数量（数量）" prop="remainingQuantity">
                 <el-input :readonly="true" :disabled="true" :value="remainingQuantity" placeholder="剩余数量" />
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="到期日" prop="deadline">
+                <el-date-picker format='yyyy/MM/dd' :picker-options="pickerOptions2" :disabled="!isEditable" clearable
+                  v-model="form.deadline" type="date" value-format="yyyy-MM-dd" placeholder="请选择到期日"></el-date-picker>
               </el-form-item>
             </el-col>
             <!-- <el-col :span="8"></el-col> -->
@@ -322,24 +293,6 @@
     },
     data() {
       return {
-        pickerOptions1: {
-          // 禁用开始日期中，所有大于结束日期的日期
-          disabledDate: (date) => {
-            if (this.form.deadline) {
-              return date.getTime() > new Date(this.form.deadline).getTime();
-            }
-          }
-        },
-        pickerOptions2: {
-          // 禁用结束日期中，所有小于开始日期的日期
-          disabledDate: (date) => {
-            if (this.form.startDate) {
-              // 一天的毫秒数
-              var oneDayInMilliseconds = 24 * 60 * 60 * 1000;
-              return date.getTime() < new Date(this.form.startDate).getTime() - oneDayInMilliseconds;
-            }
-          }
-        },
         isSuccess: true,
         isTitle: true,
         isMessage: true,
@@ -379,19 +332,17 @@
         // 是否显示弹出层
         open: false,
         // 创建人时间范围
-        daterangeStartDate: [],
-        // 创建人时间范围
         daterangeDeadline: [],
         // 查询参数
         queryParams: {
           pageNum: 1,
           pageSize: 100,
           managementId: null,
+          projectName: null,
           scrUuid: null,
           financialInstitution: null,
           loanAmount: null,
           borrowingUnit: null,
-          loanTerm: null,
           afterLoanState: null,
           quantitativeContent: null,
           quantitativeGoals: null,
@@ -400,9 +351,7 @@
           progressDescription: null,
           comment: null,
           uuid: null,
-          startDate: null,
-          deadline: null,
-          creditCycle: null
+          deadline: null
         },
         /* str 需要添加的 */
         scrUuid: null,
@@ -436,11 +385,7 @@
             message: "借款人不能为空",
             trigger: "change"
           }],
-          loanTerm: [{
-            required: true,
-            message: "借款期限不能为空",
-            trigger: "blur"
-          }],
+
           afterLoanState: [{
             required: true,
             message: "贷后状态跟踪不能为空",
@@ -471,19 +416,9 @@
             message: "进度说明不能为空",
             trigger: "blur"
           }],
-          startDate: [{
-            required: true,
-            message: "起始日不能为空",
-            trigger: "blur"
-          }],
           deadline: [{
             required: true,
             message: "到期日不能为空",
-            trigger: "blur"
-          }],
-          creditCycle: [{
-            required: true,
-            message: "授信有效期不能为空",
             trigger: "blur"
           }],
         },
@@ -503,17 +438,7 @@
           this.isEditable = true;
         }
       },
-      // 观察开始和结束日期的变化，自动重新计算天数
-      'form.startDate': function(newVal, oldVal) {
-        if (newVal !== oldVal) {
-          this.calculateLoanTerm();
-        }
-      },
-      'form.deadline': function(newVal, oldVal) {
-        if (newVal !== oldVal) {
-          this.calculateLoanTerm();
-        }
-      },
+
       'form.remainingQuantity'(n, o) {
         if (n === 0) {
           this.form.afterLoanState = '已完结'
@@ -535,25 +460,7 @@
         this.form.remainingQuantity = residue;
         return residue;
       },
-      /* 计算周期，开始时间减去结束时间 */
-      creditCycle: {
-        get() {
-          // 如果是自动计算的，直接返回计算结果加"天"，否则返回当前值
-          if (this.isAutoCalculated) {
-            return this.form.loanTerm ? `${this.form.loanTerm}月` : '';
-          } else {
-            return this.form.loanTerm ? `${this.form.loanTerm}月` : '';
-          }
-        },
-        set(value) {
-          this.isAutoCalculated = false; // 用户手动输入，更改标志状态
-          if (typeof value === 'string' && value.includes('月')) {
-            this.form.loanTerm = parseInt(value.replace('月', ''), 10);
-          } else if (!isNaN(value)) {
-            this.form.loanTerm = parseInt(value, 10);
-          }
-        }
-      }
+
     },
     created() {
       this.getList();
@@ -562,19 +469,7 @@
       this.isEditable = true;
     },
     methods: {
-      calculateLoanTerm() {
-        if (this.form.startDate && this.form.deadline) {
-          const start = moment(this.form.startDate);
-          const end = moment(this.form.deadline);
 
-          // const days = end.diff(start, 'days') + 1; // 直接计算天数，并加1表示至少一天
-          let creditCycle = moment(end).diff(moment(start), 'month', true)
-          // return (creditCycle).toFixed(2);
-
-          this.form.loanTerm = (creditCycle).toFixed(2);
-          this.isAutoCalculated = true; // 标记为自动计算
-        }
-      },
       /* 创建成功关闭弹窗 */
       closeDialog() {
         this.open = false;
@@ -594,10 +489,7 @@
         this.queryParams.params = {};
         this.queryParams['orderByColumn'] = 'deadline'
         this.queryParams['isAsc'] = "asc"
-        if (null != this.daterangeStartDate && '' != this.daterangeStartDate) {
-          this.queryParams.params["beginStartDate"] = this.daterangeStartDate[0];
-          this.queryParams.params["endStartDate"] = this.daterangeStartDate[1];
-        }
+
         if (null != this.daterangeDeadline && '' != this.daterangeDeadline) {
           this.queryParams.params["beginDeadline"] = this.daterangeDeadline[0];
           this.queryParams.params["endDeadline"] = this.daterangeDeadline[1];
@@ -624,7 +516,7 @@
           financialInstitution: null,
           loanAmount: null,
           borrowingUnit: null,
-          loanTerm: null,
+          projectName: null,
           afterLoanState: null,
           quantitativeContent: null,
           quantitativeGoals: null,
@@ -637,9 +529,7 @@
           updateTime: null,
           updateBy: null,
           uuid: null,
-          startDate: null,
-          deadline: null,
-          creditCycle: null
+          deadline: null
         };
         this.rzsrc2List = [];
         this.resetForm("form");
@@ -651,8 +541,7 @@
       },
       /** 重置按钮操作 */
       resetQuery() {
-		  this.daterangeStartDate=[]
-		  this.daterangeDeadline=[]
+        this.daterangeDeadline = []
         this.resetForm("queryForm");
         this.handleQuery();
       },
@@ -703,14 +592,7 @@
             data.loanAmount = Number(data.loanAmount) * 10000;
             if (this.form.id != null) {
               data.scrUuid = Number(this.scrUuid);
-              // 计算周期，开始时间减去结束时间
-              // let creditCycle = moment(data.deadline).diff(moment(data.startDate), 'days');
-              // data.loanTerm = creditCycle === 0 ? 1 : creditCycle;
-              let loanTermStr = data.loanTerm.toString();
-              loanTermStr = loanTermStr.replace(/天$/, '');
 
-              data.loanTerm = loanTermStr
-              data.loanTerm = data.loanTerm.replace(/天$/, '');
               this.rzaudit_data = {
                 "auditId": data.id,
                 "scrUuid": data.scrUuid,
@@ -738,17 +620,9 @@
               const uuid = String(generator.nextId())
               data.scrUuid = generator.nextId();
               // data.rzsrc2List = this.rzsrc2List;
-              // data.loanTerm = data.loanTerm + this.termType;
               data.createBy = this.name;
               data.uuid = uuid;
 
-              // 计算周期，开始时间减去结束时间
-              // let creditCycle = moment(data.deadline).diff(moment(data.startDate), 'days');
-              // data.loanTerm = creditCycle === 0 ? 1 : creditCycle;
-              let loanTermStr = data.loanTerm.toString();
-              loanTermStr = loanTermStr.replace(/天$/, '');
-
-              data.loanTerm = loanTermStr
               this.rzaudit_data = {
                 "id": null,
                 "auditId": null,

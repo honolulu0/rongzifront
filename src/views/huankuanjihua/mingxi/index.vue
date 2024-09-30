@@ -68,7 +68,6 @@
       </el-table-column>
       <el-table-column label="数据来源" align="center" prop="xiangmuleixing" />
       <el-table-column label="期数" align="center" prop="qishu" min-width="80" />
-      <el-table-column label="还款日期" align="center" prop="riqi" min-width="100" />
       <el-table-column show-overflow-tooltip label="借款人" align="center" prop="borrowingUnit" min-width="260">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1767154968256577500" :value="scope.row.borrowingUnit" />
@@ -80,6 +79,7 @@
         </template>
       </el-table-column>
       <el-table-column label="贷款用途" align="center" prop="daikuanyongtu" />
+      <el-table-column label="还款日期" align="center" prop="riqi" min-width="100" />
       <el-table-column show-overflow-tooltip label="还款金额" align="right" prop="huankuanjine" min-width="160" />
       <el-table-column show-overflow-tooltip label="偿还本金" align="right" prop="changhuanben" min-width="160" />
       <el-table-column show-overflow-tooltip label="支付利息" align="right" prop="zhifulixi" min-width="160" />

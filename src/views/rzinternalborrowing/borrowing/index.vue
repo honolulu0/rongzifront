@@ -27,9 +27,9 @@
           </el-col>
 
           <el-col :span="8">
-            <el-form-item label="债权人" prop="payee">
-              <el-select filterable v-model="queryParams.payee" placeholder="请选择债权人" clearable>
-                <el-option v-for="dict in dict.type.sys_1757271666666242000" :key="dict.value" :label="dict.label"
+            <el-form-item label="出借人" prop="payee">
+              <el-select filterable v-model="queryParams.payee" placeholder="请选择出借人" clearable>
+                <el-option v-for="dict in dict.type.sys_1767154968256577500" :key="dict.value" :label="dict.label"
                   :value="dict.label" />
               </el-select>
             </el-form-item>
@@ -125,26 +125,12 @@
           <dict-tag :options="dict.type.sys_1767154968256577500" :value="scope.row.borrower" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="债权人" align="center" prop="payee" min-width="130">
+      <el-table-column show-overflow-tooltip label="出借人" align="center" prop="payee" min-width="130">
         <template slot-scope="scope">
-          <dict-tag :options="dict.type.sys_1757271666666242000" :value="scope.row.payee" />
+          <dict-tag :options="dict.type.sys_1767154968256577500" :value="scope.row.payee" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="转借人" align="center" prop="sublessee" min-width="130">
-        <template slot-scope="scope">
-          <dict-tag :options="dict.type.sys_1770296780093653000" :value="scope.row.sublessee" />
-        </template>
-      </el-table-column>
-      <!-- <el-table-column label="借款日期" align="center" prop="borrowDate" width="180">
-        <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.borrowDate, '{y}-{m}-{d}') }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="到期日期" align="center" prop="dueDate" width="180">
-        <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.dueDate, '{y}-{m}-{d}') }}</span>
-        </template>
-      </el-table-column> -->
+
       <el-table-column show-overflow-tooltip label="借款期限" align="center" prop="loanTerm" min-width="80">
         <template slot-scope="scope">
           <span>{{ creditCycleFN(scope.row.borrowDate, scope.row.dueDate) }}</span>
@@ -218,22 +204,14 @@
 
           <el-row :gutter="20">
             <el-col :span="8">
-              <el-form-item label="债权人" prop="payee">
-                <el-select filterable :disabled="!isEditable" v-model="form.payee" placeholder="请选择债权人">
-                  <el-option v-for="dict in dict.type.sys_1757271666666242000" :key="dict.value" :label="dict.label"
+              <el-form-item label="出借人" prop="payee">
+                <el-select filterable :disabled="!isEditable" v-model="form.payee" placeholder="请选择出借人">
+                  <el-option v-for="dict in dict.type.sys_1767154968256577500" :key="dict.value" :label="dict.label"
                     :value="dict.label"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
 
-            <el-col :span="8">
-              <el-form-item label="转借人" prop="sublessee">
-                <el-select filterable :disabled="!isEditable" v-model="form.sublessee" placeholder="请选择转借人">
-                  <el-option v-for="dict in dict.type.sys_1770296780093653000" :key="dict.value" :label="dict.label"
-                    :value="dict.label"></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
 
             <el-col :span="8">
               <el-form-item label="借款日期" prop="borrowDate">
@@ -243,9 +221,7 @@
               </el-form-item>
             </el-col>
 
-          </el-row>
 
-          <el-row :gutter="20">
             <el-col :span="8">
               <el-form-item label="到期日期" prop="dueDate">
                 <el-date-picker format='yyyy/MM/dd' :picker-options="pickerOptions2" :disabled="!isEditable" clearable
@@ -264,9 +240,7 @@
               </el-form-item>
             </el-col>
 
-          </el-row>
 
-          <el-row :gutter="20">
             <!-- <el-col :span="8">
               <el-form-item label="合同编号" prop="contractId">
                 <el-input :readonly="!isEditable" v-model="form.contractId" placeholder="合同编号" />
@@ -358,9 +332,7 @@
 
   export default {
     name: "Borrowing",
-    dicts: ['sys_1759501742422098000', 'sys_1757271666666242000', 'sys_1767154968256577500', 'sys_1759501814702538800',
-      'sys_1770296780093653000'
-    ],
+    dicts: ['sys_1759501742422098000', 'sys_1767154968256577500', 'sys_1759501814702538800'],
     components: {
       CreateSuccess,
       SearchPanel
@@ -478,7 +450,7 @@
 
           payee: [{
             required: true,
-            message: "债权人不能为空",
+            message: "出借人不能为空",
             trigger: "change"
           }],
           borrowDate: [{
@@ -515,12 +487,8 @@
             required: true,
             message: "借款用途不能为空",
             trigger: "change"
-          }],
-          sublessee: [{
-            required: true,
-            message: "转借人不能为空",
-            trigger: "change"
           }]
+
         },
         isAutoCalculated: false, // 是否自动计算的标志
         totalKeys: {

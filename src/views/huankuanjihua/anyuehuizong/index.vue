@@ -94,7 +94,7 @@
     created() {
       const currentMonth = moment().format('YYYY-MM');
       // 获取一年后的月份
-      const nextYearMonth = moment().add(1, 'year').format('YYYY-MM');
+      const nextYearMonth = moment().add(2, 'year').format('YYYY-MM');
       console.log(currentMonth, nextYearMonth);
       this.daterangeRiqi = [currentMonth, nextYearMonth]
       this.getList();

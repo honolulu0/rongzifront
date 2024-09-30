@@ -162,13 +162,15 @@
 
                     <el-tooltip placement="top" effect="light">
                       <P slot="content">
-                        <count-to class="amounts-font cp" :start-val='0' :end-val="currentMonthData.totalPrincipal / 10000 +
-                          currentMonthData.totalInterest / 10000" :duration='1000' :decimals='2' :separator="','"
-                          :prefix="''" :suffix="''" :autoplay="true" :useEasing="true"></count-to>
+                        <count-to class="amounts-font cp" :start-val='0' :end-val="(currentMonthData.totalPrincipal+
+                          currentMonthData.totalInterest+currentMonthData.totalShouxufei) / 10000" :duration='1000'
+                          :decimals='2' :separator="','" :prefix="''" :suffix="''" :autoplay="true"
+                          :useEasing="true"></count-to>
                       </P>
-                      <count-to class="card-amount amounts-font cp" :start-val='0' :end-val="currentMonthData.totalPrincipal / 10000 +
-                        currentMonthData.totalInterest / 10000" :duration='1000' :decimals='2' :separator="','"
-                        :prefix="''" :suffix="''" :autoplay="true" :useEasing="true"></count-to>
+                      <count-to class="card-amount amounts-font cp" :start-val='0' :end-val="(currentMonthData.totalPrincipal +
+                        currentMonthData.totalInterest+currentMonthData.totalShouxufei )/ 10000" :duration='1000'
+                        :decimals='2' :separator="','" :prefix="''" :suffix="''" :autoplay="true"
+                        :useEasing="true"></count-to>
                     </el-tooltip>
                   </div>
 
@@ -195,14 +197,16 @@
                         <div slot="content">
                           <p class="various-amounts-title mb3">利息</p>
                           <count-to class="various-amounts-amount" :start-val='0'
-                            :end-val='currentMonthData.totalInterest / 10000' :duration='1000' :decimals='2'
-                            :separator="','" :prefix="''" :suffix="''" :autoplay="true" :useEasing="true"></count-to>
+                            :end-val='(currentMonthData.totalInterest+currentMonthData.totalShouxufei ) / 10000'
+                            :duration='1000' :decimals='2' :separator="','" :prefix="''" :suffix="''" :autoplay="true"
+                            :useEasing="true"></count-to>
                         </div>
                         <div>
                           <p class="various-amounts-title mb3">利息</p>
                           <count-to class="various-amounts-amount" :start-val='0'
-                            :end-val='currentMonthData.totalInterest / 10000' :duration='1000' :decimals='2'
-                            :separator="','" :prefix="''" :suffix="''" :autoplay="true" :useEasing="true"></count-to>
+                            :end-val='(currentMonthData.totalInterest+currentMonthData.totalShouxufei ) / 10000'
+                            :duration='1000' :decimals='2' :separator="','" :prefix="''" :suffix="''" :autoplay="true"
+                            :useEasing="true"></count-to>
                         </div>
                       </el-tooltip>
                     </div>
@@ -212,14 +216,14 @@
                         <div slot="content">
                           <p class="various-amounts-title mb3">已还</p>
                           <count-to class="various-amounts-amount" :start-val='0'
-                            :end-val='(currentMonthData.totalPaidInterest / 10000 + currentMonthData.totalPaidPrincipal) / 10000'
+                            :end-val='(currentMonthData.totalPaidPrincipal+currentMonthData.totalPaidInterest+currentMonthData.totalPaidShouxufei) / 10000'
                             :duration='1000' :decimals='2' :separator="','" :prefix="''" :suffix="''" :autoplay="true"
                             :useEasing="true"></count-to>
                         </div>
                         <div>
                           <p class="various-amounts-title mb3">已还</p>
                           <count-to class="various-amounts-amount" :start-val='0'
-                            :end-val='(currentMonthData.totalPaidInterest / 10000 + currentMonthData.totalPaidPrincipal) / 10000'
+                            :end-val='(currentMonthData.totalPaidPrincipal+currentMonthData.totalPaidInterest+currentMonthData.totalPaidShouxufei) / 10000'
                             :duration='1000' :decimals='2' :separator="','" :prefix="''" :suffix="''" :autoplay="true"
                             :useEasing="true"></count-to>
                         </div>
@@ -231,14 +235,14 @@
                         <div slot="content">
                           <p class="various-amounts-title mb3">未还</p>
                           <count-to class="various-amounts-amount" :start-val='0'
-                            :end-val='(currentMonthData.totalUnpaidInterest / 10000 + currentMonthData.totalUnpaidPrincipal) / 10000'
+                            :end-val='(currentMonthData.totalUnpaidPrincipal+currentMonthData.totalUnpaidInterest+currentMonthData.totalUnpaidShouxufei) / 10000'
                             :duration='1000' :decimals='2' :separator="','" :prefix="''" :suffix="''" :autoplay="true"
                             :useEasing="true"></count-to>
                         </div>
                         <div>
                           <p class="various-amounts-title mb3">未还</p>
                           <count-to class="various-amounts-amount" :start-val='0'
-                            :end-val='(currentMonthData.totalUnpaidInterest / 10000 + currentMonthData.totalUnpaidPrincipal) / 10000'
+                            :end-val='(currentMonthData.totalUnpaidPrincipal+currentMonthData.totalUnpaidInterest+currentMonthData.totalUnpaidShouxufei) / 10000'
                             :duration='1000' :decimals='2' :separator="','" :prefix="''" :suffix="''" :autoplay="true"
                             :useEasing="true"></count-to>
                         </div>
@@ -290,14 +294,16 @@
                         <div slot="content">
                           <p class="various-amounts-title mb3">利息</p>
                           <count-to class="various-amounts-amount" :start-val='0'
-                            :end-val='NextMonthData.totalInterest / 10000' :duration='1000' :decimals='2'
-                            :separator="','" :prefix="''" :suffix="''" :autoplay="true" :useEasing="true"></count-to>
+                            :end-val='(NextMonthData.totalInterest +NextMonthData.totalShouxufei)/ 10000'
+                            :duration='1000' :decimals='2' :separator="','" :prefix="''" :suffix="''" :autoplay="true"
+                            :useEasing="true"></count-to>
                         </div>
                         <div>
                           <p class="various-amounts-title mb3">利息</p>
                           <count-to class="various-amounts-amount" :start-val='0'
-                            :end-val='NextMonthData.totalInterest / 10000' :duration='1000' :decimals='2'
-                            :separator="','" :prefix="''" :suffix="''" :autoplay="true" :useEasing="true"></count-to>
+                            :end-val='(NextMonthData.totalInterest +NextMonthData.totalShouxufei)/ 10000'
+                            :duration='1000' :decimals='2' :separator="','" :prefix="''" :suffix="''" :autoplay="true"
+                            :useEasing="true"></count-to>
                         </div>
                       </el-tooltip>
                     </div>
@@ -484,7 +490,7 @@
         dbData: {},
         daterangeLogCreateDate: [
           moment().format('YYYY-MM'),
-          moment().add(1, 'years').format('YYYY-MM')
+          moment().add(2, 'years').format('YYYY-MM')
         ],
         currentMonthData: {
           totalPrincipal: 0,
@@ -497,10 +503,7 @@
         NextMonthData: {
           totalPrincipal: 0,
           totalInterest: 0,
-        },
-        NextMonthDataKey: {
-          'totalPrincipal': '本金',
-          'totalInterest': '利息'
+          totalShouxufei: 0,
         }
       };
     },
@@ -664,7 +667,7 @@
           if (currentMonthData.code === 200 && 'data' in currentMonthData) {
             // 还款计划查询本月所有本金和利息,未还，前一天的已还
             this.currentMonthData = currentMonthData.data;
-            console.log(2, currentMonthData.data);
+            // console.log(2, currentMonthData.data);
             // this.currentMonthData.totalInterest = currentMonthData.data.totalInterest;
             // this.currentMonthData.totalPrincipal = currentMonthData.data.totalPrincipal;
           }
