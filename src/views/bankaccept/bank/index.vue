@@ -122,16 +122,16 @@
     <!-- :summary-method="(param) => getSummaries(param, totalKeys)" show-summary -->
     <el-table v-loading="loading" :summary-method="(param) => getSummaries2(param, totalKeys,zongji)" show-summary
       :data="bankList" @selection-change="handleSelectionChange" :header-cell-style="header_cell_style">
-      <el-table-column show-overflow-tooltip fixed="left" type="selection" min-width="60" width="60" align="center" />
-      <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managementId" min-width="100" />
-      <!-- <el-table-column label="数据唯一编号" align="center" prop="scrUuid" /> -->
-      <!-- <el-table-column label="审核id" align="center" prop="auditId" /> -->
-      <el-table-column show-overflow-tooltip label="出票人" align="center" min-width="130" prop="drawer">
+      <el-table-column show-overflow-tooltip fixed="left" type="selection" min-width="60" width="60" align="left" />
+      <el-table-column show-overflow-tooltip label="管理编号" align="left" prop="managementId" min-width="100" />
+      <!-- <el-table-column label="数据唯一编号" align="left" prop="scrUuid" /> -->
+      <!-- <el-table-column label="审核id" align="left" prop="auditId" /> -->
+      <el-table-column show-overflow-tooltip label="出票人" align="left" min-width="130" prop="drawer">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_drawer" :value="scope.row.drawer" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="收票人" min-width="130" align="center" prop="payee">
+      <el-table-column show-overflow-tooltip label="收票人" min-width="130" align="left" prop="payee">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1754491769220759600" :value="scope.row.payee" />
         </template>
@@ -147,17 +147,17 @@
           <span>{{ formatNumberAsRMB(scope.row.invoiceAmount) }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="出票日期" align="center" prop="draftDate" min-width="100">
+      <el-table-column show-overflow-tooltip label="出票日期" align="left" prop="draftDate" min-width="100">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.draftDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="汇票到期日" align="center" prop="dueDate" min-width="100">
+      <el-table-column show-overflow-tooltip label="汇票到期日" align="left" prop="dueDate" min-width="100">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.dueDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="汇票到期提醒" min-width="120" align="center" prop="remark">
+      <el-table-column show-overflow-tooltip label="汇票到期提醒" min-width="120" align="left" prop="remark">
         <template slot-scope="scope">
           <el-tag effect="plain" :hit="true" :class="checkDueReminderWithConfig(scope.row.dueDate).color">
             {{ checkDueReminderWithConfig(scope.row.dueDate).message }}
@@ -165,30 +165,30 @@
           <!-- <dict-tag :options="reminderConfig" :value="checkDueReminderWithConfig(scope.row.draftDate, scope.row.dueDate)" /> -->
         </template>
       </el-table-column>
-      <!-- <el-table-column show-overflow-tooltip label="承兑协议编号" min-width="180" align="center" prop="acceptAgreementId" /> -->
-      <el-table-column show-overflow-tooltip label="项目名称" align="center" min-width="160" prop="entryName" />
+      <!-- <el-table-column show-overflow-tooltip label="承兑协议编号" min-width="180" align="left" prop="acceptAgreementId" /> -->
+      <el-table-column show-overflow-tooltip label="项目名称" align="left" min-width="160" prop="entryName" />
 
       <el-table-column show-overflow-tooltip label="敞口额度(万元)" min-width="160" align="right" prop="changkouedu">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.changkouedu) }}</span>
         </template>
       </el-table-column>
-      <!-- <el-table-column show-overflow-tooltip label="备注" align="center" min-width="200" prop="comment" /> -->
-      <!-- <el-table-column label="ID" align="center" prop="id" /> -->
+      <!-- <el-table-column show-overflow-tooltip label="备注" align="left" min-width="200" prop="comment" /> -->
+      <!-- <el-table-column label="ID" align="left" prop="id" /> -->
 
-      <!-- <el-table-column label="出票手续费" align="center" prop="ticketProcessingFee" />
-      <el-table-column label="保证金比例" align="center" prop="marginLevel" />
-      <el-table-column label="保证金利率" align="center" prop="marginInterestRate" />
-      <el-table-column label="保证金收益金额" align="center" prop="marginIncomeAmount" />-->
-      <el-table-column show-overflow-tooltip min-width="120" label="是否已贴现" align="center" prop="discountedOrNot">
+      <!-- <el-table-column label="出票手续费" align="left" prop="ticketProcessingFee" />
+      <el-table-column label="保证金比例" align="left" prop="marginLevel" />
+      <el-table-column label="保证金利率" align="left" prop="marginInterestRate" />
+      <el-table-column label="保证金收益金额" align="left" prop="marginIncomeAmount" />-->
+      <el-table-column show-overflow-tooltip min-width="120" label="是否已贴现" align="left" prop="discountedOrNot">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1796070671776743400" :value="scope.row.discountedOrNot" />
         </template>
       </el-table-column>
-      <!-- <el-table-column label="贴现金融机构" align="center" prop="discountedFinancialInstitutions" />
-      <el-table-column label="贴现手续费" align="center" prop="discountedHandlingFee" />
-      <el-table-column label="贴现费用承担情况" align="center" prop="assumptionOfDiscountFees" /> -->
-      <el-table-column fixed="right" label="操作" align="center" class-name="''">
+      <!-- <el-table-column label="贴现金融机构" align="left" prop="discountedFinancialInstitutions" />
+      <el-table-column label="贴现手续费" align="left" prop="discountedHandlingFee" />
+      <el-table-column label="贴现费用承担情况" align="left" prop="assumptionOfDiscountFees" /> -->
+      <el-table-column fixed="right" label="操作" align="left" class-name="''">
         <template slot-scope="scope">
           <el-button size="mini" type="text" @click="handleUpdate(scope.row)" v-hasPermi="['bankaccept:bank:edit']">查
             看</el-button>

@@ -36,7 +36,7 @@
 
     <el-table :span-method="arraySpanMethod" v-loading="loading" :data="attaList"
       @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center" />
+      <el-table-column type="selection" width="55" align="left" />
       <!--      <el-table-column type="expand">
         <template slot-scope="scope">
           <el-form label-position="left" inline class="demo-table-expand">
@@ -51,10 +51,10 @@
           </el-form>
         </template>
       </el-table-column> -->
-      <el-table-column label="一级标题" align="center" prop="title" />
-      <el-table-column label="二级标题" align="center" prop="title2" />
-      <el-table-column label="备注" align="center" prop="comment" />
-      <el-table-column label="文件名" align="center" prop="url" min-width="180">
+      <el-table-column label="一级标题" align="left" prop="title" />
+      <el-table-column label="二级标题" align="left" prop="title2" />
+      <el-table-column label="备注" align="left" prop="comment" />
+      <el-table-column label="文件名" align="left" prop="url" min-width="180">
         <template slot-scope="scope">
           <div v-if="scope.row.url!=null&&scope.row.url!='null'">
             <div v-for="(url,index)  in ( scope.row.url.split(','))" :key="index" class="mb5">
@@ -65,13 +65,13 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="创建时间" align="center" prop="createTime" width="180">
+      <el-table-column label="创建时间" align="left" prop="createTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="创建人" align="center" prop="createBy" />
-      <el-table-column label="操作" align="center" class-name="''">
+      <el-table-column label="创建人" align="left" prop="createBy" />
+      <el-table-column label="操作" align="left" class-name="''">
         <template slot-scope="scope">
           <el-button v-if="scope.row.createBy == name" size="mini" type="text" icon="el-icon-edit"
             @click="handleUpdate(scope.row)" v-hasPermi="['appendix:atta:edit']">修改</el-button>

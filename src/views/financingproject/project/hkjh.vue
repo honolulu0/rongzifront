@@ -299,8 +299,9 @@
           "按年偿还": 12
         },
         bjKeyMap: {
-          "半年偿还": 6,
+          "按月偿还": 1,
           "季度偿还": 3,
+          "半年偿还": 6,
           "按年偿还": 12,
           "到期还本": 0,
         },
@@ -597,10 +598,10 @@
           formattedArray = [data]
           // this.addRow('bjch', data)
         } else {
-          let benjinzengjia = getDatesBasedOnStartDate(this.form.loanDate, this.form.dueDate, this.bjKeyMap[this.form
+          let benjinchanghuan = getDatesBasedOnStartDate(this.form.loanDate, this.form.dueDate, this.bjKeyMap[this.form
             .principalRepaymentMethod]);
           // 转换为指定的对象数组格式
-          formattedArray = benjinzengjia.map(date => ({
+          formattedArray = benjinchanghuan.map(date => ({
             date: date,
             amount: 0,
             editing: true

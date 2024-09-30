@@ -108,29 +108,29 @@
 
     <el-table :summary-method="(param) => getSummaries2(param, totalKeys, zongjia)" show-summary v-loading="loading"
       :data="projectList" @selection-change="handleSelectionChange" :header-cell-style="header_cell_style">
-      <el-table-column show-overflow-tooltip fixed="left" type="selection" width="60" align="center" />
-      <!-- <el-table-column label="主键id" align="center" prop="id" /> -->
-      <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managementId" min-width="100" />
-      <!-- <el-table-column label="数据唯一编号" align="center" prop="scrUuid" /> -->
-      <el-table-column show-overflow-tooltip label="借款人" align="center" prop="borrowingUnit" min-width="125">
+      <el-table-column show-overflow-tooltip fixed="left" type="selection" width="60" align="left" />
+      <!-- <el-table-column label="主键id" align="left" prop="id" /> -->
+      <el-table-column show-overflow-tooltip label="管理编号" align="left" prop="managementId" min-width="100" />
+      <!-- <el-table-column label="数据唯一编号" align="left" prop="scrUuid" /> -->
+      <el-table-column show-overflow-tooltip label="借款人" align="left" prop="borrowingUnit" min-width="125">
         <!-- <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1767154968256577500" :value="scope.row.borrowingUnit" />
         </template> -->
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="债权人" align="center" prop="financialInstitution" min-width="125">
+      <el-table-column show-overflow-tooltip label="债权人" align="left" prop="financialInstitution" min-width="125">
         <!-- <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1757271666666242000" :value="scope.row.financialInstitution" />
         </template> -->
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="融资类型" align="center" prop="financingType" min-width="80">
+      <el-table-column show-overflow-tooltip label="融资类型" align="left" prop="financingType" min-width="80">
         <!-- <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1759508335389835300" :value="scope.row.financingType" />
         </template> -->
       </el-table-column>
 
-      <el-table-column label="贷款用途" align="center" prop="daikuanyongtu" />
-      <!-- <el-table-column label="担保措施" align="center" prop="danbaocuoshi" /> -->
-      <!--    <el-table-column label="授信金额" align="center" prop="shouxinjine" width="140">
+      <el-table-column label="贷款用途" align="left" prop="daikuanyongtu" />
+      <!-- <el-table-column label="担保措施" align="left" prop="danbaocuoshi" /> -->
+      <!--    <el-table-column label="授信金额" align="left" prop="shouxinjine" width="140">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.shouxinjine) }}</span>
         </template>
@@ -157,41 +157,41 @@
           <span>{{ formatNumberAsRMB(scope.row.shouxufei) }}</span>
         </template>
       </el-table-column> -->
-      <el-table-column show-overflow-tooltip label="期限（月）" align="center" prop="loanTerm" min-width="100">
+      <el-table-column show-overflow-tooltip label="期限（月）" align="left" prop="loanTerm" min-width="100">
         <template slot-scope="scope">
           <span>{{ creditCycleFN(scope.row.loanDate, scope.row.dueDate) }}</span>
         </template>
       </el-table-column>
-      <!-- <el-table-column label="资金用途" align="center" prop="contractId" /> -->
-      <!-- <el-table-column show-overflow-tooltip label="资金用途" align="center" prop="contractId" min-width="120"/> -->
-      <!-- <el-table-column label="合同签订日期" align="center" prop="contractSigningDate" width="180">
+      <!-- <el-table-column label="资金用途" align="left" prop="contractId" /> -->
+      <!-- <el-table-column show-overflow-tooltip label="资金用途" align="left" prop="contractId" min-width="120"/> -->
+      <!-- <el-table-column label="合同签订日期" align="left" prop="contractSigningDate" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.contractSigningDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column> -->
-      <el-table-column show-overflow-tooltip label="放款日" align="center" prop="loanDate" width="100">
+      <el-table-column show-overflow-tooltip label="放款日" align="left" prop="loanDate" width="100">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.loanDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="到期日" align="center" prop="dueDate" width="100">
+      <el-table-column show-overflow-tooltip label="到期日" align="left" prop="dueDate" width="100">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.dueDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="年利率" align="center" prop="rate" min-width="80">
+      <el-table-column show-overflow-tooltip label="年利率" align="left" prop="rate" min-width="80">
         <template slot-scope="scope">
           <span>{{ appendUnit(scope.row.rate, '%') }}</span>
         </template>
       </el-table-column>
-      <!-- <el-table-column label="增信措施" align="center" prop="creditEnhancementMeasures" /> -->
-      <!-- <el-table-column label="已还金额（万元）" align="center" prop="repaidAmount" width="160">
+      <!-- <el-table-column label="增信措施" align="left" prop="creditEnhancementMeasures" /> -->
+      <!-- <el-table-column label="已还金额（万元）" align="left" prop="repaidAmount" width="160">
          <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.repaidAmount) }}</span>
         </template>
       </el-table-column> -->
 
-      <el-table-column show-overflow-tooltip label="债务状态" align="center" prop="loanState" width="100">
+      <el-table-column show-overflow-tooltip label="债务状态" align="left" prop="loanState" width="100">
         <template slot-scope="scope">
           <svg-icon class="mr5" :icon-class="scope.row.loanState"></svg-icon>
           {{ scope.row.loanState }}
@@ -200,14 +200,14 @@
           <!-- <dict-tag :options="dict.type.sys_1759509599150407700" :value="scope.row.loanState" /> -->
         </template>
       </el-table-column>
-      <!--      <el-table-column show-overflow-tooltip label="还款计划" align="center" prop="hasRepaymentPlan" min-width="80">
+      <!--      <el-table-column show-overflow-tooltip label="还款计划" align="left" prop="hasRepaymentPlan" min-width="80">
 
       </el-table-column> -->
 
 
-      <!-- <el-table-column show-overflow-tooltip label="备注" align="center" prop="comment" min-width="120" /> -->
-      <!-- <el-table-column label="uuid" align="center" prop="uuid" /> -->
-      <el-table-column show-overflow-tooltip fixed="right" label="操作" align="center" class-name="''">
+      <!-- <el-table-column show-overflow-tooltip label="备注" align="left" prop="comment" min-width="120" /> -->
+      <!-- <el-table-column label="uuid" align="left" prop="uuid" /> -->
+      <el-table-column show-overflow-tooltip fixed="right" label="操作" align="left" class-name="''">
         <template slot-scope="scope">
           <el-button size="mini" type="text" @click="handleUpdate(scope.row)"
             v-hasPermi="['financingproject:project:edit']">查 看</el-button>

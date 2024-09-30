@@ -61,31 +61,31 @@
 
     <el-table :summary-method="getSummaries" show-summary v-loading="loading" :data="mingxiList"
       @selection-change="handleSelectionChange" :header-cell-style="header_cell_style">
-      <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managerId" min-width="120" >
+      <el-table-column show-overflow-tooltip label="管理编号" align="left" prop="managerId" min-width="120" >
         <template slot-scope="scope">
           <el-link type="primary" @click="openDetail(scope.row)">{{ scope.row.managerId }}</el-link>
         </template>
       </el-table-column>
-      <el-table-column label="数据来源" align="center" prop="xiangmuleixing" />
-      <el-table-column label="期数" align="center" prop="qishu" min-width="80" />
-      <el-table-column show-overflow-tooltip label="借款人" align="center" prop="borrowingUnit" min-width="260">
+      <el-table-column label="数据来源" align="left" prop="xiangmuleixing" />
+      <el-table-column label="期数" align="left" prop="qishu" min-width="80" />
+      <el-table-column show-overflow-tooltip label="借款人" align="left" prop="borrowingUnit" min-width="260">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1767154968256577500" :value="scope.row.borrowingUnit" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="债权人" align="center" prop="financialInstitution" min-width="260">
+      <el-table-column show-overflow-tooltip label="债权人" align="left" prop="financialInstitution" min-width="260">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1757271666666242000" :value="scope.row.financialInstitution" />
         </template>
       </el-table-column>
-      <el-table-column label="贷款用途" align="center" prop="daikuanyongtu" />
-      <el-table-column label="还款日期" align="center" prop="riqi" min-width="100" />
+      <el-table-column label="贷款用途" align="left" prop="daikuanyongtu" />
+      <el-table-column label="还款日期" align="left" prop="riqi" min-width="100" />
       <el-table-column show-overflow-tooltip label="还款金额" align="right" prop="huankuanjine" min-width="160" />
       <el-table-column show-overflow-tooltip label="偿还本金" align="right" prop="changhuanben" min-width="160" />
       <el-table-column show-overflow-tooltip label="支付利息" align="right" prop="zhifulixi" min-width="160" />
-      <el-table-column label="手续费" align="center" prop="shouxufei" min-width="160" />
+      <el-table-column label="手续费" align="left" prop="shouxufei" min-width="160" />
       <el-table-column show-overflow-tooltip label="本金剩余" align="right" prop="benjinshengyu" min-width="160" />
-      <!-- <el-table-column label="操作" align="center" class-name="''">
+      <!-- <el-table-column label="操作" align="left" class-name="''">
         <template slot-scope="scope">
           <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
             v-hasPermi="['huankuanjihua:mingxi:edit']">修改</el-button>

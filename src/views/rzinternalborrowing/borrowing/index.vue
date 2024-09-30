@@ -111,50 +111,50 @@
 
     <el-table :summary-method="(param) => getSummaries2(param, totalKeys, zongji)" show-summary v-loading="loading"
       :data="borrowingList" @selection-change="handleSelectionChange" :header-cell-style="header_cell_style">
-      <el-table-column show-overflow-tooltip fixed="left" type="selection" width="60" align="center" />
-      <!-- <el-table-column label="主键id" align="center" prop="id" /> -->
-      <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managementId" min-width="100" />
-      <!-- <el-table-column label="数据唯一编号" align="center" prop="scrUuid" /> -->
+      <el-table-column show-overflow-tooltip fixed="left" type="selection" width="60" align="left" />
+      <!-- <el-table-column label="主键id" align="left" prop="id" /> -->
+      <el-table-column show-overflow-tooltip label="管理编号" align="left" prop="managementId" min-width="100" />
+      <!-- <el-table-column label="数据唯一编号" align="left" prop="scrUuid" /> -->
       <el-table-column show-overflow-tooltip label="借款金额（万元）" align="right" prop="loanAmount" min-width="160">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.loanAmount) }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="借款人" align="center" prop="borrower" min-width="130">
+      <el-table-column show-overflow-tooltip label="借款人" align="left" prop="borrower" min-width="130">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1767154968256577500" :value="scope.row.borrower" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="出借人" align="center" prop="payee" min-width="130">
+      <el-table-column show-overflow-tooltip label="出借人" align="left" prop="payee" min-width="130">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1767154968256577500" :value="scope.row.payee" />
         </template>
       </el-table-column>
 
-      <el-table-column show-overflow-tooltip label="借款期限" align="center" prop="loanTerm" min-width="80">
+      <el-table-column show-overflow-tooltip label="借款期限" align="left" prop="loanTerm" min-width="80">
         <template slot-scope="scope">
           <span>{{ creditCycleFN(scope.row.borrowDate, scope.row.dueDate) }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="利率" align="center" prop="rate" min-width="80">
+      <el-table-column show-overflow-tooltip label="利率" align="left" prop="rate" min-width="80">
         <template slot-scope="scope">
           <span>{{ appendUnit(scope.row.rate, '%') }}</span>
         </template>
       </el-table-column>
-      <!-- <el-table-column label="合同编号" align="center" prop="contractId" /> -->
-      <el-table-column show-overflow-tooltip label="还款方式" align="center" prop="repaymentMethod" min-width="80">
+      <!-- <el-table-column label="合同编号" align="left" prop="contractId" /> -->
+      <el-table-column show-overflow-tooltip label="还款方式" align="left" prop="repaymentMethod" min-width="80">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1759501742422098000" :value="scope.row.repaymentMethod" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="借款用途" align="center" prop="loanUse" min-width="160">
+      <el-table-column show-overflow-tooltip label="借款用途" align="left" prop="loanUse" min-width="160">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1759501814702538800" :value="scope.row.loanUse" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="备注" align="center" prop="comment" min-width="200" />
-      <!-- <el-table-column label="uuid" align="center" prop="uuid" /> -->
-      <el-table-column fixed="right" label="操作" align="center" class-name="''">
+      <el-table-column show-overflow-tooltip label="备注" align="left" prop="comment" min-width="200" />
+      <!-- <el-table-column label="uuid" align="left" prop="uuid" /> -->
+      <el-table-column fixed="right" label="操作" align="left" class-name="''">
         <template slot-scope="scope">
           <el-button size="mini" type="text" @click="handleUpdate(scope.row)"
             v-hasPermi="['rzinternalborrowing:borrowing:edit']">查 看</el-button>

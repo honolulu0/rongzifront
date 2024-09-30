@@ -74,31 +74,31 @@
 
     <el-table v-loading="loading" :data="repaymentList" @selection-change="handleSelectionChange"
       :header-cell-style="header_cell_style" show-overflow-tooltip>
-      <el-table-column show-overflow-tooltip fixed="left" type="selection" width="55" align="center" />
-      <!-- <el-table-column show-overflow-tooltip label="主键id" align="center" prop="id" /> -->
-      <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managementId" />
-      <!-- <el-table-column show-overflow-tooltip label="数据唯一编号" align="center" prop="scrUuid" /> -->
-      <el-table-column show-overflow-tooltip label="借款人" align="center" prop="borrowingUnit" width="120">
+      <el-table-column show-overflow-tooltip fixed="left" type="selection" width="55" align="left" />
+      <!-- <el-table-column show-overflow-tooltip label="主键id" align="left" prop="id" /> -->
+      <el-table-column show-overflow-tooltip label="管理编号" align="left" prop="managementId" />
+      <!-- <el-table-column show-overflow-tooltip label="数据唯一编号" align="left" prop="scrUuid" /> -->
+      <el-table-column show-overflow-tooltip label="借款人" align="left" prop="borrowingUnit" width="120">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1759464239669444600" :value="scope.row.borrowingUnit" />
         </template>
       </el-table-column>
-      <el-table-column :show-overflow-tooltip="true" label="金融机构" align="center" prop="financialInstitution" width="120">
+      <el-table-column :show-overflow-tooltip="true" label="金融机构" align="left" prop="financialInstitution" width="120">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_acceptor" :value="scope.row.financialInstitution" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="出资机构" align="center" prop="fundingInstitution" width="120">
+      <el-table-column show-overflow-tooltip label="出资机构" align="left" prop="fundingInstitution" width="120">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1759533269293990000" :value="scope.row.fundingInstitution" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="借款用途" align="center" prop="loanUse">
+      <el-table-column show-overflow-tooltip label="借款用途" align="left" prop="loanUse">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1759501814702538800" :value="scope.row.loanUse" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="增信措施" align="center" prop="creditEnhancementMeasures">
+      <el-table-column show-overflow-tooltip label="增信措施" align="left" prop="creditEnhancementMeasures">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1759533566884053000" :value="scope.row.creditEnhancementMeasures" />
         </template>
@@ -118,18 +118,18 @@
           <span>{{ formatNumberAsRMB(scope.row.margin) }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="利率" align="center" prop="rate" />
-      <el-table-column show-overflow-tooltip label="借款日期" align="center" prop="loanDate" width="180">
+      <el-table-column show-overflow-tooltip label="利率" align="left" prop="rate" />
+      <el-table-column show-overflow-tooltip label="借款日期" align="left" prop="loanDate" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.loanDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="到期日期" align="center" prop="dueDate" width="180">
+      <el-table-column show-overflow-tooltip label="到期日期" align="left" prop="dueDate" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.dueDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="到期提醒" align="center" prop="remark" width="180">
+      <el-table-column show-overflow-tooltip label="到期提醒" align="left" prop="remark" width="180">
         <template slot-scope="scope">
           <!-- <dict-tag :options="dict.type.sys_maturity" :value="scope.row.remark" /> -->
           <el-tag effect="plain" :hit="true" :class="checkDueReminderWithConfig(scope.row.dueDate).color">
@@ -137,19 +137,19 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="借款期限" align="center" prop="loanTerm" />
-      <el-table-column show-overflow-tooltip label="本金偿还方式" align="center" prop="principalRepaymentMethod" width="120">
+      <el-table-column show-overflow-tooltip label="借款期限" align="left" prop="loanTerm" />
+      <el-table-column show-overflow-tooltip label="本金偿还方式" align="left" prop="principalRepaymentMethod" width="120">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1759533864251818000" :value="scope.row.principalRepaymentMethod" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="利息偿还方式" align="center" prop="interestRepaymentMethod" width="120">
+      <el-table-column show-overflow-tooltip label="利息偿还方式" align="left" prop="interestRepaymentMethod" width="120">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1759533864251818000" :value="scope.row.interestRepaymentMethod" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="还款账户" align="center" prop="repaymentAccount" />
-      <!-- <el-table-column show-overflow-tooltip label="uuid" align="center" prop="uuid" /> -->
+      <el-table-column show-overflow-tooltip label="还款账户" align="left" prop="repaymentAccount" />
+      <!-- <el-table-column show-overflow-tooltip label="uuid" align="left" prop="uuid" /> -->
       <el-table-column show-overflow-tooltip fixed="right" label="操作" align="center"
         class-name="''">
         <template slot-scope="scope">
@@ -606,7 +606,7 @@ export default {
               "dataJson": JSON.stringify(data),
               "tableName": "rz_repayment",
               "auditState": "1759514891045044200",
-              "uuid": data.uuid,
+              "uuid": data.uuid,
                 "managementId": data.managementId + "|" + this.formatDateTime()
             }
           } else {

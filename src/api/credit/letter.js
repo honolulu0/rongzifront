@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 
 // 查询信用证列表
-export function listLetter(query) {
+export function listCredit(query) {
   return request({
     url: '/credit/letter/list',
     method: 'get',
@@ -10,7 +10,7 @@ export function listLetter(query) {
 }
 
 // 查询信用证详细
-export function getLetter(id) {
+export function getCredit(id) {
   return request({
     url: '/credit/letter/' + id,
     method: 'get'
@@ -18,7 +18,7 @@ export function getLetter(id) {
 }
 
 // 新增信用证
-export function addLetter(data) {
+export function addCredit(data) {
   return request({
     url: '/credit/letter',
     method: 'post',
@@ -27,7 +27,7 @@ export function addLetter(data) {
 }
 
 // 修改信用证
-export function updateLetter(data) {
+export function updateCredit(data) {
   return request({
     url: '/credit/letter',
     method: 'put',
@@ -36,9 +36,16 @@ export function updateLetter(data) {
 }
 
 // 删除信用证
-export function delLetter(id) {
+export function delCredit(id) {
   return request({
     url: '/credit/letter/' + id,
     method: 'delete'
+  })
+}
+
+export function getProjectByManagementId(id) {
+  return request({
+    url: '/credit/letter/managementId/' + id,
+    method: 'get'
   })
 }

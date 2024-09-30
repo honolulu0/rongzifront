@@ -86,17 +86,17 @@
     </el-row>
 
     <el-table v-loading="loading" :data="dataInfoList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="子信息id主键" align="center" prop="childDataId" />
-      <el-table-column label="基本信息id外键" align="center" prop="basicDataId" />
-      <el-table-column label="子信息名称" align="center" prop="childName" />
-      <el-table-column label="创建时间" align="center" prop="childCreateTime" width="180">
+      <el-table-column type="selection" width="55" align="left" />
+      <el-table-column label="子信息id主键" align="left" prop="childDataId" />
+      <el-table-column label="基本信息id外键" align="left" prop="basicDataId" />
+      <el-table-column label="子信息名称" align="left" prop="childName" />
+      <el-table-column label="创建时间" align="left" prop="childCreateTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.childCreateTime, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="创建人" align="center" prop="childCreatedBy" />
-      <el-table-column label="操作" align="center" class-name="''">
+      <el-table-column label="创建人" align="left" prop="childCreatedBy" />
+      <el-table-column label="操作" align="left" class-name="''">
         <template slot-scope="scope">
           <el-button
             size="mini"

@@ -125,12 +125,12 @@
     <!-- :summary-method="(param) => getSummaries(param, totalKeys)" show-summary -->
     <el-table :summary-method="(param) => getSummaries2(param, totalKeys, zongji)" show-summary v-loading="loading"
       :data="bondsList" @selection-change="handleSelectionChange" :header-cell-style="header_cell_style">
-      <el-table-column show-overflow-tooltip fixed="left" type="selection" width="60" min-width="60" align="center" />
-      <!-- <el-table-column label="主键id" align="center" prop="id" /> -->
-      <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managementId" min-width="100" />
-      <!-- <el-table-column label="数据唯一编号" align="center" prop="scrUuid" /> -->
-      <el-table-column show-overflow-tooltip label="债券名称" align="center" prop="bondName" min-width="130" />
-      <el-table-column show-overflow-tooltip label="发行主体" align="center" prop="issuingEntity" min-width="130">
+      <el-table-column show-overflow-tooltip fixed="left" type="selection" width="60" min-width="60" align="left" />
+      <!-- <el-table-column label="主键id" align="left" prop="id" /> -->
+      <el-table-column show-overflow-tooltip label="管理编号" align="left" prop="managementId" min-width="100" />
+      <!-- <el-table-column label="数据唯一编号" align="left" prop="scrUuid" /> -->
+      <el-table-column show-overflow-tooltip label="债券名称" align="left" prop="bondName" min-width="130" />
+      <el-table-column show-overflow-tooltip label="发行主体" align="left" prop="issuingEntity" min-width="130">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1762824996528324600" :value="scope.row.issuingEntity" />
         </template>
@@ -141,19 +141,19 @@
           {{ formatNumberAsRMB(scope.row.bondSize) }}
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="利率" align="center" prop="rate" min-width="80">
+      <el-table-column show-overflow-tooltip label="利率" align="left" prop="rate" min-width="80">
         <template slot-scope="scope">
           <!-- <dict-tag :options="dict.type.sys_1762824761903153200" :value="scope.row.rate" /> -->
           <span>{{ appendUnit(scope.row.rate, '%') }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="期限（月）" align="center" prop="bondDuration" min-width="100">
+      <el-table-column show-overflow-tooltip label="期限（月）" align="left" prop="bondDuration" min-width="100">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1762824852571422700" :value="scope.row.bondDuration" />
           <!-- <span>{{ creditCycleFN(scope.row.loanDate, scope.row.dueDate) }}</span> -->
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="偿还方式" align="center" prop="repaymentMethod" min-width="80">
+      <el-table-column show-overflow-tooltip label="偿还方式" align="left" prop="repaymentMethod" min-width="80">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1759533864251818000" :value="scope.row.repaymentMethod" />
         </template>
@@ -183,25 +183,25 @@
 
 
 
-      <el-table-column label="起始日" align="center" prop="loanDate" min-width="100">
+      <el-table-column label="起始日" align="left" prop="loanDate" min-width="100">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.loanDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="到期日" align="center" prop="dueDate" min-width="100">
+      <el-table-column label="到期日" align="left" prop="dueDate" min-width="100">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.dueDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
 
-      <!-- <el-table-column label="备注" align="center" prop="comment" /> -->
-      <!-- <el-table-column label="创建时间" align="center" prop="createTime" min-width="180">
+      <!-- <el-table-column label="备注" align="left" prop="comment" /> -->
+      <!-- <el-table-column label="创建时间" align="left" prop="createTime" min-width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column> -->
-      <!-- <el-table-column label="uuid" align="center" prop="uuid" /> -->
-      <el-table-column show-overflow-tooltip fixed="right" label="操作" align="center" class-name="''">
+      <!-- <el-table-column label="uuid" align="left" prop="uuid" /> -->
+      <el-table-column show-overflow-tooltip fixed="right" label="操作" align="left" class-name="''">
         <template slot-scope="scope">
           <el-button size="mini" type="text" @click="handleUpdate(scope.row)" v-hasPermi="['government:bonds:edit']">查
             看</el-button>

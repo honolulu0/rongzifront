@@ -98,22 +98,22 @@
 
     <el-table :summary-method="(param) => getSummaries2(param, totalKeys, zongji)" show-summary v-loading="loading"
       :data="grantList" @selection-change="handleSelectionChange" :header-cell-style="header_cell_style">
-      <el-table-column show-overflow-tooltip fixed="left" type="selection" min-width="60" width="60" align="center" />
-      <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managementId" min-width="100" />
-      <el-table-column show-overflow-tooltip label="授信类型" align="center" prop="creditType" min-width="100">
+      <el-table-column show-overflow-tooltip fixed="left" type="selection" min-width="60" width="60" align="left" />
+      <el-table-column show-overflow-tooltip label="管理编号" align="left" prop="managementId" min-width="100" />
+      <el-table-column show-overflow-tooltip label="授信类型" align="left" prop="creditType" min-width="100">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1765001578994991000" :value="scope.row.creditType" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="借款人" align="center" prop="creditor" min-width="120" />
-      <el-table-column show-overflow-tooltip label="债权人" align="center" prop="financialInstitution" min-width="130">
+      <el-table-column show-overflow-tooltip label="借款人" align="left" prop="creditor" min-width="120" />
+      <el-table-column show-overflow-tooltip label="债权人" align="left" prop="financialInstitution" min-width="130">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1757271666666242000" :value="scope.row.financialInstitution" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="项目名称" align="center" prop="creditDetail" />
+      <el-table-column show-overflow-tooltip label="项目名称" align="left" prop="creditDetail" />
 
-      <el-table-column show-overflow-tooltip label="授信状态" align="center" prop="creditState" min-width="100">
+      <el-table-column show-overflow-tooltip label="授信状态" align="left" prop="creditState" min-width="100">
         <template slot-scope="scope">
           <svg-icon :icon-class="scope.row.creditState"></svg-icon>
           <dict-tag style="display: inline-block;" :options="dict.type.sys_1765002034026643500"
@@ -138,32 +138,32 @@
           <span>{{ formatNumberAsRMB(scope.row.remainingCreditAmount) }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="起始日" align="center" prop="startDate" min-width="100">
+      <el-table-column show-overflow-tooltip label="起始日" align="left" prop="startDate" min-width="100">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.startDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="到期日" align="center" prop="deadline" min-width="100">
+      <el-table-column show-overflow-tooltip label="到期日" align="left" prop="deadline" min-width="100">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.deadline, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="授信有效期（月）" align="center" prop="creditCycle" min-width="140">
+      <el-table-column show-overflow-tooltip label="授信有效期（月）" align="left" prop="creditCycle" min-width="140">
         <template slot-scope="scope">
           <span>{{ creditCycleFN(scope.row.startDate, scope.row.deadline) }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column show-overflow-tooltip label="备注" align="center" prop="comment" min-width="130" />
-      <!-- <el-table-column show-overflow-tooltip label="创建人" align="center" prop="createBy" min-width="80" />
-      <el-table-column show-overflow-tooltip label="创建时间" align="center" prop="createTime" min-width="100">
+      <el-table-column show-overflow-tooltip label="备注" align="left" prop="comment" min-width="130" />
+      <!-- <el-table-column show-overflow-tooltip label="创建人" align="left" prop="createBy" min-width="80" />
+      <el-table-column show-overflow-tooltip label="创建时间" align="left" prop="createTime" min-width="100">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column> -->
-      <!-- <el-table-column label="uuid" align="center" prop="uuid" /> -->
+      <!-- <el-table-column label="uuid" align="left" prop="uuid" /> -->
       <el-table-column min-width="60" header-align="center" show-overflow-tooltip fixed="right" label="操作"
-        align="center" class-name="''">
+        align="left" class-name="''">
         <template slot-scope="scope">
           <!-- <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
             v-hasPermi="['creditmanagement:grant:edit']">修改</el-button>

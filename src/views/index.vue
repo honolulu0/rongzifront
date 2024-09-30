@@ -316,7 +316,7 @@
       </search-panel>
     </div>
     <div class="app-container mt20">
-      <search-panel :isIcon="false" title="还款计划（未来12个月）"></search-panel>
+      <search-panel :isIcon="false" title="还款计划（未来24个月）"></search-panel>
       <div class="tr unit">
         单位（万元）
       </div>

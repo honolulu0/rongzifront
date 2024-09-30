@@ -120,21 +120,21 @@
 
     <el-table v-loading="loading" :summary-method="(param) => getSummaries2(param, totalKeys,zongji)" show-summary
       :data="factoringList" @selection-change="handleSelectionChange" :header-cell-style="header_cell_style">
-      <el-table-column show-overflow-tooltip fixed="left" type="selection" min-width="60" width="60" align="center" />
-      <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managementId" min-width="100" />
-      <!-- <el-table-column label="数据唯一编号" align="center" prop="scrUuid" />
-      <el-table-column label="审核id" align="center" prop="auditId" /> -->
-      <el-table-column show-overflow-tooltip label="供应商名称" align="center" prop="creditor" min-width="160">
+      <el-table-column show-overflow-tooltip fixed="left" type="selection" min-width="60" width="60" align="left" />
+      <el-table-column show-overflow-tooltip label="管理编号" align="left" prop="managementId" min-width="100" />
+      <!-- <el-table-column label="数据唯一编号" align="left" prop="scrUuid" />
+      <el-table-column label="审核id" align="left" prop="auditId" /> -->
+      <el-table-column show-overflow-tooltip label="供应商名称" align="left" prop="creditor" min-width="160">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1795741368925028400" :value="scope.row.creditor" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="保理企业" align="center" prop="factor" min-width="130">
+      <el-table-column show-overflow-tooltip label="保理企业" align="left" prop="factor" min-width="130">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1757288852172570600" :value="scope.row.factor" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="金融机构" align="center" prop="financialInstitution" min-width="130">
+      <el-table-column show-overflow-tooltip label="金融机构" align="left" prop="financialInstitution" min-width="130">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_acceptor" :value="scope.row.financialInstitution" />
         </template>
@@ -144,18 +144,18 @@
           <span>{{ formatNumberAsRMB(scope.row.loanAmount) }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="开始日期" align="center" prop="startDate" min-width="100">
+      <el-table-column show-overflow-tooltip label="开始日期" align="left" prop="startDate" min-width="100">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.startDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="结束日期" align="center" prop="deadline" min-width="100">
+      <el-table-column show-overflow-tooltip label="结束日期" align="left" prop="deadline" min-width="100">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.deadline, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="项目名称" align="center" prop="entryName" min-width="120" />
-      <el-table-column show-overflow-tooltip label="到期提醒" align="center" prop="remark" min-width="100">
+      <el-table-column show-overflow-tooltip label="项目名称" align="left" prop="entryName" min-width="120" />
+      <el-table-column show-overflow-tooltip label="到期提醒" align="left" prop="remark" min-width="100">
         <template slot-scope="scope">
           <el-tag effect="plain" :hit="true" :class="checkDueReminderWithConfig(scope.row.deadline).color">
             {{ checkDueReminderWithConfig(scope.row.deadline).message }}
@@ -175,12 +175,12 @@
         </template>
       </el-table-column>
 
-      <!-- <el-table-column show-overflow-tooltip label="回款账户名称" align="center" prop="collectionAccount" min-width="180" />
-      <el-table-column show-overflow-tooltip label="账号" align="center" prop="account" />
-      <el-table-column show-overflow-tooltip label="开户行" align="center" prop="bank" /> -->
-      <!-- <el-table-column show-overflow-tooltip label="备注" align="center" prop="comment" min-width="200" /> -->
-      <!-- <el-table-column label="ID" align="center" prop="id" /> -->
-      <el-table-column fixed="right" label="操作" align="center" class-name="''">
+      <!-- <el-table-column show-overflow-tooltip label="回款账户名称" align="left" prop="collectionAccount" min-width="180" />
+      <el-table-column show-overflow-tooltip label="账号" align="left" prop="account" />
+      <el-table-column show-overflow-tooltip label="开户行" align="left" prop="bank" /> -->
+      <!-- <el-table-column show-overflow-tooltip label="备注" align="left" prop="comment" min-width="200" /> -->
+      <!-- <el-table-column label="ID" align="left" prop="id" /> -->
+      <el-table-column fixed="right" label="操作" align="left" class-name="''">
         <template slot-scope="scope">
           <el-button size="mini" type="text" @click="handleUpdate(scope.row)" v-hasPermi="['reverse:factoring:edit']">查
             看</el-button>
@@ -296,7 +296,7 @@
 
             <el-col :span="8">
               <el-form-item label="支付利息（万元）" prop="zhifulixi">
-                <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
+                <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="6"
                   :readonly="!isEditable" type="number" v-model.trim="form.zhifulixi" placeholder="支付利息" />
               </el-form-item>
             </el-col>
@@ -596,7 +596,7 @@
       },
 
       'form.zhifulixi'(newVal) {
-        this.huankuanmingxi.zhifulixi = this.formatNumberAsRMB(newVal * 10000);
+        this.huankuanmingxi.zhifulixi = this.formatNumberAsRMB(newVal * 1000000, 1000000,6);
         this.form.huankuanjine = (Number(this.form.loanAmount) + Number(this.form.zhifulixi))
         this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.huankuanjine * 10000)
       },
@@ -745,13 +745,13 @@
           // 还款计划 金额回显需要  /10000
           this.huankuanmingxi.riqi = this.form.deadline
           this.huankuanmingxi.changhuanben = this.formatNumberAsRMB(this.form.loanAmount)
-          this.huankuanmingxi.zhifulixi = this.formatNumberAsRMB(this.form.zhifulixi)
+          this.huankuanmingxi.zhifulixi = this.formatNumberAsRMB(this.form.zhifulixi, 1000000,6)
           this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.loanAmount + this.form.zhifulixi)
           this.huankuanmingxidata = [this.huankuanmingxi]
 
           // 金额回显需要 /10000
           this.form.loanAmount = (Number(this.form.loanAmount) || 0) / 10000;
-          this.form.zhifulixi = (Number(this.form.zhifulixi) || 0) / 10000;
+          this.form.zhifulixi = (Number(this.form.zhifulixi) || 0) / 1000000;
           this.form.daoqishoufei = (Number(this.form.daoqishoufei) || 0) / 10000;
           this.form.banlishoufei = (Number(this.form.banlishoufei) || 0) / 10000;
 
@@ -773,7 +773,7 @@
             data.banlishoufei = Number(data.banlishoufei) * 10000;
 
             data.loanAmount = Number(data.loanAmount) * 10000;
-            data.zhifulixi = Number(data.zhifulixi) * 10000;
+            data.zhifulixi = Number(data.zhifulixi) * 1000000;
             data.huankuanjine = Number(data.huankuanjine) * 10000;
 
             data.huankuanmingxi2List = [{
@@ -787,7 +787,7 @@
               "riqi": data.deadline,
               "huankuanjine": (data.huankuanjine).toFixed(2),
               "changhuanben": (data.loanAmount).toFixed(2),
-              "zhifulixi": (data.zhifulixi).toFixed(2),
+              "zhifulixi": (data.zhifulixi).toFixed(6),
               "shouxufei": null,
               "benjinshengyu": "0.00",
               "lilv": "",

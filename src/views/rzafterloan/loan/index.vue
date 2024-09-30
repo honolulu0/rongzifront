@@ -79,20 +79,20 @@
     <!-- :summary-method="(param) => getSummaries(param, totalKeys)" show-summary -->
     <el-table v-loading="loading" :summary-method="(param) => getSummaries2(param, totalKeys, zongji)" show-summary
       :data="loanList" @selection-change="handleSelectionChange" :header-cell-style="header_cell_style">
-      <el-table-column show-overflow-tooltip fixed="left" type="selection" width="60" align="center" />
-      <!-- <el-table-column label="主键id" align="center" prop="id" /> -->
-      <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managementId" />
-      <!-- <el-table-column label="数据唯一编号" align="center" prop="scrUuid" /> -->
+      <el-table-column show-overflow-tooltip fixed="left" type="selection" width="60" align="left" />
+      <!-- <el-table-column label="主键id" align="left" prop="id" /> -->
+      <el-table-column show-overflow-tooltip label="管理编号" align="left" prop="managementId" />
+      <!-- <el-table-column label="数据唯一编号" align="left" prop="scrUuid" /> -->
 
-      <el-table-column show-overflow-tooltip label="项目名称" align="center" prop="projectName" min-width="100" />
+      <el-table-column show-overflow-tooltip label="项目名称" align="left" prop="projectName" min-width="100" />
 
-      <el-table-column show-overflow-tooltip label="借款人" align="center" prop="borrowingUnit" min-width="130">
+      <el-table-column show-overflow-tooltip label="借款人" align="left" prop="borrowingUnit" min-width="130">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1759464239669444600" :value="scope.row.borrowingUnit" />
         </template>
       </el-table-column>
 
-      <el-table-column show-overflow-tooltip label="金融机构" align="center" prop="financialInstitution" min-width="130">
+      <el-table-column show-overflow-tooltip label="金融机构" align="left" prop="financialInstitution" min-width="130">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_acceptor" :value="scope.row.financialInstitution" />
         </template>
@@ -104,12 +104,12 @@
         </template>
       </el-table-column>
 
-      <el-table-column show-overflow-tooltip label="贷后事项" align="center" prop="quantitativeContent" min-width="100" />
-      <el-table-column show-overflow-tooltip label="量化目标" align="center" prop="quantitativeGoals" min-width="100" />
-      <el-table-column show-overflow-tooltip label="当前实现" align="center" prop="currentImplementation" min-width="100" />
-      <el-table-column show-overflow-tooltip label="剩余实现" align="center" prop="remainingQuantity" min-width="100" />
+      <el-table-column show-overflow-tooltip label="贷后事项" align="left" prop="quantitativeContent" min-width="100" />
+      <el-table-column show-overflow-tooltip label="量化目标" align="left" prop="quantitativeGoals" min-width="100" />
+      <el-table-column show-overflow-tooltip label="当前实现" align="left" prop="currentImplementation" min-width="100" />
+      <el-table-column show-overflow-tooltip label="剩余实现" align="left" prop="remainingQuantity" min-width="100" />
 
-      <el-table-column show-overflow-tooltip label="贷后状态跟踪" align="center" prop="afterLoanState" min-width="120">
+      <el-table-column show-overflow-tooltip label="贷后状态跟踪" align="left" prop="afterLoanState" min-width="120">
         <template slot-scope="scope">
           <!-- <dict-tag :options="dict.type.sys_1759464706814247000" :value="scope.row.afterLoanState" /> -->
           <svg-icon :icon-class="scope.row.afterLoanState"></svg-icon> <dict-tag style="display: inline-block;"
@@ -117,9 +117,9 @@
         </template>
       </el-table-column>
 
-      <!-- <el-table-column label="进度说明" align="center" prop="progressDescription" /> -->
-      <el-table-column show-overflow-tooltip label="备注" align="center" prop="comment" min-width="200" />
-      <!-- <el-table-column label="uuid" align="center" prop="uuid" /> -->
+      <!-- <el-table-column label="进度说明" align="left" prop="progressDescription" /> -->
+      <el-table-column show-overflow-tooltip label="备注" align="left" prop="comment" min-width="200" />
+      <!-- <el-table-column label="uuid" align="left" prop="uuid" /> -->
       <el-table-column show-overflow-tooltip label="操作" fixed="right" header-align="center" align="center"
         class-name="''">
         <template slot-scope="scope">
