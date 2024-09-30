@@ -237,20 +237,14 @@ export function blobValidate(data) {
 }
 
 // 格式化金额
-export function formatNumberAsRMB(number) {
-  // return new Intl.NumberFormat('zh-CN', {
-  //     style: 'currency',
-  //     currency: 'CNY',
-  //     minimumFractionDigits: 2,
-  //     maximumFractionDigits: 2
-  // }).format(number);
-
-  number = Number(number) / 10000 || 0
+export function formatNumberAsRMB(number, base = 10000,fractionDigits=2) {
+  number = Number(number) / base || 0;
   return new Intl.NumberFormat('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
+    minimumFractionDigits: fractionDigits,
+    maximumFractionDigits: fractionDigits,
   }).format(number);
 }
+
 
 
 /* 计算周期 */

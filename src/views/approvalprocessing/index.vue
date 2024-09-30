@@ -161,8 +161,8 @@
     updateBill
   } from "@/api/business/bill";
   import {
-    addLetter,
-    updateLetter
+    addCredit,
+    updateCredit
   } from "@/api/credit/letter";
   import {
     addFactoring,
@@ -277,7 +277,7 @@
         precautions_obj_fun: {
           'rz_bank_accept_bill': addBank,
           'rz_business_accept_bill': addBill,
-          'rz_credit_letter': addLetter,
+          'rz_credit_letter': addCredit,
           'rz_reverse_factoring': addFactoring,
           'rz_financing_project': addProject,
           'rz_repayment': addRepayment,
@@ -292,7 +292,7 @@
         update_precautions_obj_fun: {
           'rz_bank_accept_bill': updateBank,
           'rz_business_accept_bill': updateBill,
-          'rz_credit_letter': updateLetter,
+          'rz_credit_letter': updateCredit,
           'rz_reverse_factoring': updateFactoring,
           'rz_financing_project': updateProject,
           'rz_repayment': updateRepayment,
@@ -377,10 +377,12 @@
 
             } catch (error) {
               // 错误处理，假设 error 对象包含必要的信息
+              console.log(error);
               this.$modal.msgError(`汇总统计失败，审核编号：${id}，请提醒上传人：${row.createBy}修改后重新提交数据`);
             }
           } catch (error) {
             // 错误处理，假设 error 对象包含必要的信息
+            console.log(error);
             this.$modal.msgError(`数据错误，审核编号：${id}，请提醒上传人：${row.createBy}修改后重新提交数据`);
           }
         }
