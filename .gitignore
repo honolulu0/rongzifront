@@ -27,3 +27,5 @@ uploadPath
 /rongzi-admin.jar
 /node_modules/
 /数据变更/
+/src/views/business/bill/index - old.vue
+/src/views/credit/letter/index_1.vue
