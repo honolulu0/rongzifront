@@ -80,11 +80,31 @@
       </el-table-column>
       <el-table-column label="贷款用途" align="left" prop="daikuanyongtu" />
       <el-table-column label="还款日期" align="left" prop="riqi" min-width="100" />
-      <el-table-column show-overflow-tooltip label="还款金额" align="right" prop="huankuanjine" min-width="160" />
-      <el-table-column show-overflow-tooltip label="偿还本金" align="right" prop="changhuanben" min-width="160" />
-      <el-table-column show-overflow-tooltip label="支付利息" align="right" prop="zhifulixi" min-width="160" />
-      <el-table-column label="手续费" align="left" prop="shouxufei" min-width="160" />
-      <el-table-column show-overflow-tooltip label="本金剩余" align="right" prop="benjinshengyu" min-width="160" />
+      <el-table-column show-overflow-tooltip label="还款金额" align="right" prop="huankuanjine" min-width="160" >
+      <template slot-scope="scope">
+          <span>{{ formatNumberAsRMB(scope.row.huankuanjine,1) }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column show-overflow-tooltip label="偿还本金" align="right" prop="changhuanben" min-width="160"  >
+      <template slot-scope="scope">
+          <span>{{ formatNumberAsRMB(scope.row.changhuanben,1) }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column show-overflow-tooltip label="支付利息" align="right" prop="zhifulixi" min-width="160"  >
+      <template slot-scope="scope">
+          <span>{{ formatNumberAsRMB(scope.row.zhifulixi,1) }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="手续费" align="left" prop="shouxufei" min-width="160"  >
+      <template slot-scope="scope">
+          <span>{{ formatNumberAsRMB(scope.row.shouxufei,1) }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column show-overflow-tooltip label="本金剩余" align="right" prop="benjinshengyu" min-width="160"  >
+      <template slot-scope="scope">
+          <span>{{ formatNumberAsRMB(scope.row.benjinshengyu,1) }}</span>
+        </template>
+      </el-table-column>
       <!-- <el-table-column label="操作" align="left" class-name="''">
         <template slot-scope="scope">
           <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
