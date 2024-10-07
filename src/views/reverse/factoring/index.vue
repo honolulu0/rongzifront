@@ -596,7 +596,7 @@
       },
 
       'form.zhifulixi'(newVal) {
-        this.huankuanmingxi.zhifulixi = this.formatNumberAsRMB(newVal * 1000000, 1000000,6);
+        this.huankuanmingxi.zhifulixi = this.formatNumberAsRMB(newVal * 10000, 10000,6);
         this.form.huankuanjine = (Number(this.form.loanAmount) + Number(this.form.zhifulixi))
         this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.huankuanjine * 10000)
       },
@@ -745,13 +745,13 @@
           // 还款计划 金额回显需要  /10000
           this.huankuanmingxi.riqi = this.form.deadline
           this.huankuanmingxi.changhuanben = this.formatNumberAsRMB(this.form.loanAmount)
-          this.huankuanmingxi.zhifulixi = this.formatNumberAsRMB(this.form.zhifulixi, 1000000,6)
+          this.huankuanmingxi.zhifulixi = this.formatNumberAsRMB(this.form.zhifulixi, 10000,6)
           this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.loanAmount + this.form.zhifulixi)
           this.huankuanmingxidata = [this.huankuanmingxi]
 
           // 金额回显需要 /10000
           this.form.loanAmount = (Number(this.form.loanAmount) || 0) / 10000;
-          this.form.zhifulixi = (Number(this.form.zhifulixi) || 0) / 1000000;
+          this.form.zhifulixi = (Number(this.form.zhifulixi) || 0) / 10000;
           this.form.daoqishoufei = (Number(this.form.daoqishoufei) || 0) / 10000;
           this.form.banlishoufei = (Number(this.form.banlishoufei) || 0) / 10000;
 
@@ -773,7 +773,7 @@
             data.banlishoufei = Number(data.banlishoufei) * 10000;
 
             data.loanAmount = Number(data.loanAmount) * 10000;
-            data.zhifulixi = Number(data.zhifulixi) * 1000000;
+            data.zhifulixi = Number(data.zhifulixi) * 10000;
             data.huankuanjine = Number(data.huankuanjine) * 10000;
 
             data.huankuanmingxi2List = [{
@@ -787,7 +787,7 @@
               "riqi": data.deadline,
               "huankuanjine": (data.huankuanjine).toFixed(2),
               "changhuanben": (data.loanAmount).toFixed(2),
-              "zhifulixi": (data.zhifulixi).toFixed(6),
+              "zhifulixi": (data.zhifulixi).toFixed(2),
               "shouxufei": null,
               "benjinshengyu": "0.00",
               "lilv": "",
