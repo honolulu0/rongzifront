@@ -152,9 +152,10 @@
         style="width: 100%">
         <el-table-column v-for="(item, index) in hkjh_repaymentPlanClearingTableColumn" :key="index" :prop="item.prop"
           :label="item.label" :width="item.width" :min-width="item.minWidth" align="center" header-align="center">
-
+          <template slot-scope="scope">
+            <span>{{ formatNumberAsRMB(scope.row[item.prop],1) }}</span>
+          </template>
         </el-table-column>
-
       </el-table>
     </el-row>
 
@@ -805,7 +806,7 @@
           }
         });
 
-        return sums;
+        return  formatNumberAsRMB(sums,1) ;
       },
       /** 导入按钮操作 */
       handleImport() {
