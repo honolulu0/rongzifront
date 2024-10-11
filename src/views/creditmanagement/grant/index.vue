@@ -100,7 +100,7 @@
       :data="grantList" @selection-change="handleSelectionChange" :header-cell-style="header_cell_style">
       <el-table-column show-overflow-tooltip fixed="left" type="selection" min-width="60" width="60" align="left" />
       <el-table-column show-overflow-tooltip label="管理编号" align="left" prop="managementId" min-width="100" />
-      <el-table-column show-overflow-tooltip label="授信类型" align="left" prop="creditType" min-width="100">
+      <el-table-column show-overflow-tooltip label="授信类型" align="center" prop="creditType" min-width="100">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1765001578994991000" :value="scope.row.creditType" />
         </template>
@@ -113,7 +113,7 @@
       </el-table-column>
       <el-table-column show-overflow-tooltip label="项目名称" align="left" prop="creditDetail" />
 
-      <el-table-column show-overflow-tooltip label="授信状态" align="left" prop="creditState" min-width="100">
+      <el-table-column show-overflow-tooltip label="授信状态" align="center" prop="creditState" min-width="100">
         <template slot-scope="scope">
           <svg-icon :icon-class="scope.row.creditState"></svg-icon>
           <dict-tag style="display: inline-block;" :options="dict.type.sys_1765002034026643500"
@@ -138,17 +138,17 @@
           <span>{{ formatNumberAsRMB(scope.row.remainingCreditAmount) }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="起始日" align="left" prop="startDate" min-width="100">
+      <el-table-column show-overflow-tooltip label="起始日" align="center" prop="startDate" min-width="100">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.startDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="到期日" align="left" prop="deadline" min-width="100">
+      <el-table-column show-overflow-tooltip label="到期日" align="center" prop="deadline" min-width="100">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.deadline, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="授信有效期（月）" align="left" prop="creditCycle" min-width="140">
+      <el-table-column show-overflow-tooltip label="授信有效期（月）" align="center" prop="creditCycle" min-width="140">
         <template slot-scope="scope">
           <span>{{ creditCycleFN(scope.row.startDate, scope.row.deadline) }}</span>
         </template>

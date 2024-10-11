@@ -105,9 +105,9 @@
       </el-table-column>
 
       <el-table-column show-overflow-tooltip label="贷后事项" align="left" prop="quantitativeContent" min-width="100" />
-      <el-table-column show-overflow-tooltip label="量化目标" align="left" prop="quantitativeGoals" min-width="100" />
-      <el-table-column show-overflow-tooltip label="当前实现" align="left" prop="currentImplementation" min-width="100" />
-      <el-table-column show-overflow-tooltip label="剩余实现" align="left" prop="remainingQuantity" min-width="100" />
+      <el-table-column show-overflow-tooltip label="量化目标" align="center" prop="quantitativeGoals" min-width="100" />
+      <el-table-column show-overflow-tooltip label="当前实现" align="center" prop="currentImplementation" min-width="100" />
+      <el-table-column show-overflow-tooltip label="剩余实现" align="center" prop="remainingQuantity" min-width="100" />
 
       <el-table-column show-overflow-tooltip label="贷后状态跟踪" align="left" prop="afterLoanState" min-width="120">
         <template slot-scope="scope">

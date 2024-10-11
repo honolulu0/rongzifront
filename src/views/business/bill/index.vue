@@ -144,12 +144,12 @@
           <span>{{ formatNumberAsRMB(scope.row.invoiceAmount) }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="出票日期" align="left" prop="draftDate" min-width="100">
+      <el-table-column show-overflow-tooltip label="出票日期" align="center" prop="draftDate" min-width="100">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.draftDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="汇票到期日" align="left" prop="dueDate" min-width="100">
+      <el-table-column show-overflow-tooltip label="汇票到期日" align="center" prop="dueDate" min-width="100">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.dueDate, '{y}-{m}-{d}') }}</span>
         </template>

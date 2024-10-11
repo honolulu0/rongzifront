@@ -153,12 +153,12 @@
         </template>
       </el-table-column>
 
-      <el-table-column show-overflow-tooltip label="开证日期" align="left" prop="draftDate" min-width="100">
+      <el-table-column show-overflow-tooltip label="开证日期" align="center" prop="draftDate" min-width="100">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.draftDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="到期日期" align="left" prop="dueDate" min-width="100">
+      <el-table-column show-overflow-tooltip label="到期日期" align="center" prop="dueDate" min-width="100">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.dueDate, '{y}-{m}-{d}') }}</span>
         </template>

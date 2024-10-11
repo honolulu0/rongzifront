@@ -61,13 +61,13 @@
 
     <el-table :summary-method="getSummaries" show-summary v-loading="loading" :data="mingxiList"
       @selection-change="handleSelectionChange" :header-cell-style="header_cell_style">
-      <el-table-column show-overflow-tooltip label="管理编号" align="left" prop="managerId" min-width="120" >
+      <el-table-column show-overflow-tooltip label="管理编号" align="left" prop="managerId" min-width="120">
         <template slot-scope="scope">
           <el-link type="primary" @click="openDetail(scope.row)">{{ scope.row.managerId }}</el-link>
         </template>
       </el-table-column>
       <el-table-column label="数据来源" align="left" prop="xiangmuleixing" />
-      <el-table-column label="期数" align="left" prop="qishu" min-width="80" />
+      <el-table-column label="期数" align="center" prop="qishu" min-width="80" />
       <el-table-column show-overflow-tooltip label="借款人" align="left" prop="borrowingUnit" min-width="260">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1767154968256577500" :value="scope.row.borrowingUnit" />
@@ -79,29 +79,29 @@
         </template>
       </el-table-column>
       <el-table-column label="贷款用途" align="left" prop="daikuanyongtu" />
-      <el-table-column label="还款日期" align="left" prop="riqi" min-width="100" />
-      <el-table-column show-overflow-tooltip label="还款金额" align="right" prop="huankuanjine" min-width="160" >
-      <template slot-scope="scope">
+      <el-table-column label="还款日期" align="center" prop="riqi" min-width="100" />
+      <el-table-column show-overflow-tooltip label="还款金额" align="right" prop="huankuanjine" min-width="170">
+        <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.huankuanjine,1) }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="偿还本金" align="right" prop="changhuanben" min-width="160"  >
-      <template slot-scope="scope">
+      <el-table-column show-overflow-tooltip label="偿还本金" align="right" prop="changhuanben" min-width="170">
+        <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.changhuanben,1) }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="支付利息" align="right" prop="zhifulixi" min-width="160"  >
-      <template slot-scope="scope">
+      <el-table-column show-overflow-tooltip label="支付利息" align="right" prop="zhifulixi" min-width="170">
+        <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.zhifulixi,1) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="手续费" align="left" prop="shouxufei" min-width="160"  >
-      <template slot-scope="scope">
+      <el-table-column label="手续费" align="right" prop="shouxufei" min-width="160">
+        <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.shouxufei,1) }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="本金剩余" align="right" prop="benjinshengyu" min-width="160"  >
-      <template slot-scope="scope">
+      <el-table-column show-overflow-tooltip label="本金剩余" align="right" prop="benjinshengyu" min-width="160">
+        <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.benjinshengyu,1) }}</span>
         </template>
       </el-table-column>
@@ -119,7 +119,7 @@
       @pagination="getList" />
 
     <!-- 添加或修改还款计划明细对话框 -->
-    <el-dialog :close-on-click-modal="false"  :title="title" :visible.sync="open" min-width="500px" append-to-body>
+    <el-dialog :close-on-click-modal="false" :title="title" :visible.sync="open" min-width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="还款计划对应项目的管理编号" prop="managerId">
           <el-input v-model="form.managerId" placeholder="还款计划对应项目的管理编号" />
@@ -394,13 +394,13 @@
             sums[index] = '合计';
             return;
           } else if (column.label.includes('还款金额')) {
-            sums[index] = '还款:' + (Number(this.zongjia.total_huankuanjine)).toFixed(2);
+            sums[index] = '还款:' + this.formatNumberAsRMB(this.zongjia.total_huankuanjine, 1);
           } else if (column.label.includes('偿还本金')) {
-            sums[index] = '本金:' + (Number(this.zongjia.total_changhuanben)).toFixed(2);
+            sums[index] = '本金:' + this.formatNumberAsRMB(this.zongjia.total_changhuanben, 1);
           } else if (column.label.includes('支付利息')) {
-            sums[index] = '利息:' + (Number(this.zongjia.total_zhifulixi)).toFixed(2);
+            sums[index] = '利息:' + this.formatNumberAsRMB(this.zongjia.total_zhifulixi, 1);
           } else if (column.label.includes('手续费')) {
-            sums[index] = '手续费:' + (Number(this.zongjia.total_shouxufei)).toFixed(2);
+            sums[index] = '手续费:' + this.formatNumberAsRMB(this.zongjia.total_shouxufei, 1);
           } else {
             sums[index] = '/';
           }

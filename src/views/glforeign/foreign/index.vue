@@ -154,7 +154,7 @@
           <dict-tag :options="dict.type.sys_1757271666666242000" :value="scope.row.financialInstitution" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="业务类型" align="left" prop="businessType" min-width="120">
+      <el-table-column show-overflow-tooltip label="业务类型" align="center" prop="businessType" min-width="120">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1767155302261588000" :value="scope.row.businessType" />
         </template>
@@ -170,12 +170,12 @@
           <span>{{ formatNumberAsRMB(scope.row.guaranteeBalance) }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="起始日" align="left" prop="startDate" width="100">
+      <el-table-column show-overflow-tooltip label="起始日" align="center" prop="startDate" width="100">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.startDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="到期日" align="left" prop="deadline" width="100">
+      <el-table-column show-overflow-tooltip label="到期日" align="center" prop="deadline" width="100">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.deadline, '{y}-{m}-{d}') }}</span>
         </template>
@@ -190,7 +190,7 @@
           <dict-tag :options="dict.type.sys_1767156259322069000" :value="scope.row.isCreditInvestigation" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="担保状态" align="left" prop="danbaozhuangtai" min-width="100">
+      <el-table-column show-overflow-tooltip label="担保状态" align="center" prop="danbaozhuangtai" min-width="100">
         <template slot-scope="scope">
           <svg-icon :icon-class="scope.row.danbaozhuangtai"></svg-icon>
           <dict-tag style="display: inline-block;" :options="dict.type.sys_1778612529468014600"

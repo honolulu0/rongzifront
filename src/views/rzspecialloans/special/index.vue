@@ -117,7 +117,7 @@
           <dict-tag :options="dict.type.sys_1757271666666242000" :value="scope.row.payee" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="业务类型" align="left" prop="loanUse" min-width="120">
+      <el-table-column show-overflow-tooltip label="业务类型" align="center" prop="loanUse" min-width="120">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1767155302261588000" :value="scope.row.loanUse" />
         </template>
@@ -138,12 +138,12 @@
           <span>{{ formatNumberAsRMB(scope.row.balance) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="起始日" align="left" prop="loanDate" width="180">
+      <el-table-column label="起始日" align="center" prop="loanDate" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.loanDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="到期日" align="left" prop="dueDate" width="180">
+      <el-table-column label="到期日" align="center" prop="dueDate" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.dueDate, '{y}-{m}-{d}') }}</span>
         </template>

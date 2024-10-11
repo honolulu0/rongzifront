@@ -144,12 +144,12 @@
           <span>{{ formatNumberAsRMB(scope.row.loanAmount) }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="开始日期" align="left" prop="startDate" min-width="100">
+      <el-table-column show-overflow-tooltip label="开始日期" align="center" prop="startDate" min-width="100">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.startDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="结束日期" align="left" prop="deadline" min-width="100">
+      <el-table-column show-overflow-tooltip label="结束日期" align="center" prop="deadline" min-width="100">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.deadline, '{y}-{m}-{d}') }}</span>
         </template>

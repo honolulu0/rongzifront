@@ -18,14 +18,6 @@
             </el-form-item>
           </el-col> -->
           <el-col :span="8">
-            <el-form-item label="债权人" prop="financialInstitution">
-              <el-select filterable v-model="queryParams.financialInstitution" placeholder="请选择债权人" clearable>
-                <el-option v-for="dict in dict.type.sys_1757271666666242000" :key="dict.value" :label="dict.label"
-                  :value="dict.label" />
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
             <el-form-item label="借款人" prop="borrowingUnit">
               <el-select filterable v-model="queryParams.borrowingUnit" placeholder="请选择借款人" clearable>
                 <el-option v-for="dict in dict.type.sys_1767154968256577500" :key="dict.value" :label="dict.label"
@@ -33,6 +25,15 @@
               </el-select>
             </el-form-item>
           </el-col>
+          <el-col :span="8">
+            <el-form-item label="债权人" prop="financialInstitution">
+              <el-select filterable v-model="queryParams.financialInstitution" placeholder="请选择债权人" clearable>
+                <el-option v-for="dict in dict.type.sys_1757271666666242000" :key="dict.value" :label="dict.label"
+                  :value="dict.label" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+
 
 
           <el-col :span="8">
@@ -122,7 +123,7 @@
           <dict-tag :options="dict.type.sys_1757271666666242000" :value="scope.row.financialInstitution" />
         </template> -->
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="融资类型" align="left" prop="financingType" min-width="80">
+      <el-table-column show-overflow-tooltip label="融资类型" align="center" prop="financingType" min-width="80">
         <!-- <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1759508335389835300" :value="scope.row.financingType" />
         </template> -->
@@ -157,24 +158,24 @@
           <span>{{ formatNumberAsRMB(scope.row.shouxufei) }}</span>
         </template>
       </el-table-column> -->
-      <el-table-column show-overflow-tooltip label="期限（月）" align="left" prop="loanTerm" min-width="100">
+      <el-table-column show-overflow-tooltip label="期限（月）" align="center" prop="loanTerm" min-width="100">
         <template slot-scope="scope">
           <span>{{ creditCycleFN(scope.row.loanDate, scope.row.dueDate) }}</span>
         </template>
       </el-table-column>
       <!-- <el-table-column label="资金用途" align="left" prop="contractId" /> -->
       <!-- <el-table-column show-overflow-tooltip label="资金用途" align="left" prop="contractId" min-width="120"/> -->
-      <!-- <el-table-column label="合同签订日期" align="left" prop="contractSigningDate" width="180">
+      <!-- <el-table-column label="合同签订日期" align="center" prop="contractSigningDate" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.contractSigningDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column> -->
-      <el-table-column show-overflow-tooltip label="放款日" align="left" prop="loanDate" width="100">
+      <el-table-column show-overflow-tooltip label="放款日" align="center" prop="loanDate" width="100">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.loanDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="到期日" align="left" prop="dueDate" width="100">
+      <el-table-column show-overflow-tooltip label="到期日" align="center" prop="dueDate" width="100">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.dueDate, '{y}-{m}-{d}') }}</span>
         </template>
@@ -191,7 +192,7 @@
         </template>
       </el-table-column> -->
 
-      <el-table-column show-overflow-tooltip label="债务状态" align="left" prop="loanState" width="100">
+      <el-table-column show-overflow-tooltip label="债务状态" align="center" prop="loanState" width="100">
         <template slot-scope="scope">
           <svg-icon class="mr5" :icon-class="scope.row.loanState"></svg-icon>
           {{ scope.row.loanState }}

@@ -119,12 +119,12 @@
         </template>
       </el-table-column>
       <el-table-column show-overflow-tooltip label="利率" align="left" prop="rate" />
-      <el-table-column show-overflow-tooltip label="借款日期" align="left" prop="loanDate" width="180">
+      <el-table-column show-overflow-tooltip label="借款日期" align="center" prop="loanDate" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.loanDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="到期日期" align="left" prop="dueDate" width="180">
+      <el-table-column show-overflow-tooltip label="到期日期" align="center" prop="dueDate" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.dueDate, '{y}-{m}-{d}') }}</span>
         </template>

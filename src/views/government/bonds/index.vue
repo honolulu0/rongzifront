@@ -141,13 +141,13 @@
           {{ formatNumberAsRMB(scope.row.bondSize) }}
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="利率" align="left" prop="rate" min-width="80">
+      <el-table-column show-overflow-tooltip label="利率" align="center" prop="rate" min-width="80">
         <template slot-scope="scope">
           <!-- <dict-tag :options="dict.type.sys_1762824761903153200" :value="scope.row.rate" /> -->
           <span>{{ appendUnit(scope.row.rate, '%') }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="期限（月）" align="left" prop="bondDuration" min-width="100">
+      <el-table-column show-overflow-tooltip label="期限（月）" align="center" prop="bondDuration" min-width="100">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1762824852571422700" :value="scope.row.bondDuration" />
           <!-- <span>{{ creditCycleFN(scope.row.loanDate, scope.row.dueDate) }}</span> -->
@@ -183,12 +183,12 @@
 
 
 
-      <el-table-column label="起始日" align="left" prop="loanDate" min-width="100">
+      <el-table-column label="起始日" align="center" prop="loanDate" min-width="100">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.loanDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="到期日" align="left" prop="dueDate" min-width="100">
+      <el-table-column label="到期日" align="center" prop="dueDate" min-width="100">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.dueDate, '{y}-{m}-{d}') }}</span>
         </template>

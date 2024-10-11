@@ -33,13 +33,14 @@
     </el-row>
 
     <el-table ref="tableRef" v-loading="loading" :data="mingxiList" :header-cell-style="header_cell_style"
-      :row-class-name="tableRowClassName">
-      <el-table-column label="月份" align="left" prop="month" min-width="100" />
-      <el-table-column show-overflow-tooltip label="偿还本金" align="right" prop="totalPrincipalWY" />
-      <el-table-column show-overflow-tooltip label="支付利息（含手续费）" align="right" prop="totalInterestWY" />
-      <el-table-column show-overflow-tooltip label="总计" align="right" prop="totalWY" />
+      :row-class-name="tableRowClassName" >
+      <el-table-column show-overflow-tooltip min-width="100"/>
+      <el-table-column label="月份" align="center" prop="month" min-width="100" />
+      <el-table-column show-overflow-tooltip label="偿还本金" align="right" prop="totalPrincipalWY" min-width="100"/>
+      <el-table-column show-overflow-tooltip label="支付利息（含手续费）" align="right" prop="totalInterestWY" min-width="100"/>
+      <el-table-column show-overflow-tooltip label="总计" align="right" prop="totalWY" min-width="100"/>
+      <el-table-column show-overflow-tooltip min-width="100"/>
     </el-table>
-
 
   </div>
 </template>
