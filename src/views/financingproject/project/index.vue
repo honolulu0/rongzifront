@@ -111,7 +111,7 @@
       :data="projectList" @selection-change="handleSelectionChange" :header-cell-style="header_cell_style">
       <el-table-column show-overflow-tooltip fixed="left" type="selection" width="60" align="left" />
       <!-- <el-table-column label="主键id" align="left" prop="id" /> -->
-      <el-table-column show-overflow-tooltip label="管理编号" align="left" prop="managementId" min-width="100" />
+      <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managementId" min-width="100" />
       <!-- <el-table-column label="数据唯一编号" align="left" prop="scrUuid" /> -->
       <el-table-column show-overflow-tooltip label="借款人" align="left" prop="borrowingUnit" min-width="125">
         <!-- <template slot-scope="scope">
@@ -180,7 +180,7 @@
           <span>{{ parseTime(scope.row.dueDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="年利率" align="left" prop="rate" min-width="80">
+      <el-table-column show-overflow-tooltip label="年利率" align="center" prop="rate" min-width="80">
         <template slot-scope="scope">
           <span>{{ appendUnit(scope.row.rate, '%') }}</span>
         </template>
@@ -208,7 +208,7 @@
 
       <!-- <el-table-column show-overflow-tooltip label="备注" align="left" prop="comment" min-width="120" /> -->
       <!-- <el-table-column label="uuid" align="left" prop="uuid" /> -->
-      <el-table-column show-overflow-tooltip fixed="right" label="操作" align="left" class-name="''">
+      <el-table-column show-overflow-tooltip fixed="right" label="操作" align="center" class-name="''">
         <template slot-scope="scope">
           <el-button size="mini" type="text" @click="handleUpdate(scope.row)"
             v-hasPermi="['financingproject:project:edit']">查 看</el-button>

@@ -153,7 +153,8 @@
         <el-table-column v-for="(item, index) in hkjh_repaymentPlanClearingTableColumn" :key="index" :prop="item.prop"
           :label="item.label" :width="item.width" :min-width="item.minWidth" align="center" header-align="center">
           <template slot-scope="scope">
-            <span>{{ formatNumberAsRMB(scope.row[item.prop],1) }}</span>
+            <span v-if="item.prop=='riqi' || item.prop=='qishu'">{{ scope.row[item.prop] }}</span>
+            <span v-else>{{ formatNumberAsRMB(scope.row[item.prop],1) }}</span>
           </template>
         </el-table-column>
       </el-table>
@@ -806,7 +807,7 @@
           }
         });
 
-        return  formatNumberAsRMB(sums,1) ;
+        return formatNumberAsRMB(sums, 1);
       },
       /** 导入按钮操作 */
       handleImport() {

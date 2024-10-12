@@ -81,7 +81,7 @@
       :data="loanList" @selection-change="handleSelectionChange" :header-cell-style="header_cell_style">
       <el-table-column show-overflow-tooltip fixed="left" type="selection" width="60" align="left" />
       <!-- <el-table-column label="主键id" align="left" prop="id" /> -->
-      <el-table-column show-overflow-tooltip label="管理编号" align="left" prop="managementId" />
+      <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managementId" />
       <!-- <el-table-column label="数据唯一编号" align="left" prop="scrUuid" /> -->
 
       <el-table-column show-overflow-tooltip label="项目名称" align="left" prop="projectName" min-width="100" />

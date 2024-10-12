@@ -76,7 +76,7 @@
       :header-cell-style="header_cell_style" show-overflow-tooltip>
       <el-table-column show-overflow-tooltip fixed="left" type="selection" width="55" align="left" />
       <!-- <el-table-column show-overflow-tooltip label="主键id" align="left" prop="id" /> -->
-      <el-table-column show-overflow-tooltip label="管理编号" align="left" prop="managementId" />
+      <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managementId" />
       <!-- <el-table-column show-overflow-tooltip label="数据唯一编号" align="left" prop="scrUuid" /> -->
       <el-table-column show-overflow-tooltip label="借款人" align="left" prop="borrowingUnit" width="120">
         <template slot-scope="scope">

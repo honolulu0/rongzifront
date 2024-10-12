@@ -71,7 +71,7 @@
         </template>
       </el-table-column>
       <el-table-column label="创建人" align="left" prop="createBy" />
-      <el-table-column label="操作" align="left" class-name="''">
+      <el-table-column label="操作" align="center" class-name="''">
         <template slot-scope="scope">
           <el-button v-if="scope.row.createBy == name" size="mini" type="text" icon="el-icon-edit"
             @click="handleUpdate(scope.row)" v-hasPermi="['appendix:atta:edit']">修改</el-button>

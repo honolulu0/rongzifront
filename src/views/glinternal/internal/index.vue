@@ -144,7 +144,7 @@
       :data="internalList" @selection-change="handleSelectionChange" :header-cell-style="header_cell_style">
       <el-table-column show-overflow-tooltip fixed="left" type="selection" width="60" align="left" />
       <!-- <el-table-column label="主键id" align="left" prop="id" /> -->
-      <!-- <el-table-column show-overflow-tooltip label="管理编号" align="left" prop="managementId" min-width="100"/> -->
+      <!-- <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managementId" min-width="100"/> -->
       <!-- <el-table-column show-overflow-tooltip label="担保合同编号" align="left" prop="contractId" width="180" /> -->
       <!-- <el-table-column label="数据唯一编号" align="left" prop="scrUuid" /> -->
       <el-table-column show-overflow-tooltip label="担保人" align="left" prop="guarantor" min-width="130">
@@ -189,12 +189,12 @@
           <span>{{ parseTime(scope.row.deadline, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="保证方式" align="left" prop="guaranteeMethod" min-width="100">
+      <el-table-column show-overflow-tooltip label="保证方式" align="center" prop="guaranteeMethod" min-width="100">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1767155825266131000" :value="scope.row.guaranteeMethod" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="是否上征信" align="left" prop="isCreditInvestigation" width="100">
+      <el-table-column show-overflow-tooltip label="是否上征信" align="center" prop="isCreditInvestigation" width="100">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1767156259322069000" :value="scope.row.isCreditInvestigation" />
         </template>
@@ -220,7 +220,7 @@
       </el-table-column>
       <el-table-column show-overflow-tooltip label="担保比例" align="left" prop="guaranteeRatio" />
        -->
-      <el-table-column show-overflow-tooltip fixed="right" label="操作" align="left" class-name="''">
+      <el-table-column show-overflow-tooltip fixed="right" label="操作" align="center" class-name="''">
         <template slot-scope="scope">
           <!-- <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
             v-hasPermi="['glinternal:internal:edit']">修改</el-button>

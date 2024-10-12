@@ -61,7 +61,7 @@
 
     <el-table :summary-method="getSummaries" show-summary v-loading="loading" :data="mingxiList"
       @selection-change="handleSelectionChange" :header-cell-style="header_cell_style">
-      <el-table-column show-overflow-tooltip label="管理编号" align="left" prop="managerId" min-width="120">
+      <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managerId" min-width="120">
         <template slot-scope="scope">
           <el-link type="primary" @click="openDetail(scope.row)">{{ scope.row.managerId }}</el-link>
         </template>
@@ -105,7 +105,7 @@
           <span>{{ formatNumberAsRMB(scope.row.benjinshengyu,1) }}</span>
         </template>
       </el-table-column>
-      <!-- <el-table-column label="操作" align="left" class-name="''">
+      <!-- <el-table-column label="操作" align="center" class-name="''">
         <template slot-scope="scope">
           <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
             v-hasPermi="['huankuanjihua:mingxi:edit']">修改</el-button>

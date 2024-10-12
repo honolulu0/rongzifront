@@ -128,7 +128,7 @@
                 :value="scope.row.auditState" />
             </template>
           </el-table-column>
-          <el-table-column fixed="right" width="140" label="操作" align="left" class-name="''">
+          <el-table-column fixed="right" width="140" label="操作" align="center" class-name="''">
             <template slot-scope="scope">
               <el-button v-if="scope.row.auditState == '1759514891045044200'" size="mini" type="text"
                 @click="handleUpdate(scope.row)" v-hasPermi="['rzauditlist:list:edit']">撤

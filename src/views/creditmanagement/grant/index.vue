@@ -2,7 +2,7 @@
   <div class="app-container">
     <search-panel HeaderIcon="Creditmanagement" title="授信管理">
       <el-form label-position="left" :model="queryParams" ref="queryForm" size="small" :inline="false"
-        v-show="showSearch" label-width="140px">
+        v-show="showSearch" label-width="130px">
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="管理编号" prop="managementId">
@@ -99,7 +99,7 @@
     <el-table :summary-method="(param) => getSummaries2(param, totalKeys, zongji)" show-summary v-loading="loading"
       :data="grantList" @selection-change="handleSelectionChange" :header-cell-style="header_cell_style">
       <el-table-column show-overflow-tooltip fixed="left" type="selection" min-width="60" width="60" align="left" />
-      <el-table-column show-overflow-tooltip label="管理编号" align="left" prop="managementId" min-width="100" />
+      <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managementId" min-width="100" />
       <el-table-column show-overflow-tooltip label="授信类型" align="center" prop="creditType" min-width="100">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1765001578994991000" :value="scope.row.creditType" />
@@ -148,13 +148,13 @@
           <span>{{ parseTime(scope.row.deadline, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="授信有效期（月）" align="center" prop="creditCycle" min-width="140">
+      <el-table-column show-overflow-tooltip label="有效期（月）" align="center" prop="creditCycle" min-width="120">
         <template slot-scope="scope">
           <span>{{ creditCycleFN(scope.row.startDate, scope.row.deadline) }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column show-overflow-tooltip label="备注" align="left" prop="comment" min-width="130" />
+      <el-table-column show-overflow-tooltip label="备注" align="left" prop="comment" min-width="80" />
       <!-- <el-table-column show-overflow-tooltip label="创建人" align="left" prop="createBy" min-width="80" />
       <el-table-column show-overflow-tooltip label="创建时间" align="left" prop="createTime" min-width="100">
         <template slot-scope="scope">
@@ -163,7 +163,7 @@
       </el-table-column> -->
       <!-- <el-table-column label="uuid" align="left" prop="uuid" /> -->
       <el-table-column min-width="60" header-align="center" show-overflow-tooltip fixed="right" label="操作"
-        align="left" class-name="''">
+        align="center" class-name="''">
         <template slot-scope="scope">
           <!-- <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
             v-hasPermi="['creditmanagement:grant:edit']">修改</el-button>
@@ -211,7 +211,8 @@
 
             <el-col :span="8">
               <el-form-item label="债权人" prop="financialInstitution">
-                <el-select multiple filterable :disabled="!isEditable" v-model="form.financialInstitution" placeholder="债权人">
+                <el-select multiple filterable :disabled="!isEditable" v-model="form.financialInstitution"
+                  placeholder="债权人">
                   <el-option v-for="dict in dict.type.sys_1757271666666242000" :key="dict.value" :label="dict.label"
                     :value="dict.label"></el-option>
                 </el-select>

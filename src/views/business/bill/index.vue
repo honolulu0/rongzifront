@@ -120,7 +120,7 @@
     <el-table v-loading="loading" :summary-method="(param) => getSummaries2(param, totalKeys,zongji)" show-summary
       :data="businessList" @selection-change="handleSelectionChange" :header-cell-style="header_cell_style">
       <el-table-column show-overflow-tooltip fixed="left" type="selection" min-width="60" width="60" align="left" />
-      <el-table-column show-overflow-tooltip label="管理编号" align="left" prop="managementId" min-width="100" />
+      <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managementId" min-width="100" />
       <!-- <el-table-column label="数据唯一编号" align="left" prop="scrUuid" /> -->
       <!-- <el-table-column label="审核id" align="left" prop="auditId" /> -->
       <el-table-column show-overflow-tooltip label="出票人" align="left" min-width="130" prop="drawer">
@@ -177,7 +177,7 @@
       <el-table-column label="保证金比例" align="left" prop="marginLevel" />
       <el-table-column label="保证金利率" align="left" prop="marginInterestRate" />
       <el-table-column label="保证金收益金额" align="left" prop="marginIncomeAmount" />-->
-      <el-table-column show-overflow-tooltip min-width="120" label="是否已贴现" align="left" prop="discountedOrNot">
+      <el-table-column show-overflow-tooltip min-width="120" label="是否已贴现" align="center" prop="discountedOrNot">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1796070671776743400" :value="scope.row.discountedOrNot" />
         </template>
@@ -185,7 +185,7 @@
       <!-- <el-table-column label="贴现金融机构" align="left" prop="discountedFinancialInstitutions" />
       <el-table-column label="贴现手续费" align="left" prop="discountedHandlingFee" />
       <el-table-column label="贴现费用承担情况" align="left" prop="assumptionOfDiscountFees" /> -->
-      <el-table-column fixed="right" label="操作" align="left" class-name="''">
+      <el-table-column fixed="right" label="操作" align="center" class-name="''">
         <template slot-scope="scope">
           <el-button size="mini" type="text" @click="handleUpdate(scope.row)"
             v-hasPermi="['business:bill:query']">查

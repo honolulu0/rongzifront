@@ -121,7 +121,7 @@
     <el-table v-loading="loading" :summary-method="(param) => getSummaries2(param, totalKeys,zongji)" show-summary
       :data="factoringList" @selection-change="handleSelectionChange" :header-cell-style="header_cell_style">
       <el-table-column show-overflow-tooltip fixed="left" type="selection" min-width="60" width="60" align="left" />
-      <el-table-column show-overflow-tooltip label="管理编号" align="left" prop="managementId" min-width="100" />
+      <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managementId" min-width="100" />
       <!-- <el-table-column label="数据唯一编号" align="left" prop="scrUuid" />
       <el-table-column label="审核id" align="left" prop="auditId" /> -->
       <el-table-column show-overflow-tooltip label="供应商名称" align="left" prop="creditor" min-width="160">
@@ -180,7 +180,7 @@
       <el-table-column show-overflow-tooltip label="开户行" align="left" prop="bank" /> -->
       <!-- <el-table-column show-overflow-tooltip label="备注" align="left" prop="comment" min-width="200" /> -->
       <!-- <el-table-column label="ID" align="left" prop="id" /> -->
-      <el-table-column fixed="right" label="操作" align="left" class-name="''">
+      <el-table-column fixed="right" label="操作" align="center" class-name="''">
         <template slot-scope="scope">
           <el-button size="mini" type="text" @click="handleUpdate(scope.row)" v-hasPermi="['reverse:factoring:edit']">查
             看</el-button>
