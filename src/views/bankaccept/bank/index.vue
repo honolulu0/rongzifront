@@ -22,19 +22,17 @@
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="收票人" prop="payee">
-              <el-select filterable v-model="queryParams.payee" placeholder="请选择收票人" clearable>
-                <el-option v-for="dict in dict.type.sys_1754491769220759600" :key="dict.value" :label="dict.label"
+            <el-form-item label="承兑人" prop="financialInstitution">
+              <el-select filterable v-model="queryParams.financialInstitution" placeholder="请选择承兑人（金融机构）" clearable>
+                <el-option v-for="dict in dict.type.sys_acceptor" :key="dict.value" :label="dict.label"
                   :value="dict.label"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-
-          <!-- 第二组表单项 -->
           <el-col :span="8">
-            <el-form-item label="承兑人" prop="financialInstitution">
-              <el-select filterable v-model="queryParams.financialInstitution" placeholder="请选择承兑人（金融机构）" clearable>
-                <el-option v-for="dict in dict.type.sys_acceptor" :key="dict.value" :label="dict.label"
+            <el-form-item label="收票人" prop="payee">
+              <el-select filterable v-model="queryParams.payee" placeholder="请选择收票人" clearable>
+                <el-option v-for="dict in dict.type.sys_1754491769220759600" :key="dict.value" :label="dict.label"
                   :value="dict.label"></el-option>
               </el-select>
             </el-form-item>
@@ -54,12 +52,19 @@
             </el-form-item>
           </el-col>
 
-
-          <!-- 第三组表单项 -->
           <el-col :span="8">
             <el-form-item label="项目名称" prop="entryName">
               <el-input v-model="queryParams.entryName" placeholder="项目名称" clearable
                 @keyup.enter.native="handleQuery"></el-input>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="8">
+            <el-form-item label="是否已贴现" prop="discountedOrNot">
+              <el-select clearable filterable v-model="queryParams.discountedOrNot" placeholder="请选择是否已贴现">
+                <el-option v-for="dict in dict.type.sys_1796070671776743400" :key="dict.value" :label="dict.label"
+                  :value="dict.label"></el-option>
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -79,14 +84,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="是否已贴现" prop="discountedOrNot">
-              <el-select clearable filterable v-model="queryParams.discountedOrNot" placeholder="请选择是否已贴现">
-                <el-option v-for="dict in dict.type.sys_1796070671776743400" :key="dict.value" :label="dict.label"
-                  :value="dict.label"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
+
         </el-row>
         <el-row :gutter="20">
           <el-col :span="24">
@@ -131,22 +129,49 @@
           <dict-tag :options="dict.type.sys_drawer" :value="scope.row.drawer" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="收票人" min-width="130" align="left" prop="payee">
-        <template slot-scope="scope">
-          <dict-tag :options="dict.type.sys_1754491769220759600" :value="scope.row.payee" />
-        </template>
-      </el-table-column>
+
       <el-table-column show-overflow-tooltip label="承兑人(金融机构)" min-width="160" align="center"
         prop="financialInstitution">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_acceptor" :value="scope.row.financialInstitution" />
         </template>
       </el-table-column>
+
+      <el-table-column show-overflow-tooltip label="收票人" min-width="130" align="left" prop="payee">
+        <template slot-scope="scope">
+          <dict-tag :options="dict.type.sys_1754491769220759600" :value="scope.row.payee" />
+        </template>
+      </el-table-column>
+
+      <el-table-column show-overflow-tooltip label="项目名称" align="left" min-width="160" prop="entryName" />
+
+
+
       <el-table-column show-overflow-tooltip label="出票金额(万元)" min-width="160" align="right" prop="invoiceAmount">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.invoiceAmount) }}</span>
         </template>
       </el-table-column>
+
+      <el-table-column show-overflow-tooltip label="敞口额度(万元)" min-width="160" align="right" prop="changkouedu">
+        <template slot-scope="scope">
+          <span>{{ formatNumberAsRMB(scope.row.changkouedu) }}</span>
+        </template>
+      </el-table-column>
+
+
+      <el-table-column label="办理手续费(万元)" min-width="160" align="right" prop="ticketProcessingFee">
+
+        <template slot-scope="scope">
+          <span>{{ formatNumberAsRMB(scope.row.ticketProcessingFee) }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="贴现费用(万元)" min-width="160" align="right" prop="discountedHandlingFee">
+        <template slot-scope="scope">
+          <span>{{ formatNumberAsRMB(scope.row.discountedHandlingFee) }}</span>
+        </template>
+      </el-table-column>
+
       <el-table-column show-overflow-tooltip label="出票日期" align="center" prop="draftDate" min-width="100">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.draftDate, '{y}-{m}-{d}') }}</span>
@@ -162,32 +187,15 @@
           <el-tag effect="plain" :hit="true" :class="checkDueReminderWithConfig(scope.row.dueDate).color">
             {{ checkDueReminderWithConfig(scope.row.dueDate).message }}
           </el-tag>
-          <!-- <dict-tag :options="reminderConfig" :value="checkDueReminderWithConfig(scope.row.draftDate, scope.row.dueDate)" /> -->
         </template>
       </el-table-column>
-      <!-- <el-table-column show-overflow-tooltip label="承兑协议编号" min-width="180" align="left" prop="acceptAgreementId" /> -->
-      <el-table-column show-overflow-tooltip label="项目名称" align="left" min-width="160" prop="entryName" />
 
-      <el-table-column show-overflow-tooltip label="敞口额度(万元)" min-width="160" align="right" prop="changkouedu">
-        <template slot-scope="scope">
-          <span>{{ formatNumberAsRMB(scope.row.changkouedu) }}</span>
-        </template>
-      </el-table-column>
-      <!-- <el-table-column show-overflow-tooltip label="备注" align="left" min-width="200" prop="comment" /> -->
-      <!-- <el-table-column label="ID" align="left" prop="id" /> -->
-
-      <!-- <el-table-column label="出票手续费" align="left" prop="ticketProcessingFee" />
-      <el-table-column label="保证金比例" align="left" prop="marginLevel" />
-      <el-table-column label="保证金利率" align="left" prop="marginInterestRate" />
-      <el-table-column label="保证金收益金额" align="left" prop="marginIncomeAmount" />-->
       <el-table-column show-overflow-tooltip min-width="120" label="是否已贴现" align="center" prop="discountedOrNot">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1796070671776743400" :value="scope.row.discountedOrNot" />
         </template>
       </el-table-column>
-      <!-- <el-table-column label="贴现金融机构" align="left" prop="discountedFinancialInstitutions" />
-      <el-table-column label="贴现手续费" align="left" prop="discountedHandlingFee" />
-      <el-table-column label="贴现费用承担情况" align="left" prop="assumptionOfDiscountFees" /> -->
+
       <el-table-column fixed="right" label="操作" align="center" class-name="''">
         <template slot-scope="scope">
           <el-button size="mini" type="text" @click="handleUpdate(scope.row)" v-hasPermi="['bankaccept:bank:edit']">查
@@ -721,6 +729,8 @@
         totalKeys: {
           '出票金额(万元)': 'totalInvoiceAmount',
           '敞口额度(万元)': 'totalChangkouedu',
+          '办理手续费(万元)': 'total_ticketProcessingFee',
+          '贴现费用(万元)': 'total_discountedHandlingFee',
         },
         zongji: {
           totalInvoiceAmount: 0,

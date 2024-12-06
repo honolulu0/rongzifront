@@ -11,9 +11,9 @@
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="供应商名称" prop="creditor">
-              <el-select filterable v-model="queryParams.creditor" placeholder="请选择供应商名称" clearable>
-                <el-option v-for="dict in dict.type.sys_1795741368925028400" :key="dict.value" :label="dict.label"
+            <el-form-item label="金融机构" prop="financialInstitution">
+              <el-select filterable v-model="queryParams.financialInstitution" placeholder="请选择金融机构" clearable>
+                <el-option v-for="dict in dict.type.sys_acceptor" :key="dict.value" :label="dict.label"
                   :value="dict.label" />
               </el-select>
             </el-form-item>
@@ -27,10 +27,12 @@
             </el-form-item>
           </el-col>
 
+
+
           <el-col :span="8">
-            <el-form-item label="金融机构" prop="financialInstitution">
-              <el-select filterable v-model="queryParams.financialInstitution" placeholder="请选择金融机构" clearable>
-                <el-option v-for="dict in dict.type.sys_acceptor" :key="dict.value" :label="dict.label"
+            <el-form-item label="供应商名称" prop="creditor">
+              <el-select filterable v-model="queryParams.creditor" placeholder="请选择供应商名称" clearable>
+                <el-option v-for="dict in dict.type.sys_1795741368925028400" :key="dict.value" :label="dict.label"
                   :value="dict.label" />
               </el-select>
             </el-form-item>
@@ -124,11 +126,7 @@
       <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managementId" min-width="100" />
       <!-- <el-table-column label="数据唯一编号" align="left" prop="scrUuid" />
       <el-table-column label="审核id" align="left" prop="auditId" /> -->
-      <el-table-column show-overflow-tooltip label="供应商名称" align="left" prop="creditor" min-width="160">
-        <template slot-scope="scope">
-          <dict-tag :options="dict.type.sys_1795741368925028400" :value="scope.row.creditor" />
-        </template>
-      </el-table-column>
+
       <el-table-column show-overflow-tooltip label="保理企业" align="left" prop="factor" min-width="130">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1757288852172570600" :value="scope.row.factor" />
@@ -139,11 +137,14 @@
           <dict-tag :options="dict.type.sys_acceptor" :value="scope.row.financialInstitution" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="放贷金额（万元）" align="right" prop="loanAmount" min-width="160">
+
+      <el-table-column show-overflow-tooltip label="供应商名称" align="left" prop="creditor" min-width="160">
         <template slot-scope="scope">
-          <span>{{ formatNumberAsRMB(scope.row.loanAmount) }}</span>
+          <dict-tag :options="dict.type.sys_1795741368925028400" :value="scope.row.creditor" />
         </template>
       </el-table-column>
+
+      <el-table-column show-overflow-tooltip label="项目名称" align="left" prop="entryName" min-width="120" />
       <el-table-column show-overflow-tooltip label="开始日期" align="center" prop="startDate" min-width="100">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.startDate, '{y}-{m}-{d}') }}</span>
@@ -154,7 +155,6 @@
           <span>{{ parseTime(scope.row.deadline, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="项目名称" align="left" prop="entryName" min-width="120" />
       <el-table-column show-overflow-tooltip label="到期提醒" align="left" prop="remark" min-width="100">
         <template slot-scope="scope">
           <el-tag effect="plain" :hit="true" :class="checkDueReminderWithConfig(scope.row.deadline).color">
@@ -164,11 +164,18 @@
         </template>
       </el-table-column>
 
+      <el-table-column show-overflow-tooltip label="放贷金额（万元）" align="right" prop="loanAmount" min-width="160">
+        <template slot-scope="scope">
+          <span>{{ formatNumberAsRMB(scope.row.loanAmount) }}</span>
+        </template>
+      </el-table-column>
+
       <el-table-column label="办理收费（万元）" align="right" prop="banlishoufei" min-width="130">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.banlishoufei) }}</span>
         </template>
       </el-table-column>
+
       <el-table-column label="到期收费（万元）" align="right" prop="daoqishoufei" min-width="130">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.daoqishoufei) }}</span>
@@ -596,7 +603,7 @@
       },
 
       'form.zhifulixi'(newVal) {
-        this.huankuanmingxi.zhifulixi = this.formatNumberAsRMB(newVal * 10000, 10000,6);
+        this.huankuanmingxi.zhifulixi = this.formatNumberAsRMB(newVal * 10000, 10000, 6);
         this.form.huankuanjine = (Number(this.form.loanAmount) + Number(this.form.zhifulixi))
         this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.huankuanjine * 10000)
       },
@@ -745,7 +752,7 @@
           // 还款计划 金额回显需要  /10000
           this.huankuanmingxi.riqi = this.form.deadline
           this.huankuanmingxi.changhuanben = this.formatNumberAsRMB(this.form.loanAmount)
-          this.huankuanmingxi.zhifulixi = this.formatNumberAsRMB(this.form.zhifulixi, 10000,6)
+          this.huankuanmingxi.zhifulixi = this.formatNumberAsRMB(this.form.zhifulixi, 10000, 6)
           this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.loanAmount + this.form.zhifulixi)
           this.huankuanmingxidata = [this.huankuanmingxi]
 

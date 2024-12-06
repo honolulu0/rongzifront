@@ -33,6 +33,11 @@
                 range-separator="-" start-placeholder="点击或者输入" end-placeholder="例子:2024-08-22"></el-date-picker>
             </el-form-item>
           </el-col>
+          <el-col :span="8">
+            <el-form-item label="本金剩余 ≤ " prop="benjinshengyu">
+              <el-input v-model="queryParams.benjinshengyu" placeholder="筛选小于等于的本金剩余" clearable />
+            </el-form-item>
+          </el-col>
         </el-row>
 
         <!-- Row 2 -->
@@ -67,13 +72,13 @@
         </template>
       </el-table-column>
       <el-table-column label="数据来源" align="left" prop="xiangmuleixing" />
-      <el-table-column label="期数" align="center" prop="qishu" min-width="80" />
-      <el-table-column show-overflow-tooltip label="借款人" align="left" prop="borrowingUnit" min-width="260">
+      <!-- <el-table-column label="期数" align="center" prop="qishu" min-width="80" /> -->
+      <el-table-column show-overflow-tooltip label="借款人" align="left" prop="borrowingUnit" min-width="200">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1767154968256577500" :value="scope.row.borrowingUnit" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="债权人" align="left" prop="financialInstitution" min-width="260">
+      <el-table-column show-overflow-tooltip label="债权人" align="left" prop="financialInstitution" min-width="200">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1757271666666242000" :value="scope.row.financialInstitution" />
         </template>
@@ -100,7 +105,7 @@
           <span>{{ formatNumberAsRMB(scope.row.shouxufei,1) }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="本金剩余" align="right" prop="benjinshengyu" min-width="160">
+      <el-table-column show-overflow-tooltip label="本金剩余" align="right" prop="benjinshengyu" min-width="280">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.benjinshengyu,1) }}</span>
         </template>
