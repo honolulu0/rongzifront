@@ -235,39 +235,29 @@
                 </el-select>
               </el-form-item>
             </el-col>
-
-
             <el-col :span="8">
               <el-form-item label="借款金额（万元）" prop="loanAmount">
                 <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
                   :readonly="!isEditable" type="number" v-model.trim="form.loanAmount" placeholder="借款金额" />
               </el-form-item>
             </el-col>
-
             <el-col :span="8">
               <el-form-item label="利率" prop="rate">
                 <el-input :readonly="!isEditable" v-model="rate" placeholder="利率" />
               </el-form-item>
             </el-col>
-
-
-
-
             <el-col :span="8">
               <el-form-item label="起始日" prop="borrowDate">
                 <el-date-picker format='yyyy/MM/dd' :picker-options="pickerOptions1" :disabled="!isEditable" clearable
                   v-model="form.borrowDate" type="date" value-format="yyyy-MM-dd" placeholder="起始日"></el-date-picker>
               </el-form-item>
             </el-col>
-
-
             <el-col :span="8">
               <el-form-item label="到期日" prop="dueDate">
                 <el-date-picker format='yyyy/MM/dd' :picker-options="pickerOptions2" :disabled="!isEditable" clearable
                   v-model="form.dueDate" type="date" value-format="yyyy-MM-dd" placeholder="到期日"></el-date-picker>
               </el-form-item>
             </el-col>
-
             <el-col :span="8">
               <el-form-item label="借款期限" prop="loanTerm">
                 <!-- <el-input :readonly="!isEditable" v-model="form.loanTerm" placeholder="借款期限" /> -->
@@ -283,8 +273,6 @@
                 </el-select>
               </el-form-item>
             </el-col>
-
-
             <!-- <el-col :span="8">
               <el-form-item label="合同编号" prop="contractId">
                 <el-input :readonly="!isEditable" v-model="form.contractId" placeholder="合同编号" />
@@ -298,11 +286,7 @@
                 </el-select>
               </el-form-item>
             </el-col>
-
-
             <!-- 12.已还本金金额；13.本金剩余；14.已还利息金额；15.借款状态（本金已结清/本息已结清）； -->
-
-
             <el-col :span="8">
               <el-form-item label="已还本金金额（万元）" prop="yihuanbenjin">
                 <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"

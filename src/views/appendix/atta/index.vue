@@ -320,7 +320,7 @@
     }
   };
 </script>
-<style>
+<style scoped>
   .demo-table-expand {
     font-size: 0;
   }
@@ -338,23 +338,23 @@
 
 
 
-  .el-table__header,
-  .el-table__body,
-  .el-table__footer {
+  /deep/ .el-table__header,
+  /deep/ .el-table__body,
+  /deep/ .el-table__footer {
     border-bottom: 1px solid #121212;
   }
 
-  .el-table--border .el-table__cell {
+  /deep/ .el-table--border .el-table__cell {
     border-left: 1px solid #121212;
     border-bottom: 1px solid #121212;
   }
 
-  .el-table--border th.el-table__cell {
+  /deep/ .el-table--border th.el-table__cell {
     border-bottom: 1px solid #121212;
   }
 
-  .el-table th.el-table__cell.is-leaf,
-  .el-table td.el-table__cell {
+  /deep/ .el-table th.el-table__cell.is-leaf,
+  /deep/ .el-table td.el-table__cell {
     border-bottom: 1px solid #121212;
     border-top: 1px solid #121212
   }
