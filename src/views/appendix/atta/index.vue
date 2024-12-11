@@ -34,9 +34,9 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table :span-method="arraySpanMethod" v-loading="loading" :data="attaList"
+    <el-table class="baobiao" :span-method="arraySpanMethod" v-loading="loading" :data="attaList"
       @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="left" />
+      <!-- <el-table-column type="selection" width="55" align="left" /> -->
       <!--      <el-table-column type="expand">
         <template slot-scope="scope">
           <el-form label-position="left" inline class="demo-table-expand">
@@ -53,6 +53,7 @@
       </el-table-column> -->
       <el-table-column label="一级标题" align="left" prop="title" />
       <el-table-column label="二级标题" align="left" prop="title2" />
+      <!-- <el-table-column label="排序" align="left" prop="order_num" min-width="100" /> -->
       <el-table-column label="备注" align="left" prop="comment" />
       <el-table-column label="文件名" align="left" prop="url" min-width="180">
         <template slot-scope="scope">
@@ -92,6 +93,10 @@
         <el-form-item label="二级标题" prop="title2">
           <el-input v-model="form.title2" placeholder="二级标题" />
         </el-form-item>
+<!--        <el-form-item label="排序" prop="order_num">
+          <el-input v-model="form.order_num" placeholder="排序" />
+        </el-form-item> -->
+
         <el-form-item label="备注" prop="comment">
           <el-input v-model="form.comment" placeholder="备注" />
         </el-form-item>
@@ -204,7 +209,7 @@
       /** 查询附件表列表 */
       getList() {
         this.loading = true;
-        this.queryParams['orderByColumn'] = 'title,id'
+        this.queryParams['orderByColumn'] = 'title,title2'
         listAtta(this.queryParams).then(response => {
           this.attaList = response.rows;
           this.total = response.total;
@@ -329,5 +334,28 @@
     margin-right: 0;
     margin-bottom: 0;
     width: 50%;
+  }
+
+
+
+  .el-table__header,
+  .el-table__body,
+  .el-table__footer {
+    border-bottom: 1px solid #121212;
+  }
+
+  .el-table--border .el-table__cell {
+    border-left: 1px solid #121212;
+    border-bottom: 1px solid #121212;
+  }
+
+  .el-table--border th.el-table__cell {
+    border-bottom: 1px solid #121212;
+  }
+
+  .el-table th.el-table__cell.is-leaf,
+  .el-table td.el-table__cell {
+    border-bottom: 1px solid #121212;
+    border-top: 1px solid #121212
   }
 </style>
