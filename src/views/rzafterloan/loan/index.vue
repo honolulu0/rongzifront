@@ -293,6 +293,16 @@
     },
     data() {
       return {
+        pickerOptions2: {
+          // 禁用结束日期中，所有小于开始日期的日期
+          disabledDate: (date) => {
+            if (this.form.borrowDate) {
+              // 一天的毫秒数
+              var oneDayInMilliseconds = 24 * 60 * 60 * 1000;
+              return date.getTime() < new Date(this.form.borrowDate).getTime() - oneDayInMilliseconds;
+            }
+          }
+        },
         isSuccess: true,
         isTitle: true,
         isMessage: true,

@@ -216,8 +216,6 @@
                 </el-select>
               </el-form-item>
             </el-col>
-
-
             <el-col :span="8">
               <el-form-item label="借款人" prop="borrower">
                 <el-select filterable :disabled="!isEditable" v-model="form.borrower" placeholder="请选择借款人">
@@ -226,7 +224,6 @@
                 </el-select>
               </el-form-item>
             </el-col>
-
             <el-col :span="8">
               <el-form-item label="出借人" prop="payee">
                 <el-select filterable :disabled="!isEditable" v-model="form.payee" placeholder="请选择出借人">
@@ -247,6 +244,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
+
               <el-form-item label="起始日" prop="borrowDate">
                 <el-date-picker format='yyyy/MM/dd' :picker-options="pickerOptions1" :disabled="!isEditable" clearable
                   v-model="form.borrowDate" type="date" value-format="yyyy-MM-dd" placeholder="起始日"></el-date-picker>
@@ -289,8 +287,8 @@
             <!-- 12.已还本金金额；13.本金剩余；14.已还利息金额；15.借款状态（本金已结清/本息已结清）； -->
             <el-col :span="8">
               <el-form-item label="已还本金金额（万元）" prop="yihuanbenjin">
-                <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
-                  :readonly="!isEditable" type="number" v-model.trim="form.yihuanbenjin" placeholder="已还本金金额" />
+                <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2" :readonly="true"
+                  type="number" v-model.trim="form.yihuanbenjin" placeholder="已还本金金额" />
               </el-form-item>
             </el-col>
 
@@ -305,12 +303,10 @@
 
             <el-col :span="8">
               <el-form-item label="已还利息金额（万元）" prop="yihuanlixi">
-                <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
-                  :readonly="!isEditable" type="number" v-model.trim="form.yihuanlixi" placeholder="已还利息金额" />
+                <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2" :readonly="true"
+                  type="number" v-model.trim="form.yihuanlixi" placeholder="已还利息金额" />
               </el-form-item>
             </el-col>
-
-
             <el-col :span="8">
               <el-form-item label="借款状态" prop="jiekuanzhuangtai">
                 <el-select filterable :disabled="!isEditable" v-model="form.jiekuanzhuangtai" placeholder="请选择借款状态">
@@ -319,10 +315,97 @@
                 </el-select>
               </el-form-item>
             </el-col>
-
-
-
           </el-row>
+
+          <el-row>
+            <el-form-item>
+              <div class="w flex fjb" slot="label" @click.prevent.stop="addType($event, 'zjbj')">
+                <!-- :optimization="optimizationData" -->
+                <span class="required">提款信息输入区（元）</span>
+                <div>
+                  <!--     <el-button v-if="isEditable" type="info" plain icon="el-icon-document-copy" size="mini"
+                    @click="dialogzjbjVisible = true">粘贴提取本金信息</el-button> -->
+                  <el-button size="mini" class="reset-total-btn" id="sort-btn">排序</el-button>
+                  <el-button type="primary" size="mini" class="reset-total-btn" id="add-btn" v-if="isEditable">新增一行
+                  </el-button>
+                </div>
+              </div>
+
+              <tiny-grid align="center" ref="zjbj" :data="zjbj" max-height="300">
+                <tiny-grid-column type="index" width="60" title="序号"></tiny-grid-column>
+                <tiny-grid-column field="date" title="日期" :renderer="renderDate('date')"></tiny-grid-column>
+                <tiny-grid-column field="amount" title="金额" :renderer="renderInput('amount')"></tiny-grid-column>
+                <tiny-grid-column width="100" v-if="isEditable">
+                  <template #default="data">
+                    <div class="f16 tc">
+                      <el-button type="text" @click="remove(data, 'zjbj')">删 除</el-button>
+                    </div>
+                  </template>
+                </tiny-grid-column>
+              </tiny-grid>
+              <span>合计：{{tikuanxinxizongji}} 元</span>
+            </el-form-item>
+          </el-row>
+
+          <el-row>
+            <el-form-item>
+              <div class="w flex fjb" slot="label" @click.prevent.stop="addType($event, 'bjch')">
+                <span class="required">本金偿还信息输入区（元）</span>
+                <div>
+                  <!--     <el-button v-if="isEditable" type="info" plain icon="el-icon-document-copy" size="mini"
+                    @click="dialogbjchVisible = true">粘贴本金偿还信息</el-button> -->
+                  <el-button size="mini" class="reset-total-btn" id="sort-btn">排序</el-button>
+                  <el-button type="primary" size="mini" class="reset-total-btn" id="add-btn" v-if="isEditable">新增一行
+                  </el-button>
+                </div>
+              </div>
+
+              <tiny-grid align="center" ref="bjch" :data="bjch" max-height="300">
+                <tiny-grid-column type="index" width="60" title="序号"></tiny-grid-column>
+                <tiny-grid-column field="createdDate" title="日期" :renderer="renderDate('date')"></tiny-grid-column>
+                <tiny-grid-column field="amount" title="金额" :renderer="renderInput('amount')"></tiny-grid-column>
+                <tiny-grid-column width="100" v-if="isEditable">
+                  <template #default="data">
+                    <div class="f16 tc">
+                      <el-button type="text" @click="remove(data, 'bjch')">删 除</el-button>
+                    </div>
+                  </template>
+                </tiny-grid-column>
+              </tiny-grid>
+              <span>合计：{{huankuanxinxizongji}} 元</span>
+            </el-form-item>
+          </el-row>
+
+
+          <el-row>
+            <el-form-item>
+              <div class="w flex fjb" slot="label" @click.prevent.stop="addType($event, 'lxch')">
+                <span class="required">利息偿还输入区（元）</span>
+                <div>
+                  <!--     <el-button v-if="isEditable" type="info" plain icon="el-icon-document-copy" size="mini"
+                    @click="dialogbjchVisible = true">粘贴利息偿还信息</el-button> -->
+                  <el-button size="mini" class="reset-total-btn" id="sort-btn">排序</el-button>
+                  <el-button type="primary" size="mini" class="reset-total-btn" id="add-btn" v-if="isEditable">新增一行
+                  </el-button>
+                </div>
+              </div>
+
+              <tiny-grid align="center" ref="lxch" :data="lxch" max-height="300">
+                <tiny-grid-column type="index" width="60" title="序号"></tiny-grid-column>
+                <tiny-grid-column field="createdDate" title="日期" :renderer="renderDate('date')"></tiny-grid-column>
+                <tiny-grid-column field="amount" title="金额" :renderer="renderInput('amount')"></tiny-grid-column>
+                <tiny-grid-column width="100" v-if="isEditable">
+                  <template #default="data">
+                    <div class="f16 tc">
+                      <el-button type="text" @click="remove(data, 'lxch')">删 除</el-button>
+                    </div>
+                  </template>
+                </tiny-grid-column>
+              </tiny-grid>
+              <span>合计：{{lixichanghuanzongji}} 元</span>
+            </el-form-item>
+          </el-row>
+
 
           <el-row :gutter="20">
             <el-col :span="24">
@@ -387,6 +470,10 @@
   import moment from 'moment'
   import CreateSuccess from '@/components/createSuccess/index.vue'
   import SearchPanel from '@/components/SearchPanel/index.vue'
+  import {
+    renderInput,
+    renderDate,
+  } from '../../financingproject/project/form'
 
   export default {
     name: "Borrowing",
@@ -397,6 +484,24 @@
     },
     data() {
       return {
+        optimizationData: {
+          animat: false,
+          delayHover: 1000,
+          scrollX: {
+            gt: 100, // 指定大于多少范围时自动启动虚拟滚动（启用 X 虚拟滚动，必须固定所有列宽，否则无法兼容）默认100
+            oSize: 2, // 当剩余数据少于指定范围时触发重新渲染 默认自动计算
+            rSize: 10, // 每次渲染条数 默认自动计算
+            vSize: 10 // 指定可视区域条数
+          },
+          scrollY: {
+            gt: 20, // 指定大于多少范围时自动启动虚拟滚动（启用 Y 虚拟滚动，必须固定所有行高，否则无法兼容）默认500
+            oSize: 2, // 当剩余数据少于指定范围时触发重新渲染 默认自动计算
+            rSize: 10, // 每次渲染条数 默认自动计算
+            vSize: 10, // 指定可视区域条数 默认自动计算
+            rHeight: 50, // 指定行高 默认自动计算
+            adaptive: true // 自动适配最优的渲染方式 默认true
+          }
+        },
         pickerOptions1: {
           // 禁用开始日期中，所有大于结束日期的日期
           disabledDate: (date) => {
@@ -581,10 +686,58 @@
         },
         zongji: {
           totalLoanAmount: 0
-        }
+        },
+        tikuanxinxizongji: 0,
+        huankuanxinxizongji: 0,
+        lixichanghuanzongji: 0,
+        lxch: [],
+        bjch: [],
+        zjbj: [],
+        record: {
+          date: '',
+          amount: '',
+          editing: true
+        },
       };
     },
     watch: {
+      "lxch": {
+        handler(newVal) {
+          if (newVal) {
+            //  取消还款金额实时计算，计算没过滤时间
+            this.lixichanghuanzongji = this.form.yihuanlixi = newVal.reduce((acc, item) => acc + item.amount, 0) /
+              10000;
+          }
+        },
+        deep: true,
+        immediate: false
+      },
+      "bjch": {
+        handler(newVal) {
+          if (newVal) {
+            //  取消还款金额实时计算，计算没过滤时间
+            this.huankuanxinxizongji = newVal.reduce((acc, item) => acc + item.amount, 0)
+            this.form.yihuanbenjin = this.huankuanxinxizongji / 10000;
+
+            this.form.benjinshengyu = (Number(this.tikuanxinxizongji) - Number(this.huankuanxinxizongji)) / 10000;
+          }
+        },
+        deep: true,
+        immediate: false
+      },
+      'zjbj': {
+        handler(newVal) {
+          if (newVal) {
+            this.tikuanxinxizongji = newVal.reduce((acc, item) => acc + item.amount, 0)
+
+            this.form.loanAmount = this.tikuanxinxizongji / 10000;
+
+            this.form.benjinshengyu = (Number(this.tikuanxinxizongji) - Number(this.huankuanxinxizongji)) / 10000;
+          }
+        },
+        deep: true,
+        immediate: false
+      },
       open(n, o) {
         if (n == false) {
           this.created_successfully = false;
@@ -683,7 +836,7 @@
           this.queryParams.params["beginDueDate"] = this.daterangeDueDate[0];
           this.queryParams.params["endDueDate"] = this.daterangeDueDate[1];
         }
-        this.queryParams['orderByColumn'] = 'due_date'
+        this.queryParams['orderByColumn'] = 'borrowDate'
         this.queryParams['isAsc'] = "asc"
 
         let search = JSON.parse(JSON.stringify(this.queryParams));
@@ -774,6 +927,10 @@
           this.form.scrUuid = response.data.rzsrc2List.map(i => i.url)
           /* end */
 
+          this.lxch = this.form.lxch
+          this.bjch = this.form.bjch
+          this.zjbj = this.form.zjbj
+
           this.rzsrc2List = response.data.rzsrc2List;
           this.open = true;
           this.title = "修改内部借款";
@@ -784,6 +941,9 @@
         this.$refs["form"].validate(valid => {
           if (valid) {
             this.form.rzsrc2List = this.rzsrc2List;
+            this.form.lxch = this.lxch;
+            this.form.bjch = this.bjch;
+            this.form.zjbj = this.zjbj;
             const data = JSON.parse(JSON.stringify(this.form))
             this.rzaudit_data = null;
 
@@ -978,7 +1138,41 @@
           }
         });
 
-      }
+      },
+      // 事件委托
+      addType(e, type) {
+        try {
+          if (e.target.id === 'add-btn' || e.target.innerText == '新增一行') {
+            this.addRow(type)
+          } else if (e.target.id === 'sort-btn' || e.target.innerText == '排序') {
+            this.sortRow(type)
+          }
+        } catch (error) {}
+      },
+      // 新增一行数据
+      addRow(refCode) {
+        console.log(refCode, refCode == 'zjbj');
+        if (this[refCode] == undefined) {
+          //防止出现不是数组
+          this[refCode] = []
+        }
+
+        this[refCode].push(JSON.parse(JSON.stringify(this.record)))
+
+      },
+      // 排序方法
+      sortRow(refCode) {
+        this.$set(this, refCode, JSON.parse(JSON.stringify(sortTimeLineByDate(this[refCode]))))
+      },
+      // 删除数据方法
+      remove(data, refCode) {
+        // 通过下标删除数组中指定的数据
+        this[refCode].splice(data.rowIndex, 1)
+        //console.log(data, refCode);
+      },
+      renderInput,
+      renderDate,
+
     }
   };
 </script>
