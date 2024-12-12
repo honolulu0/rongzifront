@@ -109,7 +109,7 @@
       <el-table-column show-overflow-tooltip fixed="left" type="selection" width="60" align="left" />
       <!-- <el-table-column label="主键id" align="left" prop="id" /> -->
       <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managementId" min-width="100" />
-      <el-table-column label="类型" align="left" prop="leixing_neibujiekuan" />
+      <el-table-column label="类型" align="left" prop="leixing_neibujiekuan"  width="100"/>
 
       <el-table-column show-overflow-tooltip label="借款人" align="left" prop="borrower" min-width="130">
         <template slot-scope="scope">
@@ -139,14 +139,14 @@
           <span>{{ formatNumberAsRMB(scope.row.loanAmount) }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="本金余额（万元）" align="right" prop="loanAmount" min-width="160">
+      <el-table-column show-overflow-tooltip label="本金余额（万元）" align="right" prop="benjinshengyu" min-width="160">
         <template slot-scope="scope">
-          <span>{{ formatNumberAsRMB(scope.row.loanAmount) }}</span>
+          <span>{{ formatNumberAsRMB(scope.row.benjinshengyu) }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="已还利息（万元）" align="right" prop="loanAmount" min-width="160">
+      <el-table-column show-overflow-tooltip label="已还利息（万元）" align="right" prop="yihuanlixi" min-width="160">
         <template slot-scope="scope">
-          <span>{{ formatNumberAsRMB(scope.row.loanAmount) }}</span>
+          <span>{{ formatNumberAsRMB(scope.row.yihuanlixi) }}</span>
         </template>
       </el-table-column>
 
@@ -162,12 +162,13 @@
         </template>
       </el-table-column>
 
+      <el-table-column label="借款状态" align="left" prop="jiekuanzhuangtai" width="100" />
 
-      <el-table-column show-overflow-tooltip label="借款状态" align="left" prop="jiekuanzhuangtai" min-width="80">
+<!--      <el-table-column show-overflow-tooltip label="借款状态" align="left" prop="jiekuanzhuangtai" min-width="80">
         <template slot-scope="scope">
           <dict-tag :options="jiekuanzhuangtai" :value="scope.row.jiekuanzhuangtai" />
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
 
       <!-- <el-table-column show-overflow-tooltip label="备注" align="left" prop="comment" min-width="200" /> -->
@@ -209,7 +210,7 @@
             <!-- 2.类型（出借资金/借入资金/内部往来） -->
 
             <el-col :span="8">
-              <el-form-item label="类型" prop="payee">
+              <el-form-item label="类型" prop="leixing_neibujiekuan">
                 <el-select filterable :disabled="!isEditable" v-model="form.leixing_neibujiekuan" placeholder="请选择类型">
                   <el-option v-for="dict in leixing_neibujiekuan" :key="dict.value" :label="dict.label"
                     :value="dict.label"></el-option>
@@ -234,8 +235,8 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="借款金额（万元）" prop="loanAmount">
-                <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2"
-                  :readonly="!isEditable" type="number" v-model.trim="form.loanAmount" placeholder="借款金额" />
+                <el-input-number :disabled="true" class="w" :controls="false" :precision="2" :readonly="true"
+                  type="number" v-model.trim="form.loanAmount" placeholder="借款金额" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -287,7 +288,7 @@
             <!-- 12.已还本金金额；13.本金剩余；14.已还利息金额；15.借款状态（本金已结清/本息已结清）； -->
             <el-col :span="8">
               <el-form-item label="已还本金金额（万元）" prop="yihuanbenjin">
-                <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2" :readonly="true"
+                <el-input-number :disabled="true" class="w" :controls="false" :precision="2" :readonly="true"
                   type="number" v-model.trim="form.yihuanbenjin" placeholder="已还本金金额" />
               </el-form-item>
             </el-col>
@@ -295,7 +296,7 @@
 
             <el-col :span="8">
               <el-form-item label="本金剩余（万元）" prop="benjinshengyu">
-                <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2" :readonly="true"
+                <el-input-number :disabled="true" class="w" :controls="false" :precision="2" :readonly="true"
                   type="number" v-model.trim="form.benjinshengyu" placeholder="本金剩余" />
               </el-form-item>
             </el-col>
@@ -303,13 +304,13 @@
 
             <el-col :span="8">
               <el-form-item label="已还利息金额（万元）" prop="yihuanlixi">
-                <el-input-number :disabled="!isEditable" class="w" :controls="false" :precision="2" :readonly="true"
+                <el-input-number :disabled="true" class="w" :controls="false" :precision="2" :readonly="true"
                   type="number" v-model.trim="form.yihuanlixi" placeholder="已还利息金额" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="借款状态" prop="jiekuanzhuangtai">
-                <el-select filterable :disabled="!isEditable" v-model="form.jiekuanzhuangtai" placeholder="请选择借款状态">
+                <el-select filterable :disabled="!isEditable" v-model="form.jiekuanzhuangtai" placeholder="请选择借款状态" clearable>
                   <el-option v-for="dict in jiekuanzhuangtai" :key="dict.value" :label="dict.label"
                     :value="dict.label"></el-option>
                 </el-select>
@@ -683,9 +684,14 @@
         isAutoCalculated: false, // 是否自动计算的标志
         totalKeys: {
           '借款金额（万元）': "totalLoanAmount",
+          '本金余额（万元）': "totalbenjinshengyu",
+          '已还利息（万元）': "totalyihuanlixi",
         },
         zongji: {
-          totalLoanAmount: 0
+          totalLoanAmount: 0,
+          totalyihuanlixi: 0,
+          totalbenjinshengyu: 0,
+
         },
         tikuanxinxizongji: 0,
         huankuanxinxizongji: 0,
@@ -705,8 +711,9 @@
         handler(newVal) {
           if (newVal) {
             //  取消还款金额实时计算，计算没过滤时间
-            this.lixichanghuanzongji = this.form.yihuanlixi = newVal.reduce((acc, item) => acc + item.amount, 0) /
-              10000;
+            this.lixichanghuanzongji = newVal.reduce((acc, item) => acc + item.amount, 0)
+
+            this.form.yihuanlixi = this.lixichanghuanzongji / 10000
           }
         },
         deep: true,
@@ -922,14 +929,16 @@
           })
           // 金额计算 / 10000
           response.data.loanAmount = Number(response.data.loanAmount) / 10000;
+          response.data.benjinshengyu = Number(response.data.benjinshengyu) / 10000;
+          response.data.yihuanlixi = Number(response.data.yihuanlixi) / 10000;
           this.scrUuid = response.data.scrUuid;
           this.form = response.data;
           this.form.scrUuid = response.data.rzsrc2List.map(i => i.url)
           /* end */
 
-          this.lxch = this.form.lxch
-          this.bjch = this.form.bjch
-          this.zjbj = this.form.zjbj
+          this.lxch = JSON.parse(this.form.lxch) || []
+          this.bjch = JSON.parse(this.form.bjch) || []
+          this.zjbj = JSON.parse(this.form.zjbj) || []
 
           this.rzsrc2List = response.data.rzsrc2List;
           this.open = true;
@@ -941,14 +950,16 @@
         this.$refs["form"].validate(valid => {
           if (valid) {
             this.form.rzsrc2List = this.rzsrc2List;
-            this.form.lxch = this.lxch;
-            this.form.bjch = this.bjch;
-            this.form.zjbj = this.zjbj;
+            this.form.lxch = JSON.stringify(this.lxch);
+            this.form.bjch = JSON.stringify(this.bjch);
+            this.form.zjbj = JSON.stringify(this.zjbj);
             const data = JSON.parse(JSON.stringify(this.form))
             this.rzaudit_data = null;
 
             // 金额计算 * 10000
             data.loanAmount = Number(data.loanAmount) * 10000;
+            data.yihuanlixi = Number(data.yihuanlixi) * 10000;
+            data.benjinshengyu = Number(data.benjinshengyu) * 10000;
             if (this.form.id != null) {
               data.scrUuid = Number(this.scrUuid);
               // 计算周期，开始时间减去结束时间
