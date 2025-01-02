@@ -36,7 +36,7 @@
 
     <el-table class="baobiao" :span-method="arraySpanMethod" v-loading="loading" :data="attaList"
       @selection-change="handleSelectionChange">
-      <!-- <el-table-column type="selection" width="55" align="left" /> -->
+      <el-table-column type="selection" width="55" align="left" />
       <!--      <el-table-column type="expand">
         <template slot-scope="scope">
           <el-form label-position="left" inline class="demo-table-expand">
@@ -210,6 +210,7 @@
       getList() {
         this.loading = true;
         this.queryParams['orderByColumn'] = 'title,title2'
+        this.queryParams['isAsc'] = 'asc'
         listAtta(this.queryParams).then(response => {
           this.attaList = response.rows;
           this.total = response.total;

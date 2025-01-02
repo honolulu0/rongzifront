@@ -129,18 +129,13 @@
       <!-- <el-table-column label="主键id" align="left" prop="id" /> -->
       <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managementId" min-width="100" />
       <!-- <el-table-column label="数据唯一编号" align="left" prop="scrUuid" /> -->
-      <el-table-column show-overflow-tooltip label="债券名称" align="left" prop="bondName" min-width="130" />
-      <el-table-column show-overflow-tooltip label="发行主体" align="left" prop="issuingEntity" min-width="130">
+      <el-table-column show-overflow-tooltip label="债券名称" align="left" prop="bondName" min-width="100" />
+      <el-table-column show-overflow-tooltip label="发行主体" align="left" prop="issuingEntity" min-width="100">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1762824996528324600" :value="scope.row.issuingEntity" />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="规模（万元）" align="right" prop="bondSize" min-width="120">
-        <template slot-scope="scope">
-          <!-- <dict-tag :options="dict.type.sys_1762824645385388000" :value="scope.row.bondSize" /> -->
-          {{ formatNumberAsRMB(scope.row.bondSize) }}
-        </template>
-      </el-table-column>
+
       <el-table-column show-overflow-tooltip label="利率" align="center" prop="rate" min-width="80">
         <template slot-scope="scope">
           <!-- <dict-tag :options="dict.type.sys_1762824761903153200" :value="scope.row.rate" /> -->
@@ -161,6 +156,12 @@
       <el-table-column show-overflow-tooltip min-width="160" label="专项批复金额（万元）" align="right" prop="approvedAmount">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.approvedAmount) }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column show-overflow-tooltip label="已发行规模（万元）" align="right" prop="bondSize" min-width="150">
+        <template slot-scope="scope">
+          <!-- <dict-tag :options="dict.type.sys_1762824645385388000" :value="scope.row.bondSize" /> -->
+          {{ formatNumberAsRMB(scope.row.bondSize) }}
         </template>
       </el-table-column>
       <el-table-column show-overflow-tooltip label="累计到账金额（万元）" align="right" prop="accumulatedAmountReceived"

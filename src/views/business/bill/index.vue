@@ -122,27 +122,27 @@
       <el-table-column show-overflow-tooltip fixed="left" type="selection" min-width="60" width="60" align="left" />
       <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managementId" min-width="100" />
 
-      <el-table-column show-overflow-tooltip label="出票人" align="left" min-width="130" prop="drawer">
+      <el-table-column show-overflow-tooltip label="出票人" align="left" min-width="100" prop="drawer">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_drawer" :value="scope.row.drawer" />
         </template>
       </el-table-column>
 
-      <el-table-column show-overflow-tooltip label="承兑人(金融机构)" min-width="160" align="center"
+      <el-table-column show-overflow-tooltip label="承兑人" min-width="100" align="center"
         prop="financialInstitution">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_acceptor" :value="scope.row.financialInstitution" />
         </template>
       </el-table-column>
 
-      <el-table-column show-overflow-tooltip label="收票人" min-width="130" align="left" prop="payee">
+      <el-table-column show-overflow-tooltip label="收票人" min-width="100" align="left" prop="payee">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1754491769220759600" :value="scope.row.payee" />
         </template>
       </el-table-column>
 
 
-      <el-table-column show-overflow-tooltip label="项目名称" align="left" min-width="160" prop="entryName" />
+      <el-table-column show-overflow-tooltip label="项目名称" align="left" min-width="100" prop="entryName" />
 
 
       <el-table-column show-overflow-tooltip label="出票金额(万元)" min-width="160" align="right" prop="invoiceAmount">
@@ -157,13 +157,13 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="办理手续费(万元)" min-width="160" align="right"  prop="ticketProcessingFee">
+      <el-table-column label="办理手续费(万元)" min-width="150" align="right"  prop="ticketProcessingFee">
 
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.ticketProcessingFee) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="贴现费用(万元)" min-width="160" align="right"  prop="discountedHandlingFee">
+      <el-table-column label="贴现费用(万元)" min-width="150" align="right"  prop="discountedHandlingFee">
         <template slot-scope="scope">
           <span>{{ formatNumberAsRMB(scope.row.discountedHandlingFee) }}</span>
         </template>
@@ -179,7 +179,7 @@
           <span>{{ parseTime(scope.row.dueDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="汇票到期提醒" min-width="120" align="left" prop="remark">
+      <el-table-column show-overflow-tooltip label="到期提醒" min-width="100" align="left" prop="remark">
         <template slot-scope="scope">
           <el-tag effect="plain" :hit="true" :class="checkDueReminderWithConfig(scope.row.dueDate).color">
             {{ checkDueReminderWithConfig(scope.row.dueDate).message }}
@@ -199,7 +199,7 @@
       <el-table-column label="保证金比例" align="left" prop="marginLevel" />
       <el-table-column label="保证金利率" align="left" prop="marginInterestRate" />
       <el-table-column label="保证金收益金额" align="left" prop="marginIncomeAmount" />-->
-      <el-table-column show-overflow-tooltip min-width="120" label="是否已贴现" align="center" prop="discountedOrNot">
+      <el-table-column show-overflow-tooltip min-width="100" label="是否已贴现" align="center" prop="discountedOrNot">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_1796070671776743400" :value="scope.row.discountedOrNot" />
         </template>

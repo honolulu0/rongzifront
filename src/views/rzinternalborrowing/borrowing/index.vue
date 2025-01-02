@@ -537,6 +537,9 @@
         }, {
           label: "本金已结清",
           value: "本金已结清"
+        }, {
+          label: "本息未结清",
+          value: "本息未结清"
         }],
         isSuccess: true,
         isTitle: true,
