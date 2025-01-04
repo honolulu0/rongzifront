@@ -687,8 +687,8 @@
         set(val) {},
         get() {
           // 确保值为数值类型，避免NaN
-          const creditAmount = Number(this.form.financingAmount) || 0;
-          const usedCreditAmount = Number(this.form.repaidAmount) || 0;
+          const creditAmount = this.toNumberOrDefault(this.form.financingAmount) || 0;
+          const usedCreditAmount = this.toNumberOrDefault(this.form.repaidAmount) || 0;
           const residue = creditAmount - usedCreditAmount;
           if (residue < 0) {
             this.$modal.msgError("您的输入出现问题,导致融资余额为负数了");
@@ -729,6 +729,13 @@
       this.created_successfully = false;
     },
     methods: {
+      toNumberOrDefault(value, defaultValue = 0) {
+        if (value === '' || value === null || value === undefined) {
+          return defaultValue;
+        }
+        const num = Number(value);
+        return isNaN(num) ? defaultValue : num;
+      },
       calculateLoanTerm() {
         if (this.form.loanDate && this.form.dueDate) {
           const start = moment(this.form.loanDate);
@@ -777,7 +784,7 @@
         }
         const search = JSON.parse(JSON.stringify(this.queryParams))
         if (![null, '', undefined].includes(search.financingAmount)) {
-          search.financingAmount = Number(search.financingAmount) * 10000
+          search.financingAmount = this.toNumberOrDefault(search.financingAmount) * 10000
         }
         listProject(search).then(response => {
           this.projectList = response.rows;
@@ -871,12 +878,12 @@
 
 
           // 金额 / 10000
-          response.data.financingAmount = Number(response.data.financingAmount) / 10000;
-          response.data.repaidAmount = Number(response.data.repaidAmount) / 10000;
-          response.data.remainingAmount = Number(response.data.remainingAmount) / 10000;
-          response.data.baozhengjin = Number(response.data.baozhengjin) / 10000;
-          response.data.shouxufei = Number(response.data.shouxufei) / 10000;
-          response.data.shouxinjine = Number(response.data.shouxinjine) / 10000;
+          response.data.financingAmount = this.toNumberOrDefault(response.data.financingAmount) / 10000;
+          response.data.repaidAmount = this.toNumberOrDefault(response.data.repaidAmount) / 10000;
+          response.data.remainingAmount = this.toNumberOrDefault(response.data.remainingAmount) / 10000;
+          response.data.baozhengjin = this.toNumberOrDefault(response.data.baozhengjin) / 10000;
+          response.data.shouxufei = this.toNumberOrDefault(response.data.shouxufei) / 10000;
+          response.data.shouxinjine = this.toNumberOrDefault(response.data.shouxinjine) / 10000;
 
           this.scrUuid = response.data.scrUuid;
           this.form = response.data;
@@ -933,7 +940,7 @@
 
 
             if (this.form.id != null) {
-              data.scrUuid = Number(this.scrUuid);
+              data.scrUuid = this.toNumberOrDefault(this.scrUuid);
 
               // 计算周期，开始时间减去结束时间
               let loanTermStr = data.loanTerm.toString();

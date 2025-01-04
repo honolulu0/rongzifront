@@ -539,8 +539,8 @@
         set(val) {},
         get() {
           // 确保值为数值类型，避免NaN
-          const creditAmount = Number(this.form.loanAmount) || 0;
-          const usedCreditAmount = Number(this.form.repaidAmount) || 0;
+          const creditAmount = this.toNumberOrDefault(this.form.loanAmount) || 0;
+          const usedCreditAmount = this.toNumberOrDefault(this.form.repaidAmount) || 0;
 
           const residue = creditAmount - usedCreditAmount;
           this.form.balance = residue;
@@ -589,7 +589,13 @@
       this.isEditable = true;
     },
     methods: {
-
+      toNumberOrDefault(value, defaultValue = 0) {
+        if (value === '' || value === null || value === undefined) {
+          return defaultValue;
+        }
+        const num = Number(value);
+        return isNaN(num) ? defaultValue : num;
+      },
       calculateLoanTerm() {
         if (this.form.loanDate && this.form.dueDate) {
           const start = moment(this.form.loanDate);
@@ -630,7 +636,7 @@
 
         let search = JSON.parse(JSON.stringify(this.queryParams))
         if (![null, '', undefined].includes(search.loanAmount)) {
-          search.loanAmount = Number(search.loanAmount) * 10000
+          search.loanAmount = this.toNumberOrDefault(search.loanAmount) * 10000
         }
 
         listSpecial(search).then(response => {
@@ -712,9 +718,9 @@
           })
 
           // 金额数据 / 10000
-          response.data.loanAmount = Number(response.data.loanAmount) / 10000;
-          response.data.repaidAmount = Number(response.data.repaidAmount) / 10000;
-          response.data.balance = Number(response.data.balance) / 10000;
+          response.data.loanAmount = this.toNumberOrDefault(response.data.loanAmount) / 10000;
+          response.data.repaidAmount = this.toNumberOrDefault(response.data.repaidAmount) / 10000;
+          response.data.balance = this.toNumberOrDefault(response.data.balance) / 10000;
 
           this.scrUuid = response.data.scrUuid;
           this.form = response.data;
@@ -739,7 +745,7 @@
             data.balance = data.balance * 10000;
 
             if (this.form.id != null) {
-              data.scrUuid = Number(this.scrUuid);
+              data.scrUuid = this.toNumberOrDefault(this.scrUuid);
               // 计算周期，开始时间减去结束时间
               let loanTermStr = data.loanTerm.toString();
               loanTermStr = loanTermStr.replace(/月$/, '');

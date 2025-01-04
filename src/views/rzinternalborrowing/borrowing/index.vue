@@ -109,7 +109,7 @@
       <el-table-column show-overflow-tooltip fixed="left" type="selection" width="60" align="left" />
       <!-- <el-table-column label="主键id" align="left" prop="id" /> -->
       <el-table-column show-overflow-tooltip label="管理编号" align="center" prop="managementId" min-width="100" />
-      <el-table-column label="类型" align="left" prop="leixing_neibujiekuan"  width="100"/>
+      <el-table-column label="类型" align="left" prop="leixing_neibujiekuan" width="100" />
 
       <el-table-column show-overflow-tooltip label="借款人" align="left" prop="borrower" min-width="130">
         <template slot-scope="scope">
@@ -164,7 +164,7 @@
 
       <el-table-column label="借款状态" align="left" prop="jiekuanzhuangtai" width="100" />
 
-<!--      <el-table-column show-overflow-tooltip label="借款状态" align="left" prop="jiekuanzhuangtai" min-width="80">
+      <!--      <el-table-column show-overflow-tooltip label="借款状态" align="left" prop="jiekuanzhuangtai" min-width="80">
         <template slot-scope="scope">
           <dict-tag :options="jiekuanzhuangtai" :value="scope.row.jiekuanzhuangtai" />
         </template>
@@ -310,7 +310,8 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="借款状态" prop="jiekuanzhuangtai">
-                <el-select filterable :disabled="!isEditable" v-model="form.jiekuanzhuangtai" placeholder="请选择借款状态" clearable>
+                <el-select filterable :disabled="!isEditable" v-model="form.jiekuanzhuangtai" placeholder="请选择借款状态"
+                  clearable>
                   <el-option v-for="dict in jiekuanzhuangtai" :key="dict.value" :label="dict.label"
                     :value="dict.label"></el-option>
                 </el-select>
@@ -729,7 +730,8 @@
             this.huankuanxinxizongji = newVal.reduce((acc, item) => acc + item.amount, 0)
             this.form.yihuanbenjin = this.huankuanxinxizongji / 10000;
 
-            this.form.benjinshengyu = (Number(this.tikuanxinxizongji) - Number(this.huankuanxinxizongji)) / 10000;
+            this.form.benjinshengyu = (this.toNumberOrDefault(this.tikuanxinxizongji) - this.toNumberOrDefault(this
+              .huankuanxinxizongji)) / 10000;
           }
         },
         deep: true,
@@ -742,7 +744,8 @@
 
             this.form.loanAmount = this.tikuanxinxizongji / 10000;
 
-            this.form.benjinshengyu = (Number(this.tikuanxinxizongji) - Number(this.huankuanxinxizongji)) / 10000;
+            this.form.benjinshengyu = (this.toNumberOrDefault(this.tikuanxinxizongji) - this.toNumberOrDefault(this
+              .huankuanxinxizongji)) / 10000;
           }
         },
         deep: true,
@@ -809,6 +812,13 @@
       this.isEditable = true;
     },
     methods: {
+      toNumberOrDefault(value, defaultValue = 0) {
+        if (value === '' || value === null || value === undefined) {
+          return defaultValue;
+        }
+        const num = Number(value);
+        return isNaN(num) ? defaultValue : num;
+      },
       calculateLoanTerm() {
         if (this.form.borrowDate && this.form.dueDate) {
           const start = moment(this.form.borrowDate);
@@ -851,7 +861,7 @@
 
         let search = JSON.parse(JSON.stringify(this.queryParams));
         if (![null, '', undefined].includes(search.loanAmount)) {
-          search.loanAmount = Number(search.loanAmount) * 10000
+          search.loanAmount = this.toNumberOrDefault(search.loanAmount) * 10000
         }
         listBorrowing(search).then(response => {
           this.borrowingList = response.rows;
@@ -931,9 +941,9 @@
             i.id = null;
           })
           // 金额计算 / 10000
-          response.data.loanAmount = Number(response.data.loanAmount) / 10000;
-          response.data.benjinshengyu = Number(response.data.benjinshengyu) / 10000;
-          response.data.yihuanlixi = Number(response.data.yihuanlixi) / 10000;
+          response.data.loanAmount = this.toNumberOrDefault(response.data.loanAmount) / 10000;
+          response.data.benjinshengyu = this.toNumberOrDefault(response.data.benjinshengyu) / 10000;
+          response.data.yihuanlixi = this.toNumberOrDefault(response.data.yihuanlixi) / 10000;
           this.scrUuid = response.data.scrUuid;
           this.form = response.data;
           this.form.scrUuid = response.data.rzsrc2List.map(i => i.url)
@@ -960,11 +970,11 @@
             this.rzaudit_data = null;
 
             // 金额计算 * 10000
-            data.loanAmount = Number(data.loanAmount) * 10000;
-            data.yihuanlixi = Number(data.yihuanlixi) * 10000;
-            data.benjinshengyu = Number(data.benjinshengyu) * 10000;
+            data.loanAmount = this.toNumberOrDefault(data.loanAmount) * 10000;
+            data.yihuanlixi = this.toNumberOrDefault(data.yihuanlixi) * 10000;
+            data.benjinshengyu = this.toNumberOrDefault(data.benjinshengyu) * 10000;
             if (this.form.id != null) {
-              data.scrUuid = Number(this.scrUuid);
+              data.scrUuid = this.toNumberOrDefault(this.scrUuid);
               // 计算周期，开始时间减去结束时间
               let loanTermStr = data.loanTerm.toString();
               loanTermStr = loanTermStr.replace(/月$/, '');

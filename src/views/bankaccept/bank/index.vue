@@ -130,8 +130,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column show-overflow-tooltip label="承兑人" min-width="100" align="center"
-        prop="financialInstitution">
+      <el-table-column show-overflow-tooltip label="承兑人" min-width="100" align="center" prop="financialInstitution">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_acceptor" :value="scope.row.financialInstitution" />
         </template>
@@ -777,7 +776,8 @@
       'form.zhifulixi'(newVal, o) {
         // console.log('huankuanmingxi.zhifulixi', newVal);
         this.huankuanmingxi.zhifulixi = this.formatNumberAsRMB(newVal * 10000);
-        this.form.huankuanjine = (Number(this.form.changkouedu) + Number(this.form.zhifulixi))
+        this.form.huankuanjine = (this.toNumberOrDefault(this.form.changkouedu) + this.toNumberOrDefault(this.form
+          .zhifulixi))
         this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.huankuanjine * 10000)
       },
 
@@ -801,16 +801,23 @@
     },
     mounted() {},
     methods: {
+      toNumberOrDefault(value, defaultValue = 0) {
+        if (value === '' || value === null || value === undefined) {
+          return defaultValue;
+        }
+        const num = Number(value);
+        return isNaN(num) ? defaultValue : num;
+      },
       calculateValues() {
         this.form.changkouedu = (
           this.form.invoiceAmount *
-          (1 - Number(this.form.marginLevel) / 100)
+          (1 - this.toNumberOrDefault(this.form.marginLevel) / 100)
         ).toFixed(2);
 
         this.huankuanmingxi.changhuanben = this.formatNumberAsRMB(this.form.changkouedu * 10000);
         this.form.huankuanjine = (
-          Number(this.form.changkouedu) +
-          Number(this.form.zhifulixi)
+          this.toNumberOrDefault(this.form.changkouedu) +
+          this.toNumberOrDefault(this.form.zhifulixi)
         ).toFixed(2);
 
         this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.huankuanjine * 10000);
@@ -977,13 +984,13 @@
           this.huankuanmingxidata = [this.huankuanmingxi]
 
           // 金额回显需要 /10000
-          this.form.invoiceAmount = (Number(this.form.invoiceAmount) || 0) / 10000;
-          this.form.ticketProcessingFee = (Number(this.form.ticketProcessingFee) || 0) / 10000;
-          this.form.marginIncomeAmount = (Number(this.form.marginIncomeAmount) || 0) / 10000;
-          this.form.discountedHandlingFee = (Number(this.form.discountedHandlingFee) || 0) / 10000;
+          this.form.invoiceAmount = (this.toNumberOrDefault(this.form.invoiceAmount) || 0) / 10000;
+          this.form.ticketProcessingFee = (this.toNumberOrDefault(this.form.ticketProcessingFee) || 0) / 10000;
+          this.form.marginIncomeAmount = (this.toNumberOrDefault(this.form.marginIncomeAmount) || 0) / 10000;
+          this.form.discountedHandlingFee = (this.toNumberOrDefault(this.form.discountedHandlingFee) || 0) / 10000;
 
-          this.form.changkouedu = (Number(this.form.changkouedu) || 0) / 10000;
-          this.form.zhifulixi = (Number(this.form.zhifulixi) || 0) / 10000;
+          this.form.changkouedu = (this.toNumberOrDefault(this.form.changkouedu) || 0) / 10000;
+          this.form.zhifulixi = (this.toNumberOrDefault(this.form.zhifulixi) || 0) / 10000;
           console.log('this.form.zhifulixi', this.form.zhifulixi);
 
           this.open = true;
@@ -1001,14 +1008,14 @@
             this.rzaudit_data = null;
 
             // 金额需要 * 10000
-            data.invoiceAmount = Number(data.invoiceAmount) * 10000;
-            data.ticketProcessingFee = Number(data.ticketProcessingFee) * 10000
-            data.marginIncomeAmount = Number(data.marginIncomeAmount) * 10000
-            data.discountedHandlingFee = Number(data.discountedHandlingFee) * 10000
+            data.invoiceAmount = this.toNumberOrDefault(data.invoiceAmount) * 10000;
+            data.ticketProcessingFee = this.toNumberOrDefault(data.ticketProcessingFee) * 10000
+            data.marginIncomeAmount = this.toNumberOrDefault(data.marginIncomeAmount) * 10000
+            data.discountedHandlingFee = this.toNumberOrDefault(data.discountedHandlingFee) * 10000
 
-            data.zhifulixi = Number(data.zhifulixi) * 10000;
-            data.changkouedu = Number(data.changkouedu) * 10000;
-            data.huankuanjine = Number(data.huankuanjine) * 10000;
+            data.zhifulixi = this.toNumberOrDefault(data.zhifulixi) * 10000;
+            data.changkouedu = this.toNumberOrDefault(data.changkouedu) * 10000;
+            data.huankuanjine = this.toNumberOrDefault(data.huankuanjine) * 10000;
 
 
             data.huankuanmingxi2List = [{
@@ -1030,7 +1037,7 @@
             }]
 
             if (this.form.id != null) {
-              data.scrUuid = Number(this.scrUuid);
+              data.scrUuid = this.toNumberOrDefault(this.scrUuid);
               this.rzaudit_data = {
                 "auditId": data.id,
                 "scrUuid": data.scrUuid,

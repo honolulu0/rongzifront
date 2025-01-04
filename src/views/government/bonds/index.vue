@@ -75,7 +75,8 @@
           <el-col :span="8">
             <el-form-item label="开始日期">
               <el-date-picker v-model="daterangeLoanDate" style="width: 240px" value-format="yyyy-MM-dd"
-                type="daterange" range-separator="-" start-placeholder="点击或者输入" end-placeholder="例子:2024-08-22"></el-date-picker>
+                type="daterange" range-separator="-" start-placeholder="点击或者输入"
+                end-placeholder="例子:2024-08-22"></el-date-picker>
             </el-form-item>
 
           </el-col>
@@ -620,8 +621,8 @@
         set(val) {},
         get() {
           // 确保值为数值类型，避免NaN
-          const creditAmount = Number(this.form.accumulatedAmountReceived) || 0;
-          const usedCreditAmount = Number(this.form.repaidAmount) || 0;
+          const creditAmount = this.toNumberOrDefault(this.form.accumulatedAmountReceived) || 0;
+          const usedCreditAmount = this.toNumberOrDefault(this.form.repaidAmount) || 0;
 
           const residue = creditAmount - usedCreditAmount;
           this.form.remainingAmount = residue;
@@ -641,6 +642,13 @@
       this.isEditable = true;
     },
     methods: {
+      toNumberOrDefault(value, defaultValue = 0) {
+        if (value === '' || value === null || value === undefined) {
+          return defaultValue;
+        }
+        const num = Number(value);
+        return isNaN(num) ? defaultValue : num;
+      },
       calculateLoanTerm() {
         if (this.form.loanDate && this.form.dueDate) {
           const start = moment(this.form.loanDate);
@@ -683,7 +691,7 @@
         }
         const search = JSON.parse(JSON.stringify(this.queryParams))
         if (![null, '', undefined].includes(search.accumulatedAmountReceived)) {
-          search.accumulatedAmountReceived = Number(search.accumulatedAmountReceived) * 10000
+          search.accumulatedAmountReceived = this.toNumberOrDefault(search.accumulatedAmountReceived) * 10000
         }
 
         listBonds(search).then(response => {
@@ -735,8 +743,8 @@
       },
       /** 重置按钮操作 */
       resetQuery() {
-		  this.daterangeLoanDate=[]
-		  this.daterangeDueDate=[]
+        this.daterangeLoanDate = []
+        this.daterangeDueDate = []
         this.resetForm("queryForm");
         this.handleQuery();
       },
@@ -766,11 +774,12 @@
           })
 
           // 金额数据 / 10000
-          response.data.approvedAmount = Number(response.data.approvedAmount) / 10000;
-          response.data.accumulatedAmountReceived = Number(response.data.accumulatedAmountReceived) / 10000;
-          response.data.repaidAmount = Number(response.data.repaidAmount) / 10000;
-          response.data.remainingAmount = Number(response.data.remainingAmount) / 10000;
-          response.data.bondSize = Number(response.data.bondSize) / 10000;
+          response.data.approvedAmount = this.toNumberOrDefault(response.data.approvedAmount) / 10000;
+          response.data.accumulatedAmountReceived = this.toNumberOrDefault(response.data
+            .accumulatedAmountReceived) / 10000;
+          response.data.repaidAmount = this.toNumberOrDefault(response.data.repaidAmount) / 10000;
+          response.data.remainingAmount = this.toNumberOrDefault(response.data.remainingAmount) / 10000;
+          response.data.bondSize = this.toNumberOrDefault(response.data.bondSize) / 10000;
 
           this.scrUuid = response.data.scrUuid;
           this.form = response.data;
@@ -798,7 +807,7 @@
             data.bondSize = data.bondSize * 10000;
 
             if (this.form.id != null) {
-              data.scrUuid = Number(this.scrUuid);
+              data.scrUuid = this.toNumberOrDefault(this.scrUuid);
 
               // 计算周期，开始时间减去结束时间
               let loanTermStr = data.bondDuration.toString();

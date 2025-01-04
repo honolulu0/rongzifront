@@ -598,13 +598,13 @@
 
       'form.loanAmount'(newVal) {
         this.huankuanmingxi.changhuanben = this.formatNumberAsRMB(newVal * 10000);
-        this.form.huankuanjine = (Number(this.form.loanAmount) + Number(this.form.zhifulixi))
+        this.form.huankuanjine = (this.toNumberOrDefault(this.form.loanAmount) + this.toNumberOrDefault(this.form.zhifulixi))
         this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.huankuanjine * 10000)
       },
 
       'form.zhifulixi'(newVal) {
         this.huankuanmingxi.zhifulixi = this.formatNumberAsRMB(newVal * 10000, 10000, 6);
-        this.form.huankuanjine = (Number(this.form.loanAmount) + Number(this.form.zhifulixi))
+        this.form.huankuanjine = (this.toNumberOrDefault(this.form.loanAmount) + this.toNumberOrDefault(this.form.zhifulixi))
         this.huankuanmingxi.huankuanjine = this.formatNumberAsRMB(this.form.huankuanjine * 10000)
       },
 
@@ -627,6 +627,13 @@
     methods: {
       renderInput2change,
 
+      toNumberOrDefault(value, defaultValue = 0) {
+        if (value === '' || value === null || value === undefined) {
+          return defaultValue;
+        }
+        const num = Number(value);
+        return isNaN(num) ? defaultValue : num;
+      },
       /* 创建成功关闭弹窗 */
       closeDialog() {
         this.open = false;
@@ -757,10 +764,10 @@
           this.huankuanmingxidata = [this.huankuanmingxi]
 
           // 金额回显需要 /10000
-          this.form.loanAmount = (Number(this.form.loanAmount) || 0) / 10000;
-          this.form.zhifulixi = (Number(this.form.zhifulixi) || 0) / 10000;
-          this.form.daoqishoufei = (Number(this.form.daoqishoufei) || 0) / 10000;
-          this.form.banlishoufei = (Number(this.form.banlishoufei) || 0) / 10000;
+          this.form.loanAmount = (this.toNumberOrDefault(this.form.loanAmount) || 0) / 10000;
+          this.form.zhifulixi = (this.toNumberOrDefault(this.form.zhifulixi) || 0) / 10000;
+          this.form.daoqishoufei = (this.toNumberOrDefault(this.form.daoqishoufei) || 0) / 10000;
+          this.form.banlishoufei = (this.toNumberOrDefault(this.form.banlishoufei) || 0) / 10000;
 
           this.open = true;
           this.title = "修改反向保理";
@@ -776,12 +783,12 @@
 
             this.rzaudit_data = null;
             // 金额需要 * 10000
-            data.daoqishoufei = Number(data.daoqishoufei) * 10000;
-            data.banlishoufei = Number(data.banlishoufei) * 10000;
+            data.daoqishoufei = this.toNumberOrDefault(data.daoqishoufei) * 10000;
+            data.banlishoufei = this.toNumberOrDefault(data.banlishoufei) * 10000;
 
-            data.loanAmount = Number(data.loanAmount) * 10000;
-            data.zhifulixi = Number(data.zhifulixi) * 10000;
-            data.huankuanjine = Number(data.huankuanjine) * 10000;
+            data.loanAmount = this.toNumberOrDefault(data.loanAmount) * 10000;
+            data.zhifulixi = this.toNumberOrDefault(data.zhifulixi) * 10000;
+            data.huankuanjine = this.toNumberOrDefault(data.huankuanjine) * 10000;
 
             data.huankuanmingxi2List = [{
               "remark": null,
@@ -802,7 +809,7 @@
             }]
             // console.log(data.huankuanmingxi2List);
             if (this.form.id != null) {
-              data.scrUuid = Number(this.scrUuid);
+              data.scrUuid = this.toNumberOrDefault(this.scrUuid);
               this.rzaudit_data = {
                 "auditId": data.id,
                 "scrUuid": data.scrUuid,
