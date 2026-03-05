@@ -552,12 +552,14 @@
         },
         isAutoCalculated: false,
         totalKeys: {
+          '已发行规模（万元）': 'totalBondSize',
           '专项批复金额（万元）': 'totalApprovedAmount',
           '累计到账金额（万元）': 'totalAccumulatedAmountReceived',
           '已还金额（万元）': 'totalRepaidAmount',
           '待还金额（万元）': 'totalRemainingAmount',
         },
         zongji: {
+          totalBondSize: 0,
           totalApprovedAmount: 0,
           totalAccumulatedAmountReceived: 0,
           totalRepaidAmount: 0,
