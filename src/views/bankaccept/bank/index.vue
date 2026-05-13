@@ -962,18 +962,24 @@
         this.reset();
         const managementId = row.managementId
         getProjectByManagementId(managementId).then(response => {
+          const data = response && response.data !== undefined ? response.data : response;
+          if (!data) {
+            this.$modal.msgError("未获取到银行承兑汇票详情数据");
+            return;
+          }
+          const rzsrc2List = Array.isArray(data.rzsrc2List) ? data.rzsrc2List : [];
           /* str 需要赋值粘贴到的 */
-          response.data.rzsrc2List.forEach(i => {
+          rzsrc2List.forEach(i => {
             i.id = null;
           })
 
-          this.form = response.data;
+          this.form = data;
 
-          this.scrUuid = response.data.scrUuid;
-          this.form.scrUuid = response.data.rzsrc2List.map(i => i.url)
+          this.scrUuid = data.scrUuid;
+          this.form.scrUuid = rzsrc2List.map(i => i.url)
           /* end */
 
-          this.rzsrc2List = response.data.rzsrc2List;
+          this.rzsrc2List = rzsrc2List;
 
 
           // 还款计划 金额回显需要  /10000
